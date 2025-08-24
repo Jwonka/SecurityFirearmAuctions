@@ -41,11 +41,6 @@ a:active {
   text-shadow: 0.2vw 0.2vw 0.2vw;
 }
 
-.navMenu:hover {
-  text-shadow: 0.2vw 0.1vw 0.2vw;
-  color: green;
-}
-
 header {
   background-color: lightgrey;
   padding: 0;
@@ -379,7 +374,7 @@ footer ul {
   padding: 0;
   margin: 0;
   justify-content: center;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 footer li {

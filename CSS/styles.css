@@ -129,7 +129,7 @@ nav li:hover ul li {
 }
 
 .target {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
 }
 
 .content {

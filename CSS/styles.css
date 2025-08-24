@@ -1,0 +1,466 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+
+main {
+  display: grid;
+  grid-template-columns: auto;
+  align-items: flex-start;
+  margin-top: auto;
+  padding: 1vw;
+  margin: 1vw;
+  margin-bottom: 2%;
+  min-height: 85%;
+}
+
+a {
+  text-decoration: none;
+  white-space: nowrap;
+  color: black;
+  font-size: clamp(0.8rem, 2.5vw, 2rem);
+}
+
+a:hover {
+  text-shadow: 0.2vw 0.1vw 0.2vw;
+  color: green;
+}
+
+a:active {
+  text-shadow: 0.2vw 0.2vw 0.2vw;
+}
+
+.navMenu:hover {
+  text-shadow: 0.2vw 0.1vw 0.2vw;
+  color: green;
+}
+
+header {
+  background-color: lightgrey;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+header h1 {
+text-align: center;
+font-weight: bold;
+font-style: italic;
+padding-bottom: 1vh;
+margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: clamp(1.5rem, 2vw, 1.5rem);
+}
+
+header ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5%;
+}
+
+header li {
+  position: relative;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  position: relative;
+  text-align: center;
+  margin-bottom: 1%;
+  font-weight: bold;
+}
+
+nav ul li a {
+  font-size: clamp(0.9rem, 3vw, 2.5rem);
+}
+
+nav li ul {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: auto;
+}
+
+nav li:hover ul {
+  background-color: white;
+  box-shadow: 0 2px 5px black;
+  display: block;
+  padding: 1%;
+  text-align:justify;
+}
+
+nav li:hover ul li {
+  padding: 0.25%;
+}
+
+.centeredIcons {
+  display: inline-block;
+  text-align: center;
+  width: auto;
+}
+
+.content {
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+}
+
+.content p, .content ul {
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.content li {
+  margin-left: 3vw;
+}
+
+.icon {
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: clamp(3rem, 8.5vw, 8rem);
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.imageContainer img {
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+  object-fit: contain;
+  width: 90%;
+  height: auto;
+  max-width: 100%;
+  z-index: 0;
+}
+
+span {
+  white-space: nowrap;
+  display: inline-block;
+  color: black;
+}
+
+span a {
+  text-decoration: none;
+  font-size: clamp(0.65rem, 1.5vw, 1rem);
+  font-style: normal;
+  color: green;
+}
+
+span a:hover {
+  color: black;
+  text-shadow: 0.1vw 0.1vw 0.1vw;
+}
+
+.contact { 
+  border: 0.08vw black solid;
+  background-color: #FFF00F;
+  border-radius: 0.25vw;
+  padding: 0.5vw;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 1vw;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+form.contact {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  max-height: 100%;
+  margin: 2vw;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+
+form.contact fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  margin: 1vw;
+  padding: 1vw;
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+  background-color: black;
+  box-sizing: border-box;
+}
+
+form.contact legend {
+  font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+  background-color: white;
+  margin-bottom: 0.5vw;
+}
+
+form.contact input {
+  width: calc(100% - 1vw);
+  height: 4.5vw;
+  max-width: 40vw;
+  max-height: 4.5vw;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+}
+
+form.contact input:valid {
+  background-color: green;
+}
+
+form.contact label, form.contact input, form.contact textarea {
+  margin: 0;
+  padding: 0;
+  font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+  display: block;
+  color: white;
+}
+
+form.contact input, form.contact textarea  {
+  color: black;
+}
+
+form.contact button, form.contact ::placeholder {
+  margin: 0.5vw;
+  padding: 0.5vw;
+  font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+}
+
+.formInput label {
+  font-weight: bold;
+}
+
+.formInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  width: auto;
+}
+
+.messageButton {
+  display: grid;
+  grid-template-columns: auto min-content;
+  align-items: flex-end;
+}
+
+#message {
+  box-sizing: border-box;
+  overflow: auto;
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+}
+
+.button {
+  width: 100%;
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+  background-color: #FFF00F;
+  box-sizing: border-box;
+}
+
+form.contact button:hover {
+  background-color: darkgreen;
+}
+
+div.galleryColumn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+div.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2vw;
+  border: 0.2vw solid black;
+  padding: 0.5vw;
+  background-color: antiquewhite;
+  opacity: 0.7;
+  width: auto;
+  max-width: 450px;
+  height: auto;
+}
+
+div.gallery a {
+  z-index: 3;
+}
+
+div.gallery:hover {
+  border: 0.18vw solid black;
+  opacity: 1;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 640 / 428;
+  object-fit: cover;
+  margin-bottom: -1vw;
+  border-bottom: 2px solid antiquewhite;
+}
+
+div.desc {
+  padding: 0.5vw;
+  padding-top: 1vw;
+  text-align: center;
+  background-color: antiquewhite;
+  color: black;
+  font-size: clamp(0.65rem, 1.8vw, 1.3rem);
+  font-style: italic;
+}
+
+div.desc a {
+  text-decoration: none;
+  font-size: clamp(0.65rem, 1.8vw, 1.3rem);
+  font-style: normal;
+  color: green;
+}
+
+div.desc a:hover {
+  color: black;
+  text-shadow: 0.1vw 0.1vw 0.1vw;
+}
+
+footer {
+  background-color: lightgrey;
+  z-index: 1;
+}
+
+footer ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+  margin: 0;
+  padding-bottom: -1.5%;
+  margin-bottom: -1.5%;
+}
+
+footer li {
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+}
+
+footer p {
+  padding-bottom: 0.5%;
+  text-align: center;
+  font-size: clamp(0.65rem, 2vw, 1.5rem);
+  font-style: italic;
+  color: black;
+  margin-top: 1.5vw;
+}
+
+@media screen and (min-width: 250px) and (max-width: 580px) {
+
+  div.gallery {
+    width: auto;
+    height: 80%;
+    max-height: 190px;
+    padding: 0.5vw;
+  }
+
+  div.gallery img {
+    width: 100%;
+    height: 60%;
+    max-height: 170px;
+    object-fit: contain;
+  }
+
+  div.desc {
+    width: 100%;
+    height: 100%;
+    padding: 0.5vw;
+  }
+
+  nav ul li a {
+    font-size: clamp(1rem, 3.5vw, 3rem);
+  }
+
+  .content {
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+  }
+
+  .content li {
+    margin-left: 6vw;
+  }
+
+  form.contact label, form.contact input, form.contact textarea {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+  }
+  
+  form.contact input, form.contact textarea  {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .formInput label {
+    gap: 2vw;
+    padding-bottom: 2vw;
+  }
+  
+  .formInput {
+    gap: 2vw;
+    padding-bottom: 2vw;
+  }
+}
+
+@media screen and (min-width: 580px) and (max-width: 1560px) {
+
+  div.gallery {
+    width: 90%; 
+    max-width: 425px;  
+    padding: 0.5vw;
+    margin-left: auto; 
+    margin-right: auto;
+  }
+
+  div.gallery img {
+    width: 100%;
+    height: auto;
+    max-height: 375px;
+    object-fit: contain;
+  }
+
+  div.desc {
+    width: 100%; 
+    padding: 0.5vw;
+  }
+}

@@ -29,7 +29,7 @@ a {
   text-decoration: none;
   white-space: nowrap;
   color: black;
-  font-size: clamp(0.8rem, 2.5vw, 2rem);
+  font-size: clamp(0.8rem, 2vw, 1.5rem);
 }
 
 a:hover {
@@ -62,7 +62,7 @@ margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: clamp(1.5rem, 2vw, 1.5rem);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
 }
 
 header ul {

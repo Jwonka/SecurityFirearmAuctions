@@ -121,6 +121,11 @@ nav li:hover ul li {
   padding: 0.25%;
 }
 
+.clear {
+  text-shadow: none;
+  color: black;
+}
+
 .centeredIcons {
   display: inline-block;
   text-align: center;

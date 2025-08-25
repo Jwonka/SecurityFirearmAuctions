@@ -5,24 +5,46 @@ document.addEventListener('DOMContentLoaded', function () {
   const $ = (id) => document.getElementById(id);
   const resetLabel = (id, text) => { const el = $(id); if (!el) return; el.textContent = text; el.style.color = 'white'; };
   const setError = (id, text) => { const el = $(id); if (!el) return; el.textContent = text; el.style.color = 'yellow'; };
+  const setRO = (id, v) => { const el = $(id); if (el) { el.value = v || ""; el.readOnly = true; } };
 
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRe = /^\+?1?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/; // loose US
-  const zipRe = /^\d{5}(?:[-\s]\d{4})?$/;
+  const phoneRe = /^\+?1?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+  const zipRe   = /^\d{5}(?:[-\s]\d{4})?$/;
+
+  if (!auth.loggedIn()) {
+    alert('Demo: please log in to continue.');
+    location.href = 'login.html?next=' + encodeURIComponent('checkout.html');
+    return;
+  }
+
+  const prefill = () => {
+    const u = auth.get();
+    setRO('fName', u.firstName);
+    setRO('lName', u.lastName);
+    setRO('email', u.email);
+    const cEmailEl = $('cEmail'); if (cEmailEl) { cEmailEl.value = u.email; cEmailEl.readOnly = true; }
+    setRO('phone', u.phone);
+    setRO('address1', u.address1);
+    setRO('address2', u.address2);
+    setRO('city', u.city);
+    if ($('state')) { $('state').value = u.state || ''; $('state').disabled = true; }
+    setRO('zip', u.zip);
+  };
+  prefill();
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const fName = $('fName').value.trim();
-    const lName = $('lName').value.trim();
-    const email = $('email').value.trim();
-    const cEmail = $('cEmail').value.trim();
-    const phone = $('phone').value.trim();
+    const fName    = $('fName').value.trim();
+    const lName    = $('lName').value.trim();
+    const email    = $('email').value.trim();
+    const cEmailV  = $('cEmail').value.trim();
+    const phone    = $('phone').value.trim();
     const address1 = $('address1').value.trim();
-    const city = $('city').value.trim();
-    const state = $('state').value.trim();
-    const zip = $('zip').value.trim();
-    const terms = $('terms').checked;
+    const city     = $('city').value.trim();
+    const state    = $('state').value.trim();
+    const zip      = $('zip').value.trim();
+    const terms    = $('terms').checked;
 
     resetLabel('fNameLabel', 'First Name:');
     resetLabel('lNameLabel', 'Last Name:');
@@ -33,14 +55,14 @@ document.addEventListener('DOMContentLoaded', function () {
     resetLabel('cityLabel', 'City:');
     resetLabel('stateLabel', 'State:');
     resetLabel('zipLabel', 'ZIP Code:');
-    resetLabel('termsLabel', 'I agree to the Terms & Conditions and Privacy Policy.');
+    $('termsLabel').style.color = 'white';
 
     let valid = true;
     let firstInvalid = null;
-
     const invalidate = (id, msg, inputId) => {
       setError(id, msg);
-      if (!firstInvalid && $(inputId)) firstInvalid = $(inputId);
+      const input = $(inputId);
+      if (!firstInvalid && input && !input.disabled) firstInvalid = input;
       valid = false;
     };
 
@@ -48,8 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!lName) invalidate('lNameLabel', 'Last Name (required):', 'lName');
 
     if (!email || !emailRe.test(email)) invalidate('emailLabel', 'Valid Email (required):', 'email');
-    if (!cEmail || !emailRe.test(cEmail)) invalidate('cEmailLabel', 'Valid Confirm Email (required):', 'cEmail');
-    if (email && cEmail && email !== cEmail) {
+    if (!cEmailV || !emailRe.test(cEmailV)) invalidate('cEmailLabel', 'Valid Confirm Email (required):', 'cEmail');
+    if (email && cEmailV && email !== cEmailV) {
       invalidate('emailLabel', "Emails don't match:", 'email');
       invalidate('cEmailLabel', "Emails don't match:", 'cEmail');
     }
@@ -62,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!zip || !zipRe.test(zip)) invalidate('zipLabel', 'ZIP Code (5 or 9 digits):', 'zip');
 
-    if (!terms) setError('termsLabel', 'You must agree to the Terms & Privacy to continue.');
+    if (!terms) { $('termsLabel').style.color = 'yellow'; valid = false; }
 
     if (!valid) {
       if (firstInvalid) firstInvalid.focus();
@@ -71,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     alert('Your order request has been sent successfully!');
-    form.reset();
+    $('notes')?.value = '';
+    $('terms').checked = false;
   });
 });

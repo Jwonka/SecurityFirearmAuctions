@@ -92,8 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    if (window.demoCart?.get().length === 0) {
+      alert('Your cart is empty. Add items before checkout.');
+      return;
+    }
+
     alert('Your order request has been sent successfully!');
     $('notes')?.value = '';
     $('terms').checked = false;
+    localStorage.removeItem('demo_cart');
+    document.dispatchEvent(new Event('DOMContentLoaded'));
   });
 });

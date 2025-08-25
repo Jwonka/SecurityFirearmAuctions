@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     alert('Demo account created locally. You are now “logged in”.');
 
-    const next = new URLSearchParams(location.search).get('next') || 'checkout.html';
+    const next = new URLSearchParams(location.search).get('next') || 'index.html';
     location.href = next;
   });
 });

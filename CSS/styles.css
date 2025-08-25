@@ -310,10 +310,62 @@ form.contact button, form.contact ::placeholder {
   width: auto;
 }
 
+form.contact input:required:valid,
+form.contact textarea:required:valid,
+form.contact select:required:valid {
+  background-color: green;
+}
+
+form.contact input[type="text"],
+form.contact input[type="email"],
+form.contact input[type="tel"],
+form.contact input[type="password"],
+form.contact input[type="number"] {
+  width: calc(100% - 1vw);
+  height: 4.5vw;
+  max-width: 40vw;
+  max-height: 4.5vw;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 0.08vw black solid;
+  border-radius: 0.25vw;
+  color: black;
+}
+
+form.contact select {
+  width: calc(100% - 1vw);
+  height: 4.5vw;  
+  max-width: 40vw;
+  max-height: 4.5vw;
+  box-sizing: border-box;
+  border: 0.08vw solid black;
+  border-radius: 0.25vw;
+  color: black;
+}
+
+form.contact input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  max-width: none;
+  max-height: none;
+  border: 0.08vw solid black;
+}
+
+
 .messageButton {
   display: grid;
   grid-template-columns: auto min-content;
   align-items: flex-end;
+}
+
+form.contact a {
+  color: green;
+  text-shadow: none;
+}
+form.contact a:hover,
+form.contact a:focus {
+  color: white;
+  text-shadow: 0 0 0;  
 }
 
 #message {

@@ -3,46 +3,43 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   const $ = (id) => document.getElementById(id);
-  const resetLabel = (id, text) => { const el = $(id); if (el) { el.textContent = text; el.style.color = 'white'; } };
-  const setError  = (id, text) => { const el = $(id); if (el) { el.textContent = text; el.style.color = 'yellow'; } };
+  const reset = (id, text) => { const el=$(id); if (el){ el.textContent=text; el.style.color='white'; } };
+  const err   = (id, text) => { const el=$(id); if (el){ el.textContent=text; el.style.color='yellow'; } };
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  form.addEventListener('submit', async (e) => {   // <-- async here
+
+  try { const u = window.auth?.get?.(); if (u?.email) $('email').value = u.email; } catch {}
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const email = $('email')?.value.trim() || '';
     const password = $('password')?.value || '';
 
-    resetLabel('emailLabel','Email:');
-    resetLabel('passwordLabel','Password:');
+    reset('emailLabel','Email:');
+    reset('passwordLabel','Password:');
     $('email')?.removeAttribute('aria-invalid');
     $('password')?.removeAttribute('aria-invalid');
 
     let ok = true, firstBad = null;
 
     if (!email || !emailRe.test(email)) {
-      setError('emailLabel','Valid Email (required):');
+      err('emailLabel','Valid Email (required):');
       $('email')?.setAttribute('aria-invalid','true');
       firstBad = firstBad || $('email');
       ok = false;
     }
-    
     if (!password) {
-      setError('passwordLabel','Password (required):');
+      err('passwordLabel','Password (required):');
       $('password')?.setAttribute('aria-invalid','true');
       firstBad = firstBad || $('password');
       ok = false;
     }
-    
-    if (!ok) { 
-      firstBad?.focus(); 
-      alert('Please fix the highlighted fields and try again.');
-      return; 
-    }
+    if (!ok) { firstBad?.focus(); return; }
 
     const passOk = await auth.verify(email, password);
     if (!passOk) {
-      setError('passwordLabel','Incorrect email or password (demo):');
+      err('passwordLabel','Incorrect email or password (demo):');
       $('password')?.setAttribute('aria-invalid','true');
       $('password')?.focus();
       return;

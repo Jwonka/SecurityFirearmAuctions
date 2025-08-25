@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="CSS/styles.css" rel="stylesheet">
+    <title>Security Firearm Auctions ~ Contact Us</title>
+  </head>
+  <body>
+    <div>
+      <header>
+         <h1><br><i class="bi bi-bullseye icon target"></i>  Security Firearm Auctions</h1><br>
+        <ul>
+          <li>
+            <a href="index.html" class="centeredIcons"><i class="bi bi-house-fill largeIcons"></i><br>Home</a>
+          </li>
+          <li>
+            <a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a>
+          </li>
+          <li>
+            <a href="contact.html" class="navMenu"><i class="bi bi-envelope-fill largeIcons"></i><br>Contact Us</a></li>
+          </li>
+          <li>
+            <a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a>
+          </li>
+        </ul>
+      </header>
+      <nav>
+        <ul>
+          <li>
+            <a class="clear"><i class="bi bi-shop"></i><br>Buy</a>
+            <ul>
+              <li><a href="retail.html#buy">Inventory</a></li>
+              <li><a href="auctions.html#auctions">Current Auctions</a></li>
+              <li><a href="faq.html#buy">FAQ's</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="clear"><i class="bi bi-shop-window"></i><br>Sell</a>
+            <ul>
+              <li><a href="auctions.html#upcoming">Upcoming Auctions</a></li>
+              <li><a href="auctions.html#past">Past Auctions</a></li>
+              <li><a href="auctions.html#consignment">Consignment Form</a></li>
+              <li><a href="auctions.html#seller">Seller FAQ's</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="clear"><i class="bi bi-door-open"></i><br>Login/Register</a>
+            <ul>
+              <li><a href="login.html" class="centeredIcons">Login</a></li>
+              <li><a href="register.html" class="centeredIcons">Register</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <main>
+        <form autocomplete="on" class="contact">
+          <fieldset>
+            <legend>Contact Information</legend>
+
+            <div class="formInput">
+              <label for="fName">First Name:</label>
+              <input type="text" id="fName" name="fName" placeholder="First Name" autocomplete="on" required>
+
+              <label for="lName">Last Name:</label>
+              <input type="text" id="lName" name="lName" placeholder="Last Name" autocomplete="on" required>
+
+              <label for="email" id="emailLabel">Email:</label>
+              <input type="email" id="email" placeholder="Email" autocomplete="on" required>
+
+              <label for="cEmail" id="cEmailLabel">Confirm Email:</label>
+              <input type="email" id="cEmail" placeholder="Confirm Email" autocomplete="on" required>
+              
+              <label for="message">Message:</label>
+
+              <div class="messageButton">
+                <textarea name="message" id="message" rows="10" cols="40" maxlength="540" placeholder="Questions or Concerns"></textarea>
+                <button type="submit" class="button">Send</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </main>
+       <footer>
+        <ul>
+          <li>
+            <a href="conditions.html" class="centeredIcons"><br>Terms & Conditions</a>
+          </li>
+          <li>
+            <a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a>
+          </li>
+        </ul>
+        <br>
+        <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+      </footer>
+    </div>
+    <script src="./js/contact.js"></script>
+  </body>
+</html>

@@ -10,7 +10,7 @@
   <body>
     <div>
       <header>
-        <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i><br>Logout</a>
+        <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
         <h1><br><i class="bi bi-bullseye icon target"></i>  Security Firearm Auctions</h1><br>
         <ul>
           <li>
@@ -62,62 +62,91 @@
         <section class="content">
           <h2 style="text-align:center;">Current Inventory</h2>
         </section>
+        
         <div class="galleryColumn">
           <div class="gallery">
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
             <div class="desc">
-              <button class="button addToCart"
+              <button 
+                class="button addToCart"
                 data-id="sku-1911"
                 data-name="Colt 1911 (Demo)"
-                data-price="799.00">Add to cart</button>
+                data-price="799.00">Add to cart
+              </button>
             </div>
           </div>
-          
+      
           <div class="gallery">
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
             <div class="desc">
-               Photo by <a href="" target="_blank"></a> on <a href="" target="_blank"></a>
+               <button 
+                class="button addToCart"
+                data-id="sku-1911"
+                data-name="Colt 1911 (Demo)"
+                data-price="799.00">Add to cart
+              </button>
             </div>
           </div>
-          
+
           <div class="gallery">
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
             <div class="desc">
-               Photo by <a href="" target="_blank"></a> on <a href="" target="_blank"></a>
+               <button 
+                class="button addToCart"
+                data-id="sku-1911"
+                data-name="Colt 1911 (Demo)"
+                data-price="799.00">Add to cart
+              </button>
             </div>
           </div>
         </div>
-         <div class="galleryColumn">
+          
+        <div class="galleryColumn">
           <div class="gallery">
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
             <div class="desc">
-               Photo by <a href="" target="_blank"></a> on <a href="" target="_blank"></a>
+              <button 
+                class="button addToCart"
+                data-id="sku-1911"
+                data-name="Colt 1911 (Demo)"
+                data-price="799.00">Add to cart
+              </button>
             </div>
           </div>
-          
+      
           <div class="gallery">
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
             <div class="desc">
-               Photo by <a href="" target="_blank"></a> on <a href="" target="_blank"></a>
+               <button 
+                class="button addToCart"
+                data-id="sku-1911"
+                data-name="Colt 1911 (Demo)"
+                data-price="799.00">Add to cart
+              </button>
             </div>
           </div>
-          
+
           <div class="gallery">
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
             <div class="desc">
-               Photo by <a href="" target="_blank"></a> on <a href="" target="_blank"></a>
+               <button 
+                class="button addToCart"
+                data-id="sku-1911"
+                data-name="Colt 1911 (Demo)"
+                data-price="799.00">Add to cart
+              </button>
             </div>
           </div>
         </div>
@@ -134,17 +163,17 @@
         <br>
         <ul>
           <li>
-            <a href="https://www.facebook.com" class="centeredIcons"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-facebook"></i></a>
           </li>
           <li>
-            <a href="https://www.instagram.com" class="centeredIcons"><i class="bi bi-instagram"></i></a>
-          </li></a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a>
           </li>
         </ul>
         <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
       </footer>
     </div>
       <script src="./js/auth.js"></script>
+      <script src="./js/cart.js"></script>
       <script>
         document.addEventListener('click', (e) => {
           const btn = e.target.closest('.addToCart');

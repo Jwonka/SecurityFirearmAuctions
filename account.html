@@ -45,22 +45,7 @@
     
     <main>
       <section class="authRow">
-        <form id="loginForm" class="contact compact" autocomplete="on" novalidate>
-          <fieldset>
-            <legend>Demo Login (no real accounts)</legend>
-            <div class="formInput">
-              <label id="emailLabel" for="email">Email:</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required>
-
-              <label id="passwordLabel" for="password">Password:</label>
-              <input id="password" name="password" type="password" placeholder="••••••••" required>
-
-              <button type="submit" class="button">Login</button>
-            </div>
-          </fieldset>
-        </form>
-
-        <form id="registerForm" class="contact compact" autocomplete="on" novalidate>
+        <form id="registerForm" class="contact register" autocomplete="on" novalidate>
           <fieldset>
             <legend>Create Demo Account</legend>
             <div class="formInput">
@@ -76,6 +61,39 @@
               <label for="cEmail" id="cEmailLabel">Confirm Email:</label>
               <input id="cEmail" type="email" placeholder="Confirm Email" required>
 
+              <label for="phone" id="phoneLabel">Phone (optional):</label>
+              <input id="phone" type="tel" placeholder="e.g. 555-123-4567">
+  
+              <label for="address1" id="address1Label">Address Line 1:</label>
+              <input id="address1" placeholder="Street address" required>
+  
+              <label for="address2" id="address2Label">Address Line 2 (optional):</label>
+              <input id="address2" placeholder="Apt, suite, etc.">
+  
+              <label for="city" id="cityLabel">City:</label>
+              <input id="city" placeholder="City" required>
+  
+              <label for="state" id="stateLabel">State:</label>
+              <select id="state" required>
+                <option value="">Select a state</option>
+                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+                <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+                <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+                <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+                <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+                <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+                <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+                <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+                <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+                <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+                <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+                <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+                <option>WI</option><option>WY</option>
+              </select>
+
+              <label for="zip" id="zipLabel">ZIP Code:</label>
+              <input id="zip" placeholder="e.g. 54616 or 54616-1234" required>
+
               <label id="passwordRegLabel" for="passwordReg">Password:</label>
               <input id="passwordReg" name="passwordReg" type="password" required>
 
@@ -89,6 +107,21 @@
               </label>
 
               <button type="submit" class="button">Create Account</button>
+            </div>
+          </fieldset>
+        </form>
+
+        <form id="loginForm" class="contact compact" autocomplete="on" novalidate>
+          <fieldset>
+            <legend>Demo Login (no real accounts)</legend>
+            <div class="formInput">
+              <label id="emailLabel" for="email">Email:</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+              <label id="passwordLabel" for="password">Password:</label>
+              <input id="password" name="password" type="password" placeholder="••••••••" required>
+
+              <button type="submit" class="button">Login</button>
             </div>
           </fieldset>
         </form>

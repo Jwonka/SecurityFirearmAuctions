@@ -4,6 +4,7 @@
 > This repository is a static front-end demonstration for an auction/retail site (firearms domain).
 > It showcases layout, navigation, responsive UI, dropdowns, galleries, and client-side form UX.
 > It **does not** process payments or create real accounts.
+> **No backend. No real sales.**
 
 ## Usage & License
 
@@ -18,7 +19,7 @@ No support, no warranties, no guarantees.
 
 **Pages**
 
-- index.html – landing/homepage
+- index.html – homepage with search bar (filters retail items; redirects to auctions on “auction” queries).
 
 - about.html – about (stub)
 
@@ -28,27 +29,43 @@ No support, no warranties, no guarantees.
 
 - login.html & register.html – demo auth flows using localStorage
 
-- privacy.html – privacy policy (HTML)
+- privacy.html - privacy policy (HTML)
 
-- conditions.html – terms & conditions (HTML)
+- conditions.html - terms & conditions (HTML)
 
-- auctions.html, retail.html, faq.html – placeholders for menu links
+- auctions.html - current & past auctions + search (filters or shows “not found” message).
+  
+- sell.html - selling overview, seller contact form + download/open PDF + Fill Out Online CTA.
 
+- consignment-form.html - full online consignment intake (multi-item, image previews, validation).
+  
+- bid.html = how to bid + mini FAQ.
+  
+- faqs.html - FAQs & user agreement style notes.
+  
 **Assets & code**
 
-- CSS/styles.css – site styles (responsive, grid/flex, dropdowns, gallery)
+- CSS/styles.css - site styles (fluid typography via clamp(), grid/flex, dropdowns, gallery, forms).
 
-- js/auth.js – tiny helper that stores a “user profile” in localStorage
+- js/auth.js - tiny localStorage “auth” helper (auth.get(), auth.loggedIn(), auth.clear()).
 
-- js/login.js – saves a demo profile and treats the user as “logged in”
+- js/login.js, js/register.js - set/validate demo profile in localStorage.
 
-- js/register.js – validates & saves a new demo profile
+- js/contact.js - contact form validation.
 
-- js/contact.js – validates contact form
+- js/checkout.js - requires demo login, prefills profile, validates.
 
-- js/checkout.js – requires demo login, prefills profile, validates, shows success
+- js/cart.js - demo cart API exposed as window.demoCart used by “Add to cart” buttons.
 
-- Bootstrap Icons via CDN
+- js/index-search.js - homepage search: filters items inline; redirects to auctions.html?q=... when applicable.
+
+- js/consignment.js - online consignment form: multi-item rows, image preview (no upload), validation.
+
+- js/sell.js - seller contact form validation.
+
+- docs/Security_Firearm_Auctions_Consignment_Agreement.pdf - printable consignment PDF.
+
+- Bootstrap Icons via CDN.
 
 **Design highlights**
 
@@ -58,13 +75,36 @@ No support, no warranties, no guarantees.
 
 - Footer links centered with gap control (flex/grid)
 
-Known limitations (by design)
+**How it works (demo logic)**
+
+- Auth: localStorage only. A simple profile (name/email/etc.) is saved on register/login.
+- Checkout & consignment can prefill from this profile.
+
+- Cart: demo add-to-cart via window.demoCart.add({ id, name, price, qty }); no persistence guaranteed.
+
+- Search:
+
+  - index.html: filters visible gallery items by text; if it looks like an auction query, redirects to auctions.html?q=....
+
+  - auctions.html: filters current/past lists; shows a “no results” message when nothing matches.
+
+- Consignment form:
+
+  - Multi-item rows (add/remove) with basic fields and client-side image previews (up to 5 images/item, size/type checks).
+
+  - No file uploads (GitHub Pages). Images never leave the browser in this demo.
+
+- Links: Same-site legal pages open in the same tab (you can add target="_blank" rel="noopener" if you prefer new tabs).
+
+**Known limitations (by design)**
 
 - No backend → no real auth, no payments, no email sending.
 
 - All data persistence is browser-local (localStorage).
 
 - Validation is client-side only; regexes are intentionally permissive for demo UX.
+  
+- Image inputs only preview; nothing is transmitted or stored.
 
 Accessibility notes
 

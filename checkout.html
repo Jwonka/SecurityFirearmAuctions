@@ -48,7 +48,7 @@
         </ul>
       </nav>
 
-      <main>
+      <main class="checkoutLayout">
         <form id="checkoutForm" autocomplete="on" class="contact" novalidate>
           <fieldset>
             <legend>Checkout</legend>
@@ -115,6 +115,22 @@
             </div>
           </fieldset>
         </form>
+        <aside class="cart" id="cart">
+          <h2>Order Summary</h2>
+          <ul id="cartItems" class="cartItems"></ul>
+      
+          <div class="cartTotals" id="cartTotals">
+            <!-- totals are injected by JS -->
+          </div>
+      
+          <div class="cartActions">
+            <button type="button" id="clearCart" class="button">Clear Cart</button>
+          </div>
+      
+          <small class="content" style="display:block;margin-top:.75rem;">
+            Demo only. Prices + fees are examples. No payment processed.
+          </small>
+        </aside>
       </main>
       <p style="text-align:center;"><small class="muted"><strong>Demo only:</strong> This example site doesn’t process payments or create real accounts. “Login” saves your info to your browser only.</small></p>
       <footer>
@@ -126,6 +142,7 @@
       </footer>
     </div>
     <script src="./js/auth.js"></script>
+    <script src="./js/cart.js"></script>
     <script src="./js/checkout.js"></script>
   </body>
 </html>

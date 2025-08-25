@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link href="CSS/styles.css" rel="stylesheet"/>
+  <title>Security Firearm Auctions ~ About</title>
+  <style>
+    /* keep the logout in the header’s top-right without shifting the h1 */
+    header { position: relative; }
+    .logout { position: absolute; top: .5rem; right: 1rem; font-weight: bold; }
+    .about .content { max-width: 70ch; margin: 1rem auto; }
+    .about .content h2 { text-align: center; }
+    .about .pill {
+      display:inline-block; border:1px solid black; border-radius:.5rem;
+      padding:.15rem .5rem; margin:.15rem .25rem; font-size:.9em;
+    }
+  </style>
+</head>
+<body class="about">
+  <div>
+    <header>
+      <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+      <h1><br><i class="bi bi-bullseye icon target"></i> Security Firearm Auctions</h1><br>
+      <ul>
+        <li><a href="index.html" class="centeredIcons"><i class="bi bi-house-fill largeIcons"></i><br>Home</a></li>
+        <li><a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a></li>
+        <li><a href="contact.html" class="centeredIcons"><i class="bi bi-envelope-fill largeIcons"></i><br>Contact Us</a></li>
+        <li><a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a></li>
+      </ul>
+    </header>
+
+    <nav>
+      <ul>
+        <li>
+          <a class="clear"><i class="bi bi-shop-window"></i><br>Auctions</a>
+          <ul>
+            <li><a href="auctions.html#current">Current Auctions</a></li>
+            <li><a href="auctions.html#past">Past Auctions</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
+          <ul>
+            <li><a href="bid.html">Bid</a></li>
+            <li><a href="sell.html">Sell</a></li>
+            <li><a href="faqs.html">FAQ's</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-door-open"></i><br>Login/Register</a>
+          <ul>
+            <li><a href="login.html" class="centeredIcons">Login</a></li>
+            <li><a href="register.html" class="centeredIcons">Register</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="content">
+        <h2>About This Demo</h2>
+        <p>
+          <strong>Security Firearm Auctions</strong> is a <em>static, front-end only demo</em> that showcases the structure and UX of a firearms
+          auction/retail site. It demonstrates layout, responsive design, dropdown navigation, galleries, client-side
+          validation, simple search, and a localStorage-based “demo auth” and cart.
+        </p>
+        <p class="pill">Demo only</p>
+        <span class="pill">No backend</span>
+        <span class="pill">No real sales</span>
+        <span class="pill">No data leaves your browser</span>
+      </section>
+
+      <section class="content">
+        <h3>What You Can Try</h3>
+        <ul>
+          <li>Browse the homepage inventory and use the <strong>search bar</strong> to filter items.</li>
+          <li>Open <strong>Auctions</strong> to view “Current” and “Past” lists and search within them.</li>
+          <li><strong>Register</strong> and <strong>Login</strong> (stored locally) to see prefilled <strong>Checkout</strong>.</li>
+          <li>Submit the <strong>Contact</strong> and <strong>Seller</strong> forms (client-side validation only).</li>
+          <li>Fill out the online <strong>Consignment Form</strong> with multiple items and <strong>image previews</strong> (no upload).</li>
+        </ul>
+      </section>
+
+      <section class="content">
+        <h3>What This Does Not Do</h3>
+        <ul>
+          <li>No payments, background checks, or real account creation.</li>
+          <li>No emails are sent; no files are uploaded.</li>
+          <li>No server, database, or admin console. It’s hosted on GitHub Pages.</li>
+        </ul>
+      </section>
+
+      <section class="content">
+        <h3>Tech & Structure</h3>
+        <ul>
+          <li>Plain HTML/CSS/JS with <strong>Bootstrap Icons</strong> via CDN.</li>
+          <li>Responsive layout using CSS Grid/Flex and fluid typography with <code>clamp()</code>.</li>
+          <li>Simple <strong>localStorage</strong> for demo auth and light cart interactions.</li>
+          <li>Scoped legal-page styles for readable policy/terms content.</li>
+        </ul>
+        <p>See the <a href="README.md">README</a> for a full file map and implementation details.</p>
+      </section>
+
+      <section class="content">
+        <h3>Data & Privacy</h3>
+        <p>
+          This site doesn’t transmit data to a server. Form “submissions” exist only in your browser.
+          The demo user profile (if you register/login) is stored in localStorage and can be cleared by logging out
+          or clearing site data. For our policies, see the <a href="privacy.html">Privacy Policy</a>.
+        </p>
+      </section>
+
+      <section class="content">
+        <h3>Accessibility & Design Notes</h3>
+        <ul>
+          <li>Top-level nav items act as dropdown labels; submenus contain the actual links.</li>
+          <li>Label color + text changes communicate validation states (not color-only).</li>
+          <li>Legal pages limit line length (~70ch) for readability.</li>
+        </ul>
+      </section>
+
+      <section class="content">
+        <h3>Legal / Disclaimer</h3>
+        <p>
+          This is a demonstration site. It does not sell or transfer firearms. All real-world sales/consignments would
+          require compliance with applicable federal, state, and local law, including FFL handling and background checks.
+          Review our <a href="conditions.html">Terms &amp; Conditions</a> for additional details.
+        </p>
+      </section>
+
+      <section class="content" style="text-align:center;">
+        <p style="font-style:italic;opacity:.85;">Questions about the demo? Use the <a href="contact.html">Contact</a> page.</p>
+      </section>
+    </main>
+
+    <footer>
+      <ul>
+        <li><a href="conditions.html" class="centeredIcons"><br>Terms &amp; Conditions</a></li>
+        <li><a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a></li>
+      </ul>
+      <br>
+      <ul>
+        <li><a href="https://www.facebook.com" class="centeredIcons"><i class="bi bi-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com" class="centeredIcons"><i class="bi bi-instagram"></i></a></li>
+      </ul>
+      <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="./js/auth.js"></script>
+  <script>
+    document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+      e.preventDefault(); auth.clear(); location.reload();
+    });
+  </script>
+</body>
+</html>

@@ -59,10 +59,17 @@
             <img src="./images/" alt="">
           </div>
         </div>
+        <section class="searchBar">
+          <form id="siteSearch" class="searchForm" role="search">
+            <input id="searchInput" type="search" placeholder="Search products or auctions…" aria-label="Search">
+            <button type="submit" class="button">Search</button>
+            <button type="button" id="clearSearch" class="button" style="margin-left:.5rem;">Show All</button>
+          </form>
+          <div id="searchMsg" class="searchMsg" aria-live="polite"></div>
+        </section>
         <section class="content">
           <h2 style="text-align:center;">Current Inventory</h2>
-        </section>
-        
+       </section>
         <div class="galleryColumn">
           <div class="gallery">
             <a target="_blank" href="images/">
@@ -174,6 +181,7 @@
     </div>
       <script src="./js/auth.js"></script>
       <script src="./js/cart.js"></script>
+      <script src="./js/index-search.js" defer></script>
       <script>
         document.addEventListener('click', (e) => {
           const btn = e.target.closest('.addToCart');

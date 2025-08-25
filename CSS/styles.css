@@ -169,13 +169,15 @@ nav > ul > li > a.clear:focus {
 }
 
 .content {
-  margin-top: 0;
+  margin: 0;
   padding-top: 1px;
+  padding-bottom: 1px;
   font-size: clamp(1rem, 1.8vw, 1.4rem);
 }
 
 .content h2 { 
   margin: .5rem 0 .75rem; 
+  line-height: 1.2;
 }
 
 .content p, .content ul {
@@ -193,6 +195,8 @@ nav > ul > li > a.clear:focus {
   width: auto;
   height: clamp(3rem, 8.5vw, 8rem);
 }
+
+#products{ margin-top: 0; }
 
 .imageContainer {
   display: flex;
@@ -684,6 +688,7 @@ div.desc a:hover {
   display: flex;
   justify-content: center;
   margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .searchForm { 

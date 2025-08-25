@@ -25,6 +25,10 @@ main {
   min-height: 85%;
 }
 
+.active {
+  color: green;
+}
+
 a {
   text-decoration: none;
   white-space: nowrap;
@@ -419,6 +423,18 @@ form.contact button:hover {
 }
 
 form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
+
+.contact.compact .formInput {
+  justify-content: flex-start;  
+  gap: .75rem;  
+}
+
+.contact.compact input,
+.contact.compact select,
+.contact.compact textarea {
+  height: clamp(2.4rem, 3.2vw, 3rem);
+  max-height: none;
+}
 
 .checkoutLayout {
   display: grid;

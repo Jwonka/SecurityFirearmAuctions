@@ -101,5 +101,10 @@
       </ul>
       <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
   </footer>
+  <script>
+      document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+        e.preventDefault(); auth.clear(); location.reload();
+      });
+  </script>
 </body>
 </html>

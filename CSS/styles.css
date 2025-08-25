@@ -411,6 +411,13 @@ form.contact button:hover {
   background-color: green;
 }
 
+.formInput .button {
+  width: auto;
+  display: inline-block;
+  align-self: flex-start;
+  padding: .6rem 1rem;
+}
+
 form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
 
 .checkoutLayout {

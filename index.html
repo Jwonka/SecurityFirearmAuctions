@@ -69,9 +69,10 @@
             <a target="_blank" href="images/">
               <img src="images/" alt="">
             </a>
-            <div class="desc">
-               Photo by <a href="" target="_blank"></a> on <a href="" target="_blank"></a>
-            </div>
+            <button class="button addToCart"
+              data-id="sku-1911"
+              data-name="Colt 1911 (Demo)"
+              data-price="799.00">Add to cart</button>
           </div>
           
           <div class="gallery">
@@ -135,6 +136,19 @@
       </footer>
     </div>
       <script src="./js/auth.js"></script>
+      <script>
+        document.addEventListener('click', (e) => {
+          const btn = e.target.closest('.addToCart');
+          if (!btn || !window.demoCart) return;
+          window.demoCart.add({
+            id: btn.dataset.id,
+            name: btn.dataset.name,
+            price: parseFloat(btn.dataset.price),
+            qty: 1
+          });
+          alert('Added to cart (demo).');
+        });
+      </script>
       <script>
         document.getElementById('logoutLink')?.addEventListener('click', (e) => {
           e.preventDefault(); auth.clear(); location.reload();

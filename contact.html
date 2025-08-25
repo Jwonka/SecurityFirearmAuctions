@@ -92,5 +92,10 @@
       </footer>
     </div>
     <script src="./js/contact.js"></script>
+    <script>
+        document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+          e.preventDefault(); auth.clear(); location.reload();
+        });
+    </script>
   </body>
 </html>

@@ -424,6 +424,26 @@ form.contact button:hover {
 
 form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
 
+.contact.compact {
+  height: auto; 
+  max-height: none;
+  max-width: 560px;
+  margin: 1.25rem auto;
+}
+
+.contact.compact fieldset {
+  flex-grow: 0;
+  height: auto;
+  max-height: none;
+  padding: 1rem;
+  margin: 0;
+}
+
+.contact.compact .formInput {
+  justify-content: flex-start;
+  gap: .75rem;
+}
+
 .contact.compact .formInput {
   justify-content: flex-start;  
   gap: .75rem;  
@@ -432,8 +452,17 @@ form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
 .contact.compact input,
 .contact.compact select,
 .contact.compact textarea {
+  width: 100%;
+  max-width: 28rem; 
   height: clamp(2.4rem, 3.2vw, 3rem);
   max-height: none;
+}
+
+.contact.compact .button {
+  height: clamp(2.4rem, 3vw, 3rem);
+  padding: 0 1rem;
+  width: auto;
+  align-self: flex-start;
 }
 
 .checkoutLayout {

@@ -276,10 +276,6 @@ form.contact input {
   border-radius: 0.25vw;
 }
 
-form.contact input:valid {
-  background-color: green;
-}
-
 form.contact label, form.contact input, form.contact textarea {
   margin: 0;
   padding: 0;
@@ -330,6 +326,11 @@ form.contact input[type="number"] {
   border: 0.08vw black solid;
   border-radius: 0.25vw;
   color: black;
+}
+
+form.contact textarea {
+  color: black;
+  background-color: white;
 }
 
 form.contact select {

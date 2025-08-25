@@ -244,8 +244,6 @@ form.contact {
   margin-bottom: 1rem; 
 }
 
-.legal-page footer ul { gap: 1rem; }
-
 form.contact fieldset {
   display: flex;
   flex-direction: column;

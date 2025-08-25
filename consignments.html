@@ -5,20 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
   <link href="CSS/styles.css" rel="stylesheet"/>
-  <title>Security Firearm Auctions ~ Consignment Agreement</title>
-  <style>
-    .legal-page main.legal .sigline { display:inline-block; min-width:16rem; border-bottom:1px solid #000; }
-    .legal-page main.legal .grid { display:grid; gap:.5rem; }
-    .legal-page main.legal .grid.two { grid-template-columns: 1fr 1fr; }
-    @media (max-width:700px){ .legal-page main.legal .grid.two{ grid-template-columns:1fr; } }
-    .legal-page main.legal .note { font-size:.95em; opacity:.85; }
-    .btn-row { display:flex; gap:.5rem; margin:.75rem 0 1.25rem; flex-wrap:wrap; }
-    .btn-row .button { width:auto; padding:.5rem 1rem; }
-    .legal-page main.legal h2, .legal-page main.legal h3 { margin:.75rem 0; }
-    .legal-page main.legal ul { margin:0 0 1rem 1.1rem; }
-  </style>
+  <title>Security Firearm Auctions ~ Consignment Form</title>
 </head>
-<body class="legal-page">
+<body>
   <div>
     <header>
       <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
@@ -43,9 +32,9 @@
         <li>
           <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
           <ul>
-            <li><a href="bid.html#bid">Bid</a></li>
+            <li><a href="bid.html">Bid</a></li>
             <li><a href="sell.html">Sell</a></li>
-            <li><a href="conditions.html">Terms</a></li>
+            <li><a href="faqs.html">FAQ'S</a></li>
           </ul>
         </li>
         <li>
@@ -58,78 +47,100 @@
       </ul>
     </nav>
 
-    <main class="legal">
-      <h2 style="text-align:center;">Consignment Auction Agreement</h2>
+    <main>
+      <section class="content" style="max-width:70ch;margin:1rem auto;text-align:center;">
+        <h2>Consignment Auction Form</h2>
+        <p style="opacity:.85">Fill this out to consign items. This demo doesn’t send email—submissions show a success message only.</p>
+        <div class="btn-row" style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin:1rem 0;">
+          <a href="docs/Seller-Consignment-Form.pdf" class="button" download>Download PDF</a>
+          <a href="docs/Seller-Consignment-Form.pdf" class="button" target="_blank" rel="noopener">Open PDF</a>
+        </div>
+      </section>
 
-      <!-- Top meta lines -->
-      <div class="grid two" style="margin:.75rem 0 1rem;">
-        <div>Auction Ending: <span class="sigline">&nbsp;</span></div>
-        <div>Consigner #: <span class="sigline">&nbsp;</span></div>
-      </div>
+      <form id="consignForm" class="contact" autocomplete="on" novalidate>
+        <fieldset>
+          <legend>Seller Information</legend>
 
-      <div class="grid two" style="margin-bottom:1rem;">
-        <div>Seller Name: <span class="sigline">&nbsp;</span></div>
-        <div>Date: <span class="sigline">&nbsp;</span></div>
-      </div>
+          <div class="formInput">
+            <label for="sellerName" id="sellerNameLabel">Seller Name:</label>
+            <input type="text" id="sellerName" name="sellerName" placeholder="Full legal name" required>
 
-      <p class="note">
-        Security Firearm Auctions (“Auctioneer”) conducts public, online auctions for firearms, ammunition, and related items. By signing this agreement, the Seller engages Auctioneer to consign and sell the items listed, subject to the terms below.
-      </p>
+            <label for="email" id="emailLabel">Email:</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
 
-      <div class="btn-row">
-        <a href="docs/Seller-Consignment-Form.pdf" class="button" download>Download PDF</a>
-        <a href="docs/Seller-Consignment-Form.pdf" class="button" target="_blank" rel="noopener">Open PDF</a>
-        <button type="button" class="button" onclick="window.print()">Print This Page</button>
-      </div>
+            <label for="phone" id="phoneLabel">Phone (optional):</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555">
 
-      <h3>Fees & Commission</h3>
-      <ul>
-        <li><strong>$2.00 per lot</strong> (listing fee).</li>
-        <li><strong>Commission schedule (per item, by hammer price):</strong>
-          <ul>
-            <li>$10 and under: <strong>30%</strong></li>
-            <li>$11 – $499: <strong>10%</strong></li>
-            <li>$500 – $999: <strong>5%</strong></li>
-            <li>$1,000 and above: <strong>0%</strong></li>
-          </ul>
-        </li>
-        <li><strong>Buy-back / No-Sale fee:</strong> If Seller buys back their own item, a fee equal to the buyer’s premium (10%) applies.</li>
-        <li><strong>Reserve items:</strong> $20 per reserved lot due at drop-off (credited back if the item sells).</li>
-      </ul>
+            <label for="address1" id="address1Label">Address Line 1:</label>
+            <input type="text" id="address1" name="address1" placeholder="Street address" required>
 
-      <h3>Sale Terms</h3>
-      <ul>
-        <li>Seller appoints Security Firearm Auctions as their agent to conduct a public auction and authorizes actions reasonably necessary to complete the sale.</li>
-        <li>Items are sold to the highest bidder. Auctioneer may group or split lots at its discretion if not otherwise specified by Seller.</li>
-        <li>All items remain in Auctioneer’s possession until the buyer’s payment clears. Seller is not paid for any item for which Auctioneer is not paid.</li>
-        <li>If Seller’s property is misrepresented, Auctioneer may withhold or adjust payment to Seller.</li>
-      </ul>
+            <label for="address2" id="address2Label">Address Line 2 (optional):</label>
+            <input type="text" id="address2" name="address2" placeholder="Apt, suite, etc.">
 
-      <h3>Owner’s Warranties</h3>
-      <ul>
-        <li>Seller warrants they are the lawful owner with merchantable title and authorizes Auctioneer to convey good title to the buyer.</li>
-        <li>Seller acknowledges responsibility for the items and agrees to maintain adequate insurance coverage for their property; Auctioneer bears no responsibility for loss or damage to Seller’s personal property.</li>
-      </ul>
+            <label for="city" id="cityLabel">City:</label>
+            <input type="text" id="city" name="city" placeholder="City" required>
 
-      <h3>Compliance & Transfers</h3>
-      <ul>
-        <li>All firearm sales/ transfers must comply with federal, state, and local law, including background checks and FFL handling as applicable.</li>
-      </ul>
+            <label for="state" id="stateLabel">State:</label>
+            <select id="state" name="state" required>
+              <option value="">Select…</option>
+              <option>WI</option><option>IL</option><option>MN</option><option>IA</option><option>MI</option>
+              <!-- add more as needed -->
+            </select>
 
-      <hr>
+            <label for="zip" id="zipLabel">ZIP Code:</label>
+            <input type="text" id="zip" name="zip" placeholder="##### or #####-####" required>
+          </div>
+        </fieldset>
 
-      <div class="grid two" style="margin-top:1rem;">
-        <div>Address (Street, City, State, ZIP):<br><span class="sigline" style="min-width:100%;"></span></div>
-        <div>Phone:<br><span class="sigline" style="min-width:100%;"></span></div>
-      </div>
+        <fieldset>
+          <legend>Auction & Consignment Details</legend>
 
-      <div style="margin-top:1.5rem;">
-        <div>Seller Signature:<br><span class="sigline" style="min-width:20rem;"></span></div>
-      </div>
+          <div class="formInput">
+            <label for="auctionEnd" id="auctionEndLabel">Auction Ending (target date):</label>
+            <input type="date" id="auctionEnd" name="auctionEnd">
 
-      <p class="note" style="margin-top:1rem;">
-        This is a demo website. No real transactions occur here.
-      </p>
+            <label for="consignerNo" id="consignerNoLabel">Consigner # (if assigned):</label>
+            <input type="text" id="consignerNo" name="consignerNo" placeholder="e.g., C-1024">
+
+            <label for="notes" id="notesLabel">Notes (optional):</label>
+            <textarea id="notes" name="notes" rows="5" placeholder="Item provenance, special instructions, etc."></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Items to Consign</legend>
+          <div id="itemsWrap" class="formInput">
+            <!-- rows injected by JS -->
+          </div>
+          <div style="margin:.75rem 0;">
+            <button type="button" class="button" id="addItemBtn">Add Item</button>
+          </div>
+          <p style="font-style:italic;opacity:.85;margin:.5rem 0 0;">
+            Listing fee: $2/lot. Commission schedule per Terms. Reasonable reserves allowed.
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Acknowledgements</legend>
+          <div class="formInput">
+            <label id="termsLabel" for="terms">
+              <input type="checkbox" id="terms" name="terms" required>
+              I agree to the <a href="conditions.html">Terms &amp; Conditions</a> and <a href="privacy.html">Privacy Policy</a>.
+            </label>
+
+            <label for="signature" id="signatureLabel">Type your name as signature:</label>
+            <input type="text" id="signature" name="signature" placeholder="Full name" required>
+
+            <label for="sigDate" id="sigDateLabel">Date:</label>
+            <input type="date" id="sigDate" name="sigDate" required>
+          </div>
+
+          <div class="messageButton" style="margin-top:.5rem;">
+            <div></div>
+            <button type="submit" class="button">Submit Consignment</button>
+          </div>
+        </fieldset>
+      </form>
     </main>
 
     <footer>
@@ -147,6 +158,7 @@
   </div>
 
   <script src="./js/auth.js"></script>
+  <script src="./js/consignment.js" defer></script>
   <script>
     document.getElementById('logoutLink')?.addEventListener('click', (e) => {
       e.preventDefault(); auth.clear(); location.reload();

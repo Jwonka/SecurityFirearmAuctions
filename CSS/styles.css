@@ -467,8 +467,9 @@ form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
 
 .authRow {
   display: grid;
-  grid-template-columns: minmax(0, 720px) minmax(0, 380px);
+  grid-template-columns: minmax(0, 750px) minmax(0, 380px);
   justify-content: center;
+  align-items: start;
   gap:2rem;
   margin: 1.5rem auto;
   padding: 0 3vw; 
@@ -495,7 +496,7 @@ form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
 
 .authCard .formInput{ gap:.6rem; }
 
-:root { --reg-input-max: 28rem; }
+:root { --reg-input-max: 35rem; }
 
 #registerForm .formInput > label,
 #registerForm .formInput > input,
@@ -520,6 +521,18 @@ form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
   padding: 0 1.1rem;
   width: auto;
   margin: .25rem auto 0;
+}
+
+#loginForm,
+#registerForm{
+  height: auto !important;
+  max-height: none !important;
+}
+
+#loginForm.contact,
+#loginForm.contact.compact{
+  height: auto;
+  max-height: none;
 }
 
 .checkoutLayout {
@@ -795,7 +808,7 @@ footer p {
 }
 
 @media (max-width: 1100px){
-  .authRow{ grid-template-columns: 1fr; max-width: 720px; }
+  .authRow{ grid-template-columns: 1fr; max-width: 750px; }
   #loginForm{ max-width: 380px; margin: 0 auto; }
 }
 

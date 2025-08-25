@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="CSS/styles.css" rel="stylesheet">
+  <title>Account · Security Firearm Auctions</title>
+</head>
+<body>
+  <div>
+    <header>
+      <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+      <h1><br><i class="bi bi-bullseye icon target"></i> Security Firearm Auctions</h1><br>
+      <ul>
+        <li><a href="index.html" class="centeredIcons"><i class="bi bi-house-fill largeIcons"></i><br>Home</a></li>
+        <li><a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a></li>
+        <li><a href="contact.html" class="navMenu"><i class="bi bi-envelope-fill largeIcons"></i><br>Contact Us</a></li>
+        <li><a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a></li>
+      </ul>
+    </header>
+    <nav>
+      <ul>
+        <li>
+          <a class="clear"><i class="bi bi-shop-window"></i><br>Auctions</a>
+          <ul>
+            <li><a href="auctions.html#current">Current Auctions</a></li>
+            <li><a href="auctions.html#past">Past Auctions</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
+          <ul>
+            <li><a href="bid.html">Bid</a></li>
+            <li><a href="sell.html">Sell</a></li>
+            <li><a href="faqs.html">FAQ'S</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="active" href="account.html" ><i class="bi bi-door-open"></i><br>Login/Register</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="authGrid">
+        <form id="loginForm" class="contact compact" autocomplete="on" novalidate>
+          <fieldset>
+            <legend>Demo Login (no real accounts)</legend>
+            <div class="formInput">
+              <label id="emailLabel" for="email">Email:</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+              <label id="passwordLabel" for="password">Password:</label>
+              <input id="password" name="password" type="password" placeholder="••••••••" required>
+
+              <button type="submit" class="button">Login</button>
+            </div>
+          </fieldset>
+        </form>
+
+        <form id="registerForm" class="contact compact" autocomplete="on" novalidate>
+          <fieldset>
+            <legend>Create Demo Account</legend>
+            <div class="formInput">
+              <label for="fName" id="fNameLabel">First Name:</label>
+              <input id="fName" placeholder="First Name" required>
+
+              <label for="lName" id="lNameLabel">Last Name:</label>
+              <input id="lName" placeholder="Last Name" required>
+
+              <label for="emailReg" id="emailLabel">Email:</label>
+              <input id="emailReg" type="email" placeholder="Email" required>
+
+              <label for="cEmail" id="cEmailLabel">Confirm Email:</label>
+              <input id="cEmail" type="email" placeholder="Confirm Email" required>
+
+              <label id="passwordRegLabel" for="passwordReg">Password:</label>
+              <input id="passwordReg" name="password" type="password" required>
+
+              <label id="password2Label" for="password2">Confirm Password:</label>
+              <input id="password2" name="password2" type="password" required>
+
+              <label for="terms" id="termsLabel" style="margin-top:.25rem;">
+                <input type="checkbox" id="terms" name="terms">
+                I agree to the <a href="conditions.html" target="_self">Terms &amp; Conditions</a>
+                and <a href="privacy.html" target="_self">Privacy Policy</a>.
+              </label>
+
+              <button type="submit" class="button">Create Account</button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <ul>
+        <li><a href="conditions.html" class="centeredIcons"><br>Terms &amp; Conditions</a></li>
+        <li><a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a></li>
+      </ul>
+      <br>
+      <ul>
+        <li><a href="https://www.facebook.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a></li>
+      </ul>
+      <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/login.js" defer></script>
+  <script src="./js/register.js" defer></script>
+  <script>
+    document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+      e.preventDefault(); auth.clear(); location.reload();
+    });
+  </script>
+</body>
+</html>

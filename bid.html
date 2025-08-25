@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link href="CSS/styles.css" rel="stylesheet">
-  <title>Security Firearm Auctions ~ Auctions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link href="CSS/styles.css" rel="stylesheet"/>
+  <title>Security Firearm Auctions ~ How to Bid</title>
 </head>
 <body>
   <div>
@@ -25,16 +25,16 @@
         <li>
           <a class="clear"><i class="bi bi-shop-window"></i><br>Auctions</a>
           <ul>
-            <li><a href="#current">Current Auctions</a></li>
-            <li><a href="#past">Past Auctions</a></li>
+            <li><a href="auctions.html#current">Current Auctions</a></li>
+            <li><a href="auctions.html#past">Past Auctions</a></li>
           </ul>
         </li>
         <li>
           <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
           <ul>
-            <li><a href="Bid.html#bid">Bid</a></li>
+            <li><a href="bid.html#bid">Bid</a></li>
             <li><a href="sell.html">Sell</a></li>
-            <li><a href="terms.html#buy">Term's</a></li>
+            <li><a href="conditions.html">Terms</a></li>
           </ul>
         </li>
         <li>
@@ -48,52 +48,65 @@
     </nav>
 
     <main>
-      <!-- Search bar (auctions page) -->
-      <section class="searchBar">
-        <form id="auctionSearch" class="searchForm" role="search">
-          <input id="auctionSearchInput" type="search" placeholder="Search auctions…" aria-label="Search auctions">
-          <button type="submit" class="button">Search</button>
-          <button type="button" id="auctionClear" class="button" style="margin-left:.5rem;">Show All</button>
-        </form>
-        <div id="auctionSearchMsg" class="searchMsg" aria-live="polite"></div>
-      </section>
+      <section id="bid" class="content" style="max-width: 70ch; margin: 1rem auto;">
+        <h2 style="text-align:center;">How to Bid</h2>
 
-      <!-- Current Auctions -->
-      <section id="current" class="auctionList content">
-        <h2 style="text-align:center;">Current Auctions</h2>
+        <h3><i class="bi bi-person-plus"></i> 1) Create an Account</h3>
+        <ul>
+          <li>Go to <a href="register.html">Register</a> and complete your profile (name, email, phone, address).</li>
+          <li>Log in via <a href="login.html">Login</a>. You must be at least <strong>21</strong> to bid on handguns and <strong>18</strong> for long guns.</li>
+          <li>Non-WI buyers may purchase, but transfer/pickup must go through an <strong>FFL</strong> in your state.</li>
+        </ul>
 
-        <article class="auction-card" data-name="Estate Auction - August 2025">
-          <h3>Estate Auction — August 2025</h3>
-          <p>Date: Aug 30, 2025 • Location: Blair, WI • Status: Live</p>
-          <p>Highlights: Classic revolvers, lever-action rifles, vintage optics</p>
-          <a href="#current" class="centeredIcons">View Lots</a>
-        </article>
+        <h3><i class="bi bi-binoculars"></i> 2) Browse Auctions & Lots</h3>
+        <ul>
+          <li>Check <a href="auctions.html#current">Current Auctions</a> to view active sales and lots.</li>
+          <li>Open a lot to review photos, description, and any noted condition issues.</li>
+          <li>Confirm fees: <strong>10% buyer’s premium</strong>, <strong>5.5% sales tax</strong> (where applicable), and a <strong>$10 background check fee</strong> for firearm transfers (per your Terms).</li>
+        </ul>
 
-        <article class="auction-card" data-name="Classic Firearms - September 12">
-          <h3>Classic Firearms — September 12</h3>
-          <p>Date: Sep 12, 2025 • Location: Madison, WI • Status: Opens Soon</p>
-          <p>Highlights: Colt 1911s, M1 Garand, period holsters</p>
-          <a href="#current" class="centeredIcons">View Lots</a>
-        </article>
-      </section>
+        <h3><i class="bi bi-coin"></i> 3) Place a Bid</h3>
+        <ul>
+          <li>Enter your bid amount and confirm. If bidding uses proxy/maximum, your current bid will auto-advance against other bidders up to your max.</li>
+          <li>If another bidder is already at your amount via proxy, the tie goes to whoever set that amount <em>first</em>. Increase your bid to take the lead.</li>
+          <li>Watch the lot’s “current bid” and time remaining. Some auctions may use “soft close” (time extends when a bid lands in the final seconds).</li>
+        </ul>
 
-      <!-- Past Auctions -->
-      <section id="past" class="auctionList content">
-        <h2 style="text-align:center;">Past Auctions</h2>
+        <h3><i class="bi bi-graph-up-arrow"></i> 4) Increase Your Bid (Raise Max)</h3>
+        <ul>
+          <li>You can raise your maximum at any time to stay ahead of competing proxy bids.</li>
+          <li>Set a realistic ceiling so the system can automatically defend your lead.</li>
+        </ul>
 
-        <article class="auction-card" data-name="Spring Sporting Auction - May 2025">
-          <h3>Spring Sporting Auction — May 2025</h3>
-          <p>Date: May 18, 2025 • Location: Eau Claire, WI • Status: Closed</p>
-          <p>Top lots: Browning Citori, S&W Model 29, Winchester 70</p>
-          <a href="#past" class="centeredIcons">Results</a>
-        </article>
+        <h3><i class="bi bi-check2-circle"></i> 5) Win, Pay & Transfer</h3>
+        <ul>
+          <li>If you’re the high bidder when the lot closes, you’ve won. Review your total with premium, tax, and applicable transfer fees.</li>
+          <li>Handgun buyers (21+) and long gun buyers (18+) must pass a background check; out-of-state buyers complete transfer via a local FFL.</li>
+          <li>Follow the post-auction instructions for payment and pickup/shipping arrangements.</li>
+        </ul>
 
-        <article class="auction-card" data-name="Winter Collector Sale - February 2025">
-          <h3>Winter Collector Sale — February 2025</h3>
-          <p>Date: Feb 09, 2025 • Location: La Crosse, WI • Status: Closed</p>
-          <p>Top lots: Ruger Vaquero set, Anschutz .22 match rifle</p>
-          <a href="#past" class="centeredIcons">Results</a>
-        </article>
+        <hr>
+
+        <h3><i class="bi bi-question-circle"></i> Quick FAQ</h3>
+        <p><strong>Q: Can I retract a bid?</strong><br>
+        A: Generally no. Bids are binding. If you made a genuine mistake, <a href="contact.html">contact us</a> immediately.</p>
+
+        <p><strong>Q: What if two people bid the same amount?</strong><br>
+        A: With proxy bidding, the earliest max bid at that amount has priority. To lead, raise your max.</p>
+
+        <p><strong>Q: What fees apply?</strong><br>
+        A: Buyer’s premium (10%), sales tax (5.5% in WI; your locality may vary), and a $10 background check fee for firearm transfers. See <a href="conditions.html">Terms &amp; Conditions</a> for details.</p>
+
+        <p><strong>Q: I’m not in Wisconsin—can I participate?</strong><br>
+        A: Yes, but firearms must ship to an FFL in your state. You’ll complete the background check at that FFL before pickup.</p>
+
+        <p><strong>Q: Do you accept credit cards?</strong><br>
+        A: Demo site—no real payments processed. In production, card payments may include a processing fee; check the Terms.</p>
+
+        <p><strong>Q: Will I get notifications if I’m outbid?</strong><br>
+        A: This demo doesn’t send emails. A production site would—keep an eye on your lots and refresh regularly.</p>
+
+        <p style="font-style: italic; opacity:.85;">This site is a static demo. No real bids, payments, or transfers occur here.</p>
       </section>
     </main>
 
@@ -112,7 +125,6 @@
   </div>
 
   <script src="./js/auth.js"></script>
-  <script src="./js/auctions-search.js" defer></script>
   <script>
     document.getElementById('logoutLink')?.addEventListener('click', (e) => {
       e.preventDefault(); auth.clear(); location.reload();

@@ -170,14 +170,13 @@ nav > ul > li > a.clear:focus {
 
 .content {
   margin: 0;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding: 0;
   font-size: clamp(1rem, 1.8vw, 1.4rem);
 }
 
 .content h2 { 
-  margin: .5rem 0 .75rem; 
-  line-height: 1.2;
+  margin: .35rem 0 .6rem; 
+  line-height: 1;
 }
 
 .content p, .content ul {
@@ -687,8 +686,7 @@ div.desc a:hover {
 .searchBar { 
   display: flex;
   justify-content: center;
-  margin: 0;
-  margin-bottom: 0.5rem;
+  margin: .25rem 0 0;
 }
 
 .searchForm { 
@@ -720,10 +718,15 @@ div.desc a:hover {
 }
 
 .searchMsg { 
-  margin-top: .5rem; 
+  margin: 0;
   font-size: clamp(0.85rem, 1.4vw, 0.95rem); 
   text-align: center;
 }
+
+.searchBar form { margin: 0; } 
+.searchMsg:empty { display: none; } 
+
+.searchBar + .content { margin-top: 0; }
 
 .pageRule{
   border:0;

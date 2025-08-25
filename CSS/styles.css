@@ -201,7 +201,7 @@ span a:hover {
 
 .contact { 
   border: 0.08vw black solid;
-  background-color: black;
+  background-color: lightgray;
   border-radius: 0.25vw;
   padding: 0.5vw;
   box-sizing: border-box;
@@ -253,7 +253,7 @@ form.contact fieldset {
   padding: 1vw;
   border: 0.08vw black solid;
   border-radius: 0.25vw;
-  background-color: lightgray;
+  background-color: black;
   box-sizing: border-box;
 }
 

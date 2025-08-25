@@ -205,6 +205,23 @@ nav > ul > li > a.clear:focus {
   z-index: 0;
 }
 
+.bigImage {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.bigImage .imageContainer {
+  max-width: 520px;  
+  width: 100%;
+}
+
+.bigImage .imageContainer img {
+  width: auto; 
+  max-width: 100%;
+  height: auto; 
+}
+
 span {
   white-space: nowrap;
   display: inline-block;

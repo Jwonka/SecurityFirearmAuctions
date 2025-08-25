@@ -26,15 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
       firstBad = firstBad || $('email');
       ok = false;
     }
+    
     if (!password) {
       setError('passwordLabel','Password (required):');
       $('password')?.setAttribute('aria-invalid','true');
       firstBad = firstBad || $('password');
       ok = false;
     }
-    if (!ok) { firstBad?.focus(); return; }
+    
+    if (!ok) { 
+      firstBad?.focus(); 
+      alert('Please fix the highlighted fields and try again.');
+      return; 
+    }
 
-    const passOk = await auth.verify(email, password);  // <-- correct var
+    const passOk = await auth.verify(email, password);
     if (!passOk) {
       setError('passwordLabel','Incorrect email or password (demo):');
       $('password')?.setAttribute('aria-invalid','true');

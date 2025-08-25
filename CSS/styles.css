@@ -169,7 +169,13 @@ nav > ul > li > a.clear:focus {
 }
 
 .content {
+  margin-top: 0;
+  padding-top: 1px;
   font-size: clamp(1rem, 1.8vw, 1.4rem);
+}
+
+.content h2 { 
+  margin: .5rem 0 .75rem; 
 }
 
 .content p, .content ul {
@@ -677,8 +683,7 @@ div.desc a:hover {
 .searchBar { 
   display: flex;
   justify-content: center;
-  margin: 1rem 1vw 0;
-  margin: 1rem 1vw 0; 
+  margin: 0;
 }
 
 .searchForm { 

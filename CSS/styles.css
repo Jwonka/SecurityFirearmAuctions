@@ -253,7 +253,7 @@ form.contact fieldset {
   padding: 1vw;
   border: 0.08vw black solid;
   border-radius: 0.25vw;
-  background-color: black;
+  background-color: lightgray;
   box-sizing: border-box;
 }
 
@@ -289,7 +289,7 @@ form.contact label, form.contact input, form.contact textarea {
 }
 
 form.contact input, form.contact textarea  {
-  color: lightgray;
+  color: white;
 }
 
 form.contact button, form.contact ::placeholder {

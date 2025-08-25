@@ -223,6 +223,28 @@ form.contact {
   overflow: auto;
 }
 
+.legal-page main.legal {
+  display: block; 
+  min-height: auto;
+  max-width: 70ch;       
+  margin: 2rem auto; 
+  padding: 0 1rem;
+}
+
+.legal-page main.legal h1 {
+  text-align: left;
+  margin: 0 0 1rem;
+}
+.legal-page main.legal p {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.legal-page header ul {
+  margin-bottom: 1rem; 
+}
+
+.legal-page footer ul { gap: 1rem; }
 
 form.contact fieldset {
   display: flex;

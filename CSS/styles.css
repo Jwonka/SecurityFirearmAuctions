@@ -281,11 +281,12 @@ form.contact label, form.contact input, form.contact textarea {
   padding: 0;
   font-size: clamp(0.8rem, 1.8vw, 1.4rem);
   display: block;
-  color: white;
 }
 
 form.contact input, form.contact textarea  {
-  color: white;
+  background-color: white;
+  color: black;
+}
 }
 
 form.contact button, form.contact ::placeholder {
@@ -304,12 +305,14 @@ form.contact button, form.contact ::placeholder {
   justify-content: space-evenly;
   flex-grow: 1;
   width: auto;
+  color: black;
 }
 
 form.contact input:required:valid,
 form.contact textarea:required:valid,
 form.contact select:required:valid {
   background-color: green;
+  color: black;
 }
 
 form.contact input[type="text"],

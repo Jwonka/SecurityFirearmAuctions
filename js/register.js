@@ -71,11 +71,25 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    auth.set({
-      firstName: fName, lastName: lName, email, phone,
-      address1, address2, city, state, zip, notes
-    });
+    
 
+    const profile = {
+      firstName: $('fName').value.trim(),
+      lastName: $('lName').value.trim(),
+      email: $('email').value.trim(),
+      phone: $('phone').value.trim(),
+      address1: $('address1').value.trim(),
+      address2: $('address2').value.trim(),
+      city: $('city').value.trim(),
+      state: $('state').value,
+      zip: $('zip').value.trim()
+    };
+    
+    auth.set(profile);
+    
+    const password = $('password').value;
+    await auth.setPassword(password);
+    
     alert('Demo account created locally. You are now “logged in”.');
 
     const next = new URLSearchParams(location.search).get('next') || 'index.html';

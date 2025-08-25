@@ -1,55 +1,79 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('siteSearch');
+  const form  = document.getElementById('siteSearch');
+  if (!form) return;
+
   const input = document.getElementById('searchInput');
-  const msg = document.getElementById('searchMsg');
+  const msg   = document.getElementById('searchMsg');
 
-  // Retail product tiles (homepage)
-  const tiles = Array.from(document.querySelectorAll('.gallery'));
-  // Get a human name for each item: prefer data-name, then button[@data-name], then img alt
+  // Support old (.gallery) and new (.productCard) cards
+  const tiles = [...document.querySelectorAll('.gallery, .productCard')];
+
   const getName = (el) =>
-    el.dataset.name?.trim() ||
-    el.querySelector('.addToCart')?.dataset.name?.trim() ||
-    el.querySelector('img')?.getAttribute('alt')?.trim() ||
-    '';
+    el.dataset.name?.trim()
+    || el.querySelector('[data-name]')?.dataset.name?.trim()
+    || el.querySelector('.productBody h3')?.textContent?.trim()
+    || el.querySelector('img[alt]')?.getAttribute('alt')?.trim()
+    || '';
 
-  // Store names on nodes for quick filtering
-  tiles.forEach(el => { el._name = getName(el); });
+  tiles.forEach(el => { el.dataset._name = getName(el).toLowerCase(); });
 
-  function showAll() {
+  const showAll = () => {
     tiles.forEach(el => { el.style.display = ''; });
-    msg.textContent = '';
+    if (msg) msg.textContent = '';
+  };
+
+  const showSet = (els) => {
+    tiles.forEach(t => { t.style.display = els.includes(t) ? '' : 'none'; });
+    (document.getElementById('products') || els[0] || document.body)
+      .scrollIntoView({ behavior:'smooth', block:'start' });
+  };
+
+  async function auctionMatches(qLower) {
+    // Prefer a global JS index if present
+    if (Array.isArray(window.auctionIndex)) {
+      return window.auctionIndex.filter(n => n.toLowerCase().includes(qLower));
+    }
+    // Fallback: try JSON file
+    try {
+      const res = await fetch('js/auctions-index.json', { cache: 'no-store' });
+      if (!res.ok) return [];
+      const arr = await res.json();
+      return (Array.isArray(arr) ? arr : [])
+        .filter(n => (n?.toLowerCase?.() || '').includes(qLower));
+    } catch {
+      return [];
+    }
   }
 
-  function showOnly(el) {
-    tiles.forEach(t => { t.style.display = (t === el) ? '' : 'none'; });
-    msg.textContent = `Showing 1 result: "${el._name || 'Item'}"`;
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const q = (input.value || '').trim();
-    if (!q) { showAll(); return; }
+    const qRaw = (input.value || '').trim();
+    if (!qRaw) { showAll(); return; }
 
-    const qLower = q.toLowerCase();
+    const q = qRaw.toLowerCase();
 
-    // Try EXACT match first among retail products
-    const exact = tiles.filter(t => (t._name || '').toLowerCase() === qLower);
+    // 1) Home results?
+    const homeHits = tiles.filter(t => (t.dataset._name || '').includes(q));
 
-    if (exact.length === 1) {
-      showOnly(exact[0]);
+    if (homeHits.length > 0) {
+      showSet(homeHits);
+      if (msg) msg.innerHTML = `Showing ${homeHits.length} result${homeHits.length>1?'s':''} here.`;
+
+      // 2) Also check auctions; if there are hits, offer a link (no redirect)
+      const aHits = await auctionMatches(q);
+      if (aHits.length > 0 && msg) {
+        msg.innerHTML += ` <a href="auctions.html?q=${encodeURIComponent(qRaw)}">(Also found ${aHits.length} in Auctions)</a>`;
+      }
       return;
     }
 
-    // Try CONTAINS match; if exactly one, show it
-    const contains = tiles.filter(t => (t._name || '').toLowerCase().includes(qLower));
-    if (contains.length === 1) {
-      showOnly(contains[0]);
-      return;
+    // 3) No home hits → check auctions and only redirect if there are matches
+    const aHits = await auctionMatches(q);
+    if (aHits.length > 0) {
+      location.href = `auctions.html?q=${encodeURIComponent(qRaw)}`;
+    } else {
+      if (msg) msg.textContent = 'No results here or in Auctions.';
     }
-
-    // Not a single retail hit → send to auctions page to search there
-    window.location.href = `auctions.html?q=${encodeURIComponent(q)}`;
   });
 
   document.getElementById('clearSearch')?.addEventListener('click', () => {

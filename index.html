@@ -52,6 +52,7 @@
               <li><a href="register.html" class="centeredIcons">Register</a></li>
             </ul>
           </li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
         </ul>
       </nav>
       <main>
@@ -133,5 +134,11 @@
         <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
       </footer>
     </div>
+      <script src="./js/auth.js"></script>
+      <script>
+        document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+          e.preventDefault(); auth.clear(); location.reload();
+        });
+      </script>
   </body>
 </html>

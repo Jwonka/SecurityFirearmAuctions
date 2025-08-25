@@ -385,6 +385,7 @@ form.contact a {
   color: green;
   text-shadow: none;
 }
+
 form.contact a:hover,
 form.contact a:focus {
   color: white;
@@ -409,6 +410,8 @@ form.contact a:focus {
 form.contact button:hover {
   background-color: green;
 }
+
+form.contact [aria-invalid="true"] { outline: 2px solid goldenrod; }
 
 .checkoutLayout {
   display: grid;

@@ -62,6 +62,8 @@ No support, no warranties, no guarantees.
 - js/consignment.js - online consignment form: multi-item rows, image preview (no upload), validation.
 
 - js/sell.js - seller contact form validation.
+  
+- js/product.js - handle image changes.
 
 - docs/Security_Firearm_Auctions_Consignment_Agreement.pdf - printable consignment PDF.
 

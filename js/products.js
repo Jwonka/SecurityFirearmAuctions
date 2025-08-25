@@ -8,20 +8,20 @@ const products = [
       url:   'images/1911-1.jpg' // click opens first image in new tab
     },
     {
-      id: 'sku-m1-garand',
-      name: 'M1 Garand (Demo)',
-      price: 1899.00,
-      desc: 'Historic .30-06 semi-auto with great provenance.',
-      images: ['images/garand-1.jpg','images/garand-2.jpg','images/garand-3.jpg'],
+      id: 'sku-MandP',
+      name: 'Smith & Wesson M&P (Demo)',
+      price: 699.00,
+      desc: 'Classic 9mm, 5" barrel, 17-rd mag. Includes case & manual. (Demo)',
+      images: ['images/MandP-1.jpg','images/MandP-2.jpg','images/MandP-3.jpg'],
       url:   'images/garand-1.jpg'
     },
     {
-      id: 'sku-rem700',
-      name: 'Remington 700 (Demo)',
-      price: 999.00,
-      desc: 'Bolt-action precision in .308 — modern classic.',
-      images: ['images/rem700-1.jpg','images/rem700-2.jpg','images/rem700-3.jpg'],
-      url:   'images/rem700-1.jpg'
+      id: 'sku-glock19',
+      name: 'Glock 19 (Demo)',
+      price: 899.00,
+      desc: 'Classic .45 ACP, 6" barrel, 14-rd mag. Includes case & manual. (Demo)',
+      images: ['images/glock19-1.jpg','images/glock19-2.jpg','images/glock19-3.jpg'],
+      url:   'images/glock19-1.jpg'
     }
   ];
 

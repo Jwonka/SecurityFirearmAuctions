@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     resetLabel('stateLabel', 'State:');
     resetLabel('zipLabel', 'ZIP Code:');
     $('termsLabel').style.color = 'white';
-    $('termsText').textContent = 'I agree to the Terms & Conditions and Privacy Policy.';
 
     let valid = true;
     let firstInvalid = null;
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!state)    invalidate('stateLabel', 'State (required):', 'state');
     if (!zip || !zipRe.test(zip)) invalidate('zipLabel', 'ZIP Code (5 or 9 digits):', 'zip');
 
-    if (!terms) { $('termsLabel').style.color = 'yellow'; $('termsText').textContent = 'You must agree to continue.'; valid = false; }
+    if (!terms) { $('termsLabel').style.color = 'yellow'; valid = false; }
 
     if (!valid) {
       if (firstInvalid) firstInvalid.focus();

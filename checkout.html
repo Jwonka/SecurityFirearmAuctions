@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="CSS/styles.css" rel="stylesheet" />
+    <title>Security Firearm Auctions ~ Checkout</title>
+  </head>
+  <body>
+    <div>
+      <header>
+        <h1><i class="bi bi-bullseye icon target"></i> Security Firearm Auctions</h1>
+        <ul>
+          <li><a href="index.html" class="centeredIcons"><i class="bi bi-house-fill"></i><br>Home</a></li>
+          <li><a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a></li>
+          <li><a href="contact.html" class="centeredIcons"><i class="bi bi-envelope-fill"></i><br>Contact Us</a></li>
+          <li><a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a></li>
+        </ul>
+      </header>
+
+      <nav>
+        <ul>
+          <li>
+            <a class="clear"><i class="bi bi-shop"></i><br>Buy</a>
+            <ul>
+              <li><a href="retail.html#buy">Inventory</a></li>
+              <li><a href="auctions.html#auctions">Current Auctions</a></li>
+              <li><a href="faq.html#buy">FAQ's</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="clear"><i class="bi bi-shop-window"></i><br>Sell</a>
+            <ul>
+              <li><a href="auctions.html#upcoming">Upcoming Auctions</a></li>
+              <li><a href="auctions.html#past">Past Auctions</a></li>
+              <li><a href="auctions.html#consignment">Consignment Form</a></li>
+              <li><a href="auctions.html#seller">Seller FAQ's</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="clear"><i class="bi bi-door-open"></i><br>Login/Register</a>
+            <ul>
+              <li><a href="login.html" class="centeredIcons">Login</a></li>
+              <li><a href="register.html" class="centeredIcons">Register</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <main>
+        <form id="checkoutForm" autocomplete="on" class="contact" novalidate>
+          <fieldset>
+            <legend>Checkout</legend>
+
+            <div class="formInput">
+
+              <label for="fName" id="fNameLabel">First Name:</label>
+              <input type="text" id="fName" name="fName" placeholder="First Name" required />
+
+              <label for="lName" id="lNameLabel">Last Name:</label>
+              <input type="text" id="lName" name="lName" placeholder="Last Name" required />
+
+              <label for="email" id="emailLabel">Email:</label>
+              <input type="email" id="email" name="email" placeholder="Email" required />
+
+              <label for="cEmail" id="cEmailLabel">Confirm Email:</label>
+              <input type="email" id="cEmail" name="cEmail" placeholder="Confirm Email" required />
+
+              <label for="phone" id="phoneLabel">Phone (optional):</label>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 555-123-4567" />
+
+              <label for="address1" id="address1Label">Address Line 1:</label>
+              <input type="text" id="address1" name="address1" placeholder="Street address" required />
+
+              <label for="address2" id="address2Label">Address Line 2 (optional):</label>
+              <input type="text" id="address2" name="address2" placeholder="Apt, suite, etc." />
+
+              <label for="city" id="cityLabel">City:</label>
+              <input type="text" id="city" name="city" placeholder="City" required />
+
+              <label for="state" id="stateLabel">State:</label>
+              <select id="state" name="state" required>
+                <option value="">Select a state</option>
+                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+                <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+                <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+                <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+                <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+                <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+                <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+                <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+                <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+                <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+                <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+                <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+                <option>WI</option><option>WY</option>
+              </select>
+
+              <label for="zip" id="zipLabel">ZIP Code:</label>
+              <input type="text" id="zip" name="zip" placeholder="e.g. 54616 or 54616-1234" required />
+
+              <label for="terms" id="termsLabel">
+                <input type="checkbox" id="terms" name="terms" />
+                I agree to the <a href="conditions.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+                and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+              </label>
+              
+              <label for="notes" id="notesLabel">Order Notes (optional):</label>
+
+              <div class="messageButton">
+                <textarea id="notes" name="notes" rows="7" cols="40" maxlength="600" placeholder="Special instructions, FFL details, preferred pickup, etc."></textarea>
+                <button type="submit" class="button">Submit Order</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </main>
+
+      <footer>
+        <ul>
+          <li><a href="conditions.html" class="centeredIcons"><br>Terms &amp; Conditions</a></li>
+          <li><a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a></li>
+        </ul>
+        <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script src="./js/checkout.js"></script>
+  </body>
+</html>

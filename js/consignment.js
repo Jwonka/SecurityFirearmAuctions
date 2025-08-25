@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div id="thumbs_${idx}" class="thumbs" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;"></div>
 
     <div style="margin-top:.5rem;">
-      <button type="button" class="button removeItem">Remove Item</button>
+      <button type="button" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Remove Item</button>
     </div>
   `;
   return row;

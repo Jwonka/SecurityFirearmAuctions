@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     auth.set(user);  
     alert('Demo account saved locally. You are now “logged in”.');
-    const next = new URLSearchParams(location.search).get('next') || 'checkout.html';
+    const next = new URLSearchParams(location.search).get('next') || 'index.html';
     location.href = next;
   });
 });

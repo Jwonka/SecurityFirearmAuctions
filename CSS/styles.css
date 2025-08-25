@@ -538,6 +538,32 @@ div.desc a:hover {
   text-shadow: 0.1vw 0.1vw 0.1vw;
 }
 
+.searchBar { 
+  margin: 1rem 1vw 0; 
+}
+
+.searchForm { 
+  display: flex; 
+  gap: .5rem; 
+  align-items: center; 
+}
+
+.searchForm input[type="search"] {
+  flex: 1 1 auto;
+  max-width: 32rem;
+  padding: .6rem .8rem;
+  border: 1px solid black;
+  border-radius: .25rem;
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  background: white;
+  color: black;
+}
+
+.searchMsg { 
+  margin-top: .5rem; 
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem); 
+}
+
 footer {
   background-color: lightgrey;
   z-index: 1;

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="CSS/styles.css" rel="stylesheet">
+  <title>Security Firearm Auctions ~ Auctions</title>
+</head>
+<body>
+  <div>
+    <header>
+      <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+      <h1><br><i class="bi bi-bullseye icon target"></i> Security Firearm Auctions</h1><br>
+      <ul>
+        <li><a href="index.html" class="centeredIcons"><i class="bi bi-house-fill largeIcons"></i><br>Home</a></li>
+        <li><a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a></li>
+        <li><a href="contact.html" class="navMenu"><i class="bi bi-envelope-fill largeIcons"></i><br>Contact Us</a></li>
+        <li><a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a></li>
+      </ul>
+    </header>
+
+    <nav>
+      <ul>
+        <li>
+          <a class="clear"><i class="bi bi-shop-window"></i><br>Auctions</a>
+          <ul>
+            <li><a href="#current">Current Auctions</a></li>
+            <li><a href="#past">Past Auctions</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
+          <ul>
+            <li><a href="Bid.html#bid">Bid</a></li>
+            <li><a href="sell.html">Sell</a></li>
+            <li><a href="terms.html#buy">Term's</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-door-open"></i><br>Login/Register</a>
+          <ul>
+            <li><a href="login.html" class="centeredIcons">Login</a></li>
+            <li><a href="register.html" class="centeredIcons">Register</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Search bar (auctions page) -->
+      <section class="searchBar">
+        <form id="auctionSearch" class="searchForm" role="search">
+          <input id="auctionSearchInput" type="search" placeholder="Search auctions…" aria-label="Search auctions">
+          <button type="submit" class="button">Search</button>
+          <button type="button" id="auctionClear" class="button" style="margin-left:.5rem;">Show All</button>
+        </form>
+        <div id="auctionSearchMsg" class="searchMsg" aria-live="polite"></div>
+      </section>
+
+      <!-- Current Auctions -->
+      <section id="current" class="auctionList content">
+        <h2 style="text-align:center;">Current Auctions</h2>
+
+        <article class="auction-card" data-name="Estate Auction - August 2025">
+          <h3>Estate Auction — August 2025</h3>
+          <p>Date: Aug 30, 2025 • Location: Blair, WI • Status: Live</p>
+          <p>Highlights: Classic revolvers, lever-action rifles, vintage optics</p>
+          <a href="#current" class="centeredIcons">View Lots</a>
+        </article>
+
+        <article class="auction-card" data-name="Classic Firearms - September 12">
+          <h3>Classic Firearms — September 12</h3>
+          <p>Date: Sep 12, 2025 • Location: Madison, WI • Status: Opens Soon</p>
+          <p>Highlights: Colt 1911s, M1 Garand, period holsters</p>
+          <a href="#current" class="centeredIcons">View Lots</a>
+        </article>
+      </section>
+
+      <!-- Past Auctions -->
+      <section id="past" class="auctionList content">
+        <h2 style="text-align:center;">Past Auctions</h2>
+
+        <article class="auction-card" data-name="Spring Sporting Auction - May 2025">
+          <h3>Spring Sporting Auction — May 2025</h3>
+          <p>Date: May 18, 2025 • Location: Eau Claire, WI • Status: Closed</p>
+          <p>Top lots: Browning Citori, S&W Model 29, Winchester 70</p>
+          <a href="#past" class="centeredIcons">Results</a>
+        </article>
+
+        <article class="auction-card" data-name="Winter Collector Sale - February 2025">
+          <h3>Winter Collector Sale — February 2025</h3>
+          <p>Date: Feb 09, 2025 • Location: La Crosse, WI • Status: Closed</p>
+          <p>Top lots: Ruger Vaquero set, Anschutz .22 match rifle</p>
+          <a href="#past" class="centeredIcons">Results</a>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <ul>
+        <li><a href="conditions.html" class="centeredIcons"><br>Terms &amp; Conditions</a></li>
+        <li><a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a></li>
+      </ul>
+      <br>
+      <ul>
+        <li><a href="https://www.facebook.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a></li>
+      </ul>
+      <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/auctions-search.js" defer></script>
+  <script>
+    document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+      e.preventDefault(); auth.clear(); location.reload();
+    });
+  </script>
+</body>
+</html>

@@ -287,7 +287,6 @@ form.contact input, form.contact textarea  {
   background-color: white;
   color: black;
 }
-}
 
 form.contact button, form.contact ::placeholder {
   margin: 0.5vw;
@@ -297,6 +296,7 @@ form.contact button, form.contact ::placeholder {
 
 .formInput label {
   font-weight: bold;
+  color: white;
 }
 
 .formInput {
@@ -305,7 +305,6 @@ form.contact button, form.contact ::placeholder {
   justify-content: space-evenly;
   flex-grow: 1;
   width: auto;
-  color: black;
 }
 
 form.contact input:required:valid,

@@ -42,10 +42,29 @@ a:active {
 }
 
 header {
+  position: relative;
   background-color: lightgrey;
   padding: 0;
   margin: 0;
   z-index: 1;
+}
+
+header .logout {
+  position: absolute;
+  top: .5rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+header .logout:hover,
+header .logout:focus {
+  color: green;
+  text-shadow: 0.1vw 0.1vw 0.1vw;
 }
 
 header h1 {
@@ -53,6 +72,7 @@ text-align: center;
 font-weight: bold;
 font-style: italic;
 padding-bottom: 1vh;
+  padding-right: 7rem;
 margin: 0;
 }
 
@@ -599,6 +619,15 @@ footer p {
     gap: 2vw;
     padding-bottom: 2vw;
   }
+}
+
+@media (max-width: 600px) {
+  header .logout {
+    position: static;
+    float: right; /* keeps it on the right edge */
+    margin: .5rem 1rem 0 0;
+  }
+  header h1 { padding-right: 0; }
 }
 
 @media (max-width: 900px) {

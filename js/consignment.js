@@ -36,38 +36,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const addItemBtn = $('addItemBtn');
 
   function itemRowTemplate(idx) {
-    const row = document.createElement('div');
-    row.className = 'formInput';
-    row.style.border = '1px solid black';
-    row.style.borderRadius = '0.25vw';
-    row.style.padding = '0.5rem';
-    row.style.marginBottom = '0.75rem';
+  const row = document.createElement('div');
+  row.className = 'formInput';
+  row.style.border = '1px solid black';
+  row.style.borderRadius = '0.25vw';
+  row.style.padding = '0.5rem';
+  row.style.marginBottom = '0.75rem';
 
-    row.innerHTML = `
-      <label for="itemDesc_${idx}">Item Description:</label>
-      <input type="text" id="itemDesc_${idx}" name="itemDesc_${idx}" placeholder="Make/Model, caliber, accessories, etc." required>
+  row.innerHTML = `
+    <label for="itemDesc_${idx}">Item Description:</label>
+    <input type="text" id="itemDesc_${idx}" name="itemDesc_${idx}" placeholder="Make/Model, caliber, accessories, etc." required>
 
-      <label for="itemReserve_${idx}">Reserve (optional):</label>
-      <input type="number" id="itemReserve_${idx}" name="itemReserve_${idx}" min="0" step="1" placeholder="0">
+    <label for="itemReserve_${idx}">Reserve (optional):</label>
+    <input type="number" id="itemReserve_${idx}" name="itemReserve_${idx}" min="0" step="1" placeholder="0">
 
-      <label for="itemSerial_${idx}">Serial/ID (optional):</label>
-      <input type="text" id="itemSerial_${idx}" name="itemSerial_${idx}" placeholder="Serial or identifying marks">
+    <label for="itemSerial_${idx}">Serial/ID (optional):</label>
+    <input type="text" id="itemSerial_${idx}" name="itemSerial_${idx}" placeholder="Serial or identifying marks">
 
-      <label for="itemCondition_${idx}">Condition:</label>
-      <select id="itemCondition_${idx}" name="itemCondition_${idx}">
-        <option>New</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Fair</option>
-        <option>Poor</option>
-      </select>
+    <label for="itemCondition_${idx}">Condition:</label>
+    <select id="itemCondition_${idx}" name="itemCondition_${idx}">
+      <option>New</option>
+      <option>Excellent</option>
+      <option>Good</option>
+      <option>Fair</option>
+      <option>Poor</option>
+    </select>
 
-      <div style="margin-top:.5rem;">
-        <button type="button" class="button removeItem">Remove Item</button>
-      </div>
-    `;
-    return row;
-  }
+    <label for="itemPhotos_${idx}">Photos (up to 5, JPG/PNG, ≤ 3MB each):</label>
+    <input type="file" id="itemPhotos_${idx}" name="itemPhotos_${idx}" accept="image/*" multiple>
+
+    <div id="thumbs_${idx}" class="thumbs" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;"></div>
+
+    <div style="margin-top:.5rem;">
+      <button type="button" class="button removeItem">Remove Item</button>
+    </div>
+  `;
+  return row;
+}
 
   function addItem() {
     const idx = itemsWrap.children.length + 1;
@@ -82,6 +87,62 @@ document.addEventListener('DOMContentLoaded', () => {
       if (row) row.remove();
     }
   });
+
+  // basic client-side photo validation + preview
+const MAX_FILES = 5;
+const MAX_MB = 3;
+const OK_TYPES = ['image/jpeg','image/png','image/webp','image/jpg'];
+
+function renderThumbs(files, thumbsEl) {
+  thumbsEl.innerHTML = '';
+  [...files].forEach(file => {
+    const url = URL.createObjectURL(file);
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = file.name;
+    img.style.width = '96px';
+    img.style.height = '96px';
+    img.style.objectFit = 'cover';
+    img.style.border = '1px solid black';
+    img.style.borderRadius = '6px';
+    thumbsEl.appendChild(img);
+  });
+}
+
+itemsWrap.addEventListener('change', (e) => {
+  const input = e.target.closest('input[type="file"][id^="itemPhotos_"]');
+  if (!input) return;
+
+  const files = input.files;
+  const thumbsEl = document.getElementById(`thumbs_${input.id.split('_')[1]}`);
+  if (!thumbsEl) return;
+
+  // validate
+  if (files.length > MAX_FILES) {
+    alert(`Please select up to ${MAX_FILES} images.`);
+    input.value = ''; // reset
+    thumbsEl.innerHTML = '';
+    return;
+  }
+
+  for (const f of files) {
+    const mb = f.size / (1024 * 1024);
+    if (mb > MAX_MB) {
+      alert(`"${f.name}" is ${mb.toFixed(1)}MB. Max is ${MAX_MB}MB.`);
+      input.value = '';
+      thumbsEl.innerHTML = '';
+      return;
+    }
+    if (!OK_TYPES.includes(f.type)) {
+      alert(`"${f.name}" is not a supported image type.`);
+      input.value = '';
+      thumbsEl.innerHTML = '';
+      return;
+    }
+  }
+
+  renderThumbs(files, thumbsEl);
+});
 
   // start with one item row
   addItem();
@@ -143,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // NOTE: On GitHub Pages there is no backend; files are NOT uploaded.
     // demo success
     alert('Your consignment request has been submitted (demo). We will reach out via email.');
     // clear items area (keep seller info to be nice)

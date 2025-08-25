@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link href="CSS/styles.css" rel="stylesheet"/>
+  <title>Security Firearm Auctions ~ Sell With Us</title>
+</head>
+<body>
+  <div>
+    <header>
+      <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+      <h1><br><i class="bi bi-bullseye icon target"></i> Security Firearm Auctions</h1><br>
+      <ul>
+        <li><a href="index.html" class="centeredIcons"><i class="bi bi-house-fill largeIcons"></i><br>Home</a></li>
+        <li><a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a></li>
+        <li><a href="contact.html" class="navMenu"><i class="bi bi-envelope-fill largeIcons"></i><br>Contact Us</a></li>
+        <li><a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a></li>
+      </ul>
+    </header>
+
+    <nav>
+      <ul>
+        <li>
+          <a class="clear"><i class="bi bi-shop-window"></i><br>Auctions</a>
+          <ul>
+            <li><a href="auctions.html#current">Current Auctions</a></li>
+            <li><a href="auctions.html#past">Past Auctions</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
+          <ul>
+            <li><a href="bid.html">Bid</a></li>
+            <li><a href="sell.html">Sell</a></li>
+            <li><a href="conditions.html">Terms</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="clear"><i class="bi bi-door-open"></i><br>Login/Register</a>
+          <ul>
+            <li><a href="login.html" class="centeredIcons">Login</a></li>
+            <li><a href="register.html" class="centeredIcons">Register</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="content" style="max-width:70ch;margin:1rem auto;">
+        <h2 style="text-align:center;">Sell with Security Firearm Auctions</h2>
+        <p>Consigning with us is straightforward: tell us about your items, we agree on terms (including any reserves), we market them, and you get paid after the sale and required transfers are complete.</p>
+      </section>
+
+      <!-- Seller Contact / Consignment Inquiry -->
+      <form id="sellForm" class="contact" novalidate>
+        <fieldset>
+          <legend>Seller Contact & Item Info</legend>
+
+          <div class="formInput">
+            <label id="fNameLabel" for="fName">First Name:</label>
+            <input id="fName" name="fName" type="text" placeholder="First Name" required>
+
+            <label id="lNameLabel" for="lName">Last Name:</label>
+            <input id="lName" name="lName" type="text" placeholder="Last Name" required>
+
+            <label id="emailLabel" for="email">Email:</label>
+            <input id="email" name="email" type="email" placeholder="Email" required>
+
+            <label id="cEmailLabel" for="cEmail">Confirm Email:</label>
+            <input id="cEmail" name="cEmail" type="email" placeholder="Confirm Email" required>
+
+            <label id="phoneLabel" for="phone">Phone (optional):</label>
+            <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555">
+
+            <label id="itemTypeLabel" for="itemType">Item Type:</label>
+            <select id="itemType" name="itemType" required>
+              <option value="">Select one…</option>
+              <option>Handgun</option>
+              <option>Long Gun</option>
+              <option>Ammunition</option>
+              <option>Parts / Accessories</option>
+              <option>Collectibles / Other</option>
+            </select>
+
+            <label id="makeModelLabel" for="makeModel">Make / Model:</label>
+            <input id="makeModel" name="makeModel" type="text" placeholder="e.g., Colt 1911 Government" required>
+
+            <label id="serialLabel" for="serial">Serial (optional):</label>
+            <input id="serial" name="serial" type="text" placeholder="Serial Number (if available)">
+
+            <label id="conditionLabel" for="condition">Estimated Condition:</label>
+            <select id="condition" name="condition" required>
+              <option value="">Select one…</option>
+              <option>New / Unfired</option>
+              <option>Excellent</option>
+              <option>Very Good</option>
+              <option>Good</option>
+              <option>Fair</option>
+              <option>Poor / For Parts</option>
+            </select>
+
+            <label id="reserveLabel" for="reserve">Desired Reserve (optional):</label>
+            <input id="reserve" name="reserve" type="number" step="0.01" placeholder="e.g., 750.00">
+
+            <label id="messageLabel" for="message">Notes / Additional Details:</label>
+            <div class="messageButton">
+              <textarea id="message" name="message" rows="8" cols="40" maxlength="800" placeholder="Condition notes, history, accessories, etc." required></textarea>
+              <button type="submit" class="button">Submit</button>
+            </div>
+
+            <label id="termsLabel" for="terms" style="margin-top:.5rem;">
+              <input type="checkbox" id="terms" name="terms">
+              <span>I agree to the <a href="conditions.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            </label>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- Downloads -->
+      <section class="content" style="max-width:70ch;margin:1rem auto;text-align:center;">
+        <h3><i class="bi bi-file-earmark-arrow-down"></i> Seller Packet</h3>
+        <p>Prefer paper? Download the printable consignment form and bring it with your items.</p>
+        <div>
+          <a href="docs/Seller-Consignment-Form.pdf" class="button" download
+             style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Download PDF</a>
+          <a href="docs/Seller-Consignment-Form.pdf" target="_blank" rel="noopener" class="button"
+             style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Open in New Tab</a>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="content" style="max-width:70ch;margin:1.5rem auto;">
+        <h3><i class="bi bi-question-circle"></i> Seller FAQ</h3>
+
+        <p><strong>How do fees work?</strong><br>
+        Buyer’s premium is paid by the buyer; seller commission is agreed in advance based on value/volume. See <a href="conditions.html">Terms</a>.</p>
+
+        <p><strong>Can I set a reserve?</strong><br>
+        Yes—reasonable reserves protect your downside. We’ll advise on market realism; reserves that are too high can suppress bidding.</p>
+
+        <p><strong>What items are accepted?</strong><br>
+        Modern and collectible firearms, accessories, and related items. We comply with all federal, state, and local laws.</p>
+
+        <p><strong>What about background checks?</strong><br>
+        All firearm transfers require background checks and/or FFL-to-FFL shipments as applicable. Out-of-state buyers pick up at their local FFL.</p>
+
+        <p><strong>How and when do I get paid?</strong><br>
+        After the buyer completes payment and transfers, proceeds (less commission/fees) are remitted—typically within business days following clearance.</p>
+
+        <p style="font-style:italic;opacity:.85;">Demo site only — no real transactions occur here.</p>
+      </section>
+    </main>
+
+    <footer>
+      <ul>
+        <li><a href="conditions.html" class="centeredIcons"><br>Terms &amp; Conditions</a></li>
+        <li><a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a></li>
+      </ul>
+      <br>
+      <ul>
+        <li><a href="https://www.facebook.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-facebook"></i></a></li>
+        <li><a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a></li>
+      </ul>
+      <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/sell.js" defer></script>
+  <script>
+    document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+      e.preventDefault(); auth.clear(); location.reload();
+    });
+  </script>
+</body>
+</html>

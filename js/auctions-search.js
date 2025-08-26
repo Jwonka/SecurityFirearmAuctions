@@ -1,25 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const q = (params.get('q') || '').trim();
-  const cards = Array.from(document.querySelectorAll('.auction-card'));
-  const msg = document.getElementById('auctionSearchMsg');
 
-  if (!q) return; // no filter
-
-  const qLower = q.toLowerCase();
-  const exact = cards.filter(c => (c.dataset.name || '').toLowerCase() === qLower);
-  const contains = cards.filter(c => (c.dataset.name || '').toLowerCase().includes(qLower));
-
-  function showOnly(el) {
-    cards.forEach(c => { c.style.display = (c === el) ? '' : 'none'; });
-    msg.textContent = `Showing auction: "${el.dataset.name}"`;
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const heroImgs = document.querySelectorAll('.heroSlide');
+  if (heroImgs.length > 1) {
+    let i = 0;
+    setInterval(() => {
+      heroImgs[i].classList.remove('active');
+      i = (i + 1) % heroImgs.length;
+      heroImgs[i].classList.add('active');
+    }, 5000);
   }
 
-  if (exact.length === 1) { showOnly(exact[0]); return; }
-  if (contains.length === 1) { showOnly(contains[0]); return; }
+  const timers = new Map();
 
-  // Not found — show message, show nothing
-  cards.forEach(c => c.style.display = 'none');
-  msg.textContent = `No auction found for "${q}".`;
+  function show(mediaEl, explicitIndex = null){
+    const imgs = mediaEl.querySelectorAll('img');
+    if (!imgs.length) return;
+    const cur = [...imgs].findIndex(img => img.classList.contains('active'));
+    const next = explicitIndex != null ? explicitIndex : (cur + 1) % imgs.length;
+    imgs.forEach((img, k) => img.classList.toggle('active', k === next));
+  }
+  function start(mediaEl){ stop(mediaEl); timers.set(mediaEl, setInterval(() => show(mediaEl), 5000)); }
+  function stop(mediaEl){ const t = timers.get(mediaEl); if (t){ clearInterval(t); timers.delete(mediaEl); } }
+
+  document.querySelectorAll('.lotMedia').forEach(media => {
+    start(media);
+    media.addEventListener('mouseenter', () => stop(media));
+    media.addEventListener('mouseleave', () => start(media));
+  });
+
+  document.addEventListener('click', (e) => {
+    const prev = e.target.closest('.lotPrev');
+    const next = e.target.closest('.lotNext');
+    if (!prev && !next) return;
+
+    const card  = (prev || next).closest('.lotCard');
+    const media = card?.querySelector('.lotMedia');
+    if (!media) return;
+
+    const imgs = media.querySelectorAll('img');
+    const cur  = [...imgs].findIndex(img => img.classList.contains('active'));
+    const n    = prev ? (cur - 1 + imgs.length) % imgs.length
+                      : (cur + 1) % imgs.length;
+    show(media, n);
+  });
 });

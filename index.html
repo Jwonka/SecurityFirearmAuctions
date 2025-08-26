@@ -63,7 +63,82 @@
         <section class="content">
           <h2 style="text-align:center;">Current Inventory</h2>
        </section>
-        <section class="productGrid" id="products"></section>
+       <section class="productGrid" id="products">
+        <!-- Colt 1911 -->
+        <article class="productCard" data-name="Colt 1911 (Demo)">
+          <div class="productMedia">
+            <img class="active" src="images/1911-1.jpg" alt="Colt 1911 — left side">
+            <img src="images/1911-2.jpg" alt="Colt 1911 — right side">
+            <img src="images/1911-3.jpg" alt="Colt 1911 — case and mag">
+          </div>
+      
+          <div class="productControls" role="group" aria-label="Image controls">
+            <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+            <button class="arrowBtn next" aria-label="Next image">▶</button>
+          </div>
+      
+          <div class="productBody">
+            <h3>Colt 1911 (Demo)</h3>
+            <p>Classic .45 ACP — dependable and iconic.</p>
+            <div class="productPrice">$799.00</div>
+            <button
+              class="button addToCart"
+              data-id="sku-1911"
+              data-name="Colt 1911 (Demo)"
+              data-price="799.00">Add to cart</button>
+          </div>
+        </article>
+      
+        <!-- S&W M&P (Demo) -->
+        <article class="productCard" data-name="Smith & Wesson M&P (Demo)">
+          <div class="productMedia">
+            <img class="active" src="images/MandP-1.jpg" alt="S&amp;W M&amp;P — left side">
+            <img src="images/MandP-2.jpg" alt="S&amp;W M&amp;P — right side">
+            <img src="images/MandP-3.jpg" alt="S&amp;W M&amp;P — sights and slide">
+          </div>
+      
+          <div class="productControls" role="group" aria-label="Image controls">
+            <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+            <button class="arrowBtn next" aria-label="Next image">▶</button>
+          </div>
+      
+          <div class="productBody">
+            <h3>Smith &amp; Wesson M&amp;P (Demo)</h3>
+            <p>Classic 9mm, 5" barrel, 17-rd mag. Includes case &amp; manual. (Demo)</p>
+            <div class="productPrice">$699.00</div>
+            <button
+              class="button addToCart"
+              data-id="sku-MandP"
+              data-name="Smith & Wesson M&P (Demo)"
+              data-price="699.00">Add to cart</button>
+          </div>
+        </article>
+      
+        <!-- Glock 19 (Demo) -->
+        <article class="productCard" data-name="Glock 19 (Demo)">
+          <div class="productMedia">
+            <img class="active" src="images/glock19-1.jpg" alt="Glock 19 — left side">
+            <img src="images/glock19-2.jpg" alt="Glock 19 — right side">
+            <img src="images/glock19-3.jpg" alt="Glock 19 — top and sights">
+          </div>
+      
+          <div class="productControls" role="group" aria-label="Image controls">
+            <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+            <button class="arrowBtn next" aria-label="Next image">▶</button>
+          </div>
+      
+          <div class="productBody">
+            <h3>Glock 19 (Demo)</h3>
+            <p>Versatile 9mm compact. Two mags, box, manual. (Demo)</p>
+            <div class="productPrice">$899.00</div>
+            <button
+              class="button addToCart"
+              data-id="sku-glock19"
+              data-name="Glock 19 (Demo)"
+              data-price="899.00">Add to cart</button>
+          </div>
+        </article>
+      </section>
       </main>
       <footer>
         <ul>
@@ -89,7 +164,7 @@
       <script src="./js/auth.js"></script>
       <script src="./js/cart.js"></script>
       <script src="./js/index-search.js" defer></script>
-      <script src="./js/products.js" defer></script>
+      <script src="./js/retail-media.js" defer></script>
       <script>
         document.addEventListener('click', (e) => {
           const btn = e.target.closest('.addToCart');

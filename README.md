@@ -58,12 +58,14 @@ No support, no warranties, no guarantees.
 - js/cart.js - demo cart API exposed as window.demoCart used by “Add to cart” buttons.
 
 - js/index-search.js - homepage search: filters items inline; redirects to auctions.html?q=... when applicable.
+  
+- js/auctions-search.js - auction search: filters items inline; redirects to index.html?q=... when applicable.
 
 - js/consignment.js - online consignment form: multi-item rows, image preview (no upload), validation.
 
 - js/sell.js - seller contact form validation.
   
-- js/product.js - handle image changes.
+- js/retail-media.js - handle image changes.
 
 - docs/Security_Firearm_Auctions_Consignment_Agreement.pdf - printable consignment PDF.
 

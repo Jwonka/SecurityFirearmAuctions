@@ -52,54 +52,159 @@
         <form id="auctionSearch" class="searchForm" role="search">
           <input id="auctionSearchInput" type="search" placeholder="Search auctions…" aria-label="Search auctions">
           <button type="submit" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Search</button>
-          <button type="button" id="auctionClear" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Show All</button>
+          <button type="button" id="auctionClear" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Clear</button>
         </form>
         <div id="auctionSearchMsg" class="searchMsg" aria-live="polite"></div>
       </section>
 
       <div class="bigImage">
           <div class="imageContainer">
-            <img src="./images/gavel.jpg" alt="Auction inventory — Security Firearm Auctions">
+            <img class="heroSlide active" src="./images/gavel.png" alt="Auction marketplace — Security Firearm Auctions">
+            <img class="heroSlide"         src="./images/gavel.jpg" alt="Auction marketplace — Security Firearm Auctions">
           </div>
       </div>
 
       <!-- Current Auctions -->
-      <section id="current" class="auctionList content">
+      <section class="auctionsGrid">
+
+      <!-- CURRENT AUCTIONS -->
+      <div class="auctionColumn" id="current">
         <h2 style="text-align:center;">Current Auctions</h2>
-
-        <article class="auction-card" data-name="Estate Auction - August 2025">
-          <h3>Estate Auction — August 2025</h3>
-          <p>Date: Aug 30, 2025 • Location: Blair, WI • Status: Live</p>
-          <p>Highlights: Classic revolvers, lever-action rifles, vintage optics</p>
-          <a href="#current" class="centeredIcons">View Lots</a>
+  
+        <!-- Auction A: has two lots -->
+        <article class="auctionCard" data-name="Estate Auction — August 2025">
+          <header class="auctionHeader">
+            <h3>Estate Auction — August 2025</h3>
+            <p>Date: Aug 30, 2025 • Location: Blair, WI • Status: Live</p>
+            <p>Highlights: Classic revolvers, rimfire rifles, modern carry pistols</p>
+          </header>
+  
+          <div class="lotsGrid">
+            <!-- Lot 1: .357 Revolver (3 images) -->
+            <div class="lotCard" data-name=".357 Revolver">
+              <div class="lotMedia">
+                <img class="active" src="images/revolver357-1.jpg" alt=".357 Revolver — left profile">
+                <img            src="images/revolver357-2.jpg" alt=".357 Revolver — right profile">
+                <img            src="images/revolver357-3.jpg" alt=".357 Revolver — cylinder & sights">
+              </div>
+              <div class="lotControls">
+                <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
+                <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
+              </div>
+              <div class="lotBody">
+                <h4>Lot 3 — .357 Magnum Revolver</h4>
+                <p>Condition: Very Good • 4&quot; barrel • 6-rd cylinder • Blued finish • Includes soft case.</p>
+              </div>
+            </div>
+  
+            <!-- Lot 2: S&W M&P15-22 (3 images) -->
+            <div class="lotCard" data-name="S&W M&P15-22">
+              <div class="lotMedia">
+                <img class="active" src="images/mp15-22-1.jpg" alt="S&amp;W M&amp;P15-22 — left side">
+                <img            src="images/mp15-22-2.jpg" alt="S&amp;W M&amp;P15-22 — right side">
+                <img            src="images/mp15-22-3.jpg" alt="S&amp;W M&amp;P15-22 — rail & sights">
+              </div>
+              <div class="lotControls">
+                <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
+                <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
+              </div>
+              <div class="lotBody">
+                <h4>Lot 7 — Smith &amp; Wesson M&amp;P15-22 (.22 LR)</h4>
+                <p>Condition: Excellent • 25-rd magazine • Adjustable stock • Includes 1 mag & manual.</p>
+              </div>
+            </div>
+          </div>
         </article>
 
-        <article class="auction-card" data-name="Classic Firearms - September 12">
-          <h3>Classic Firearms — September 12</h3>
-          <p>Date: Sep 12, 2025 • Location: Madison, WI • Status: Opens Soon</p>
-          <p>Highlights: Colt 1911s, M1 Garand, period holsters</p>
-          <a href="#current" class="centeredIcons">View Lots</a>
+        <!-- Auction B: single lot -->
+        <article class="auctionCard" data-name="Classic Handguns — September 12">
+          <header class="auctionHeader">
+            <h3>Classic Handguns — September 12</h3>
+            <p>Date: Sep 12, 2025 • Location: Madison, WI • Status: Opens Soon</p>
+            <p>Highlights: Carry pistols, range kits, period holsters</p>
+          </header>
+  
+          <div class="lotsGrid">
+            <!-- Lot: S&W M&P Shield (3 images) -->
+            <div class="lotCard" data-name="S&W M&P Shield">
+              <div class="lotMedia">
+                <img class="active" src="images/mp-shield-1.jpg" alt="S&amp;W M&amp;P Shield — left side">
+                <img            src="images/mp-shield-2.jpg" alt="S&amp;W M&amp;P Shield — right side">
+                <img            src="images/mp-shield-3.jpg" alt="S&amp;W M&amp;P Shield — sights & slide">
+              </div>
+              <div class="lotControls">
+                <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
+                <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
+              </div>
+              <div class="lotBody">
+                <h4>Lot 12 — Smith &amp; Wesson M&amp;P Shield (9mm)</h4>
+                <p>Condition: Very Good • 3.1&quot; barrel • 1×7-rd & 1×8-rd mags • Includes box & lock.</p>
+              </div>
+            </div>
+          </div>
         </article>
-      </section>
-
-      <!-- Past Auctions -->
-      <section id="past" class="auctionList content">
+      </div>
+  
+      <!-- PAST AUCTIONS -->
+      <div class="auctionColumn" id="past">
         <h2 style="text-align:center;">Past Auctions</h2>
-
-        <article class="auction-card" data-name="Spring Sporting Auction - May 2025">
-          <h3>Spring Sporting Auction — May 2025</h3>
-          <p>Date: May 18, 2025 • Location: Eau Claire, WI • Status: Closed</p>
-          <p>Top lots: Browning Citori, S&W Model 29, Winchester 70</p>
-          <a href="#past" class="centeredIcons">Results</a>
+  
+        <!-- Auction C: two lots -->
+        <article class="auctionCard" data-name="Rimfire Showcase — June 2025">
+          <header class="auctionHeader">
+            <h3>Rimfire Showcase — June 2025</h3>
+            <p>Date: Jun 14, 2025 • Location: Eau Claire, WI • Status: Closed</p>
+            <p>Top lots: Precision .22 pistols and classic rimfire rifles</p>
+          </header>
+  
+          <div class="lotsGrid">
+            <!-- Ruger Mark IV (3 images) -->
+            <div class="lotCard" data-name="Ruger Mark IV">
+              <div class="lotMedia">
+                <img class="active" src="images/ruger-markiv-1.jpg" alt="Ruger Mark IV — left side">
+                <img            src="images/ruger-markiv-2.jpg" alt="Ruger Mark IV — right side">
+                <img            src="images/ruger-markiv-3.jpg" alt="Ruger Mark IV — controls & sights">
+              </div>
+              <div class="lotControls">
+                <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
+                <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
+              </div>
+              <div class="lotBody">
+                <h4>Lot 4 — Ruger Mark IV (.22 LR)</h4>
+                <p>Condition: Excellent • Target barrel • Includes 2 mags & case.</p>
+              </div>
+            </div>
+  
+            <!-- Ruger 10/22 (3 images) -->
+            <div class="lotCard" data-name="Ruger 10/22">
+              <div class="lotMedia">
+                <img class="active" src="images/ruger-22-1.jpg" alt="Ruger 10/22 — profile">
+                <img            src="images/ruger-22-2.jpg" alt="Ruger 10/22 — receiver & stock">
+                <img            src="images/ruger-22-3.jpg" alt="Ruger 10/22 — sights & barrel">
+              </div>
+              <div class="lotControls">
+                <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
+                <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
+              </div>
+              <div class="lotBody">
+                <h4>Lot 9 — Ruger 10/22 (.22 LR)</h4>
+                <p>Condition: Very Good • Semi-auto • 10-rd rotary mag • Clean bore.</p>
+              </div>
+            </div>
+          </div>
         </article>
-
-        <article class="auction-card" data-name="Winter Collector Sale - February 2025">
-          <h3>Winter Collector Sale — February 2025</h3>
-          <p>Date: Feb 09, 2025 • Location: La Crosse, WI • Status: Closed</p>
-          <p>Top lots: Ruger Vaquero set, Anschutz .22 match rifle</p>
-          <a href="#past" class="centeredIcons">Results</a>
+  
+        <!-- Auction D: summary card (results link/placeholder) -->
+        <article class="auctionCard" data-name="Winter Collector Sale — Feb 2025">
+          <header class="auctionHeader">
+            <h3>Winter Collector Sale — February 2025</h3>
+            <p>Date: Feb 09, 2025 • Location: La Crosse, WI • Status: Closed</p>
+            <p>Top lots: Vaquero pair, Anschutz .22 match rifle, vintage optics</p>
+          </header>
+          <p class="auctionFoot"><a href="#past" class="centeredIcons">Results</a></p>
         </article>
-      </section>
+      </div>
+    </section>
     </main>
 
     <footer>

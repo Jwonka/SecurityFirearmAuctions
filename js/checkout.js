@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!auth.loggedIn()) {
     alert('Demo: please log in to continue.');
-    location.href = 'login.html?next=' + encodeURIComponent('checkout.html');
+    location.href = 'account.html?next=' + encodeURIComponent('checkout.html');
     return;
   }
 

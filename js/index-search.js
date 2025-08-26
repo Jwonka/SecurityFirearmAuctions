@@ -94,6 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
       msg.textContent = 'No matches found.';
     }
   });
+  
+  const qParam = new URLSearchParams(location.search).get('q');
+  if (qParam) {
+    input.value = qParam;
+    form.dispatchEvent(new Event('submit')); // reuse the same logic
+  }
 
   document.getElementById('clearSearch')?.addEventListener('click', () => {
     input.value = '';

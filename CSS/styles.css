@@ -738,7 +738,7 @@ div.desc a:hover {
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 1.25rem;
   max-width: 1200px;
-  margin: 0.25rem auto 2rem;
+  margin: 1rem auto 2rem;
   padding: 0 1rem;
 }
 

@@ -960,6 +960,10 @@ footer p {
   #loginForm{ max-width: 380px; margin: 0 auto; }
 }
 
+@media (min-width: 900px){
+  .auctionsGrid{ grid-template-columns: 1fr 1fr; }
+}
+
 @media screen and (min-width: 580px) and (max-width: 1560px) {
 
   div.gallery {

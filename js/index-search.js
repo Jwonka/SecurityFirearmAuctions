@@ -1,78 +1,97 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form  = document.getElementById('siteSearch');
-  if (!form) return;
-
   const input = document.getElementById('searchInput');
   const msg   = document.getElementById('searchMsg');
 
-  // Support old (.gallery) and new (.productCard) cards
-  const tiles = [...document.querySelectorAll('.gallery, .productCard')];
+  if (!form) return;
 
-  const getName = (el) =>
+  // Collect product cards (new or legacy)
+  const cards = [...document.querySelectorAll('.productCard, .gallery')];
+
+  const cardName = (el) =>
     el.dataset.name?.trim()
-    || el.querySelector('[data-name]')?.dataset.name?.trim()
-    || el.querySelector('.productBody h3')?.textContent?.trim()
-    || el.querySelector('img[alt]')?.getAttribute('alt')?.trim()
+    || el.querySelector('h3')?.textContent.trim()
+    || el.querySelector('.addToCart')?.dataset.name?.trim()
+    || el.querySelector('img')?.getAttribute('alt')?.trim()
     || '';
 
-  tiles.forEach(el => { el.dataset._name = getName(el).toLowerCase(); });
+  const cardDesc = (el) =>
+    el.querySelector('.blurb')?.textContent.trim()
+    || el.querySelector('p')?.textContent.trim()
+    || '';
 
   const showAll = () => {
-    tiles.forEach(el => { el.style.display = ''; });
-    if (msg) msg.textContent = '';
+    cards.forEach(c => c.style.display = '');
+    msg.textContent = '';
+    cards.forEach(c => c.classList.remove('search-hit'));
   };
 
-  const showSet = (els) => {
-    tiles.forEach(t => { t.style.display = els.includes(t) ? '' : 'none'; });
-    (document.getElementById('products') || els[0] || document.body)
-      .scrollIntoView({ behavior:'smooth', block:'start' });
+  const focusCard = (card, note='') => {
+    cards.forEach(c => {
+      c.style.display = (c === card) ? '' : 'none';
+      c.classList.toggle('search-hit', c === card);
+    });
+    if (note) msg.textContent = note;
+    card.scrollIntoView({behavior:'smooth', block:'start'});
   };
 
-  async function auctionMatches(qLower) {
-    // Prefer a global JS index if present
-    if (Array.isArray(window.auctionIndex)) {
-      return window.auctionIndex.filter(n => n.toLowerCase().includes(qLower));
-    }
-    // Fallback: try JSON file
-    try {
-      const res = await fetch('js/auctions-index.json', { cache: 'no-store' });
-      if (!res.ok) return [];
-      const arr = await res.json();
-      return (Array.isArray(arr) ? arr : [])
-        .filter(n => (n?.toLowerCase?.() || '').includes(qLower));
-    } catch {
-      return [];
+  // Quick check against the auctions page (static fetch + text search)
+  async function hasAuctionMatch(q){
+    try{
+      const res  = await fetch('auctions.html', {cache:'no-store'});
+      const html = (await res.text()).toLowerCase();
+      return html.includes(q.toLowerCase());
+    }catch(_){
+      // If we can’t check, play it safe and say “no match”
+      return false;
     }
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const qRaw = (input.value || '').trim();
-    if (!qRaw) { showAll(); return; }
+    const q = (input.value || '').trim();
+    if (!q) { showAll(); return; }
 
-    const q = qRaw.toLowerCase();
+    const qLower = q.toLowerCase();
 
-    // 1) Home results?
-    const homeHits = tiles.filter(t => (t.dataset._name || '').includes(q));
+    // Local (products) – look for exact first, then contains
+    const exact = cards.filter(c =>
+      cardName(c).toLowerCase() === qLower
+    );
 
-    if (homeHits.length > 0) {
-      showSet(homeHits);
-      if (msg) msg.innerHTML = `Showing ${homeHits.length} result${homeHits.length>1?'s':''} here.`;
+    const contains = exact.length ? exact : cards.filter(c => {
+      const hay = (cardName(c) + ' ' + cardDesc(c)).toLowerCase();
+      return hay.includes(qLower);
+    });
 
-      // 2) Also check auctions; if there are hits, offer a link (no redirect)
-      const aHits = await auctionMatches(q);
-      if (aHits.length > 0 && msg) {
-        msg.innerHTML += ` <a href="auctions.html?q=${encodeURIComponent(qRaw)}">(Also found ${aHits.length} in Auctions)</a>`;
+    if (contains.length === 1){
+      focusCard(contains[0], `Showing 1 product: “${cardName(contains[0])}”`);
+      // Per your request: if auctions have a match too, go there
+      if (await hasAuctionMatch(q)) {
+        location.href = `auctions.html?q=${encodeURIComponent(q)}`;
       }
       return;
     }
 
-    // 3) No home hits → check auctions and only redirect if there are matches
-    const aHits = await auctionMatches(q);
-    if (aHits.length > 0) {
-      location.href = `auctions.html?q=${encodeURIComponent(qRaw)}`;
+    if (contains.length > 1){
+      // Show all matches locally; still jump to auctions if they also match
+      cards.forEach(c => {
+        const hay = (cardName(c) + ' ' + cardDesc(c)).toLowerCase();
+        c.style.display = hay.includes(qLower) ? '' : 'none';
+        c.classList.toggle('search-hit', hay.includes(qLower));
+      });
+      msg.textContent = `Found ${contains.length} products.`;
+      if (await hasAuctionMatch(q)) {
+        location.href = `auctions.html?q=${encodeURIComponent(q)}`;
+      }
+      return;
+    }
+
+    // No product matches → only go to auctions if they actually contain it
+    if (await hasAuctionMatch(q)) {
+      location.href = `auctions.html?q=${encodeURIComponent(q)}`;
     } else {
-      if (msg) msg.textContent = 'No results here or in Auctions.';
+      msg.textContent = 'No matches found.';
     }
   });
 

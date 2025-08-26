@@ -1,19 +1,35 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
-body {
+body > div:first-of-type {
   background-color: white;
+  min-height: 100vh;
+  min-height: 100dvh; 
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: 0;
   margin: 0;
-  min-height: 100vh;
-  min-height: 100dvh;
 }
+
+body > div:first-of-type > header,
+body > div:first-of-type > nav,
+body > div:first-of-type > main,
+body > div:first-of-type > footer{
+  width: 100%;
+  max-width: none;
+}
+
+body > main{ flex: 1 0 auto; }
+body > footer{ margin-top: auto; }
 
 main {
   flex:1 0 auto;
@@ -24,24 +40,13 @@ main {
   row-gap:.75rem;
 }
 
-body > header,
-body > nav,
-body > main,
-body > footer{
-  width: 100%;
-  max-width: none;
-}
-
-body > main{ flex: 1 0 auto; }
-body > footer{ margin-top: auto; }
-
 .active {
   color: green;
 }
 
 a {
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
   color: black;
   font-size: clamp(0.8rem, 2vw, 1.5rem);
 }
@@ -109,6 +114,8 @@ header li {
   color: black;
   font-weight: bold;
 }
+
+header ul a, nav ul a, .centeredIcons { white-space: nowrap; }
 
 nav ul {
   list-style-type: none;
@@ -207,11 +214,12 @@ nav > ul > li > a.clear:focus {
 
 #products{ margin-top: 0; }
 
+img { max-width: 100%; height: auto; display: block; }
+
 .imageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
+  position: relative; 
+  max-width: 700px; 
+  margin: 0 auto;
 }
 
 .imageContainer img {
@@ -858,16 +866,21 @@ div.desc a:hover {
 .imageContainer { position: relative; } 
 
 .heroSlide{
-  position: absolute; inset:0;
-  width: 100%; height: auto;
-  opacity: 0; transition: opacity .35s ease;
+  position: absolute; 
+  inset:0;
+  width: 100%; 
+  height: auto;
+  opacity: 0; 
+  transition: opacity .35s ease;
 }
 
 .heroSlide.active{
-  position: relative; opacity: 1;
+  position: relative; 
+  opacity: 1;
 }
 
 footer {
+  width: 100%;
   background-color: lightgrey;
   z-index: 1;
 }
@@ -895,6 +908,12 @@ footer p {
   font-style: italic;
   color: black;
   margin-top: 1.5vw;
+}
+
+@media (max-width: 520px){
+  .searchForm { flex-wrap: wrap; }
+  .searchForm input[type="search"] { flex: 1 1 100%; min-width: 0; }
+  .searchForm .button { flex: 0 0 auto; }
 }
 
 @media screen and (min-width: 250px) and (max-width: 580px) {
@@ -950,12 +969,6 @@ footer p {
   }
 }
 
-@media (max-width: 520px) {
-  .searchForm { flex-wrap: wrap; }
-  .searchForm input[type="search"] { flex: 1 1 100%; }
-  .searchForm .button { flex: 0 0 auto; }
-}
-
 @media (max-width: 600px) {
   header .logout {
     position: static;
@@ -963,11 +976,13 @@ footer p {
     margin: .5rem 1rem 0 0;
   }
   header h1 { padding-right: 0; }
+  header ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (max-width: 900px) {
   .checkoutLayout { grid-template-columns: 1fr; }
   .cart { position: static; }
+  .auctionsGrid { grid-template-columns: 1fr; }
   .lotsGrid{ grid-template-columns: 1fr 1fr; }
 }
 

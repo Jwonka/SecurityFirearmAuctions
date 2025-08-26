@@ -2,20 +2,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const form  = document.getElementById('siteSearch');
   const input = document.getElementById('searchInput');
   const msg   = document.getElementById('searchMsg');
-
   if (!form) return;
 
-  // Collect product cards (new or legacy)
+  // Normalize: lower, decode &amp;, collapse to alphanumerics + space
+  const norm = s => (s||'')
+    .toLowerCase()
+    .replace(/&amp;/g, '&')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
   const cards = [...document.querySelectorAll('.productCard, .gallery')];
 
-  const cardName = (el) =>
+  const cardName = el =>
     el.dataset.name?.trim()
     || el.querySelector('h3')?.textContent.trim()
     || el.querySelector('.addToCart')?.dataset.name?.trim()
     || el.querySelector('img')?.getAttribute('alt')?.trim()
     || '';
 
-  const cardDesc = (el) =>
+  const cardDesc = el =>
     el.querySelector('.blurb')?.textContent.trim()
     || el.querySelector('p')?.textContent.trim()
     || '';
@@ -28,23 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const focusCard = (card, note='') => {
     cards.forEach(c => {
-      c.style.display = (c === card) ? '' : 'none';
-      c.classList.toggle('search-hit', c === card);
+      const on = c === card;
+      c.style.display = on ? '' : 'none';
+      c.classList.toggle('search-hit', on);
     });
     if (note) msg.textContent = note;
     card.scrollIntoView({behavior:'smooth', block:'start'});
   };
 
-  // Quick check against the auctions page (static fetch + text search)
   async function hasAuctionMatch(q){
     try{
       const res  = await fetch('auctions.html', {cache:'no-store'});
-      const html = (await res.text()).toLowerCase();
-      return html.includes(q.toLowerCase());
-    }catch(_){
-      // If we can’t check, play it safe and say “no match”
-      return false;
-    }
+      const html = norm(await res.text());
+      return html.includes(norm(q));
+    }catch{ return false; }
   }
 
   form.addEventListener('submit', async (e) => {
@@ -52,54 +54,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const q = (input.value || '').trim();
     if (!q) { showAll(); return; }
 
-    const qLower = q.toLowerCase();
+    const qn = norm(q);
 
-    // Local (products) – look for exact first, then contains
-    const exact = cards.filter(c =>
-      cardName(c).toLowerCase() === qLower
-    );
+    // exact then contains (normalized)
+    const exact = cards.filter(c => norm(cardName(c)) === qn);
 
-    const contains = exact.length ? exact : cards.filter(c => {
-      const hay = (cardName(c) + ' ' + cardDesc(c)).toLowerCase();
-      return hay.includes(qLower);
+    const pool = exact.length ? exact : cards.filter(c => {
+      const hay = norm(cardName(c) + ' ' + cardDesc(c));
+      return hay.includes(qn);
     });
 
-    if (contains.length === 1){
-      focusCard(contains[0], `Showing 1 product: “${cardName(contains[0])}”`);
-      // Per your request: if auctions have a match too, go there
-      if (await hasAuctionMatch(q)) {
-        location.href = `auctions.html?q=${encodeURIComponent(q)}`;
-      }
+    if (pool.length === 1){
+      focusCard(pool[0], `Showing 1 product: “${cardName(pool[0])}”`);
+      if (await hasAuctionMatch(q)) location.href = `auctions.html?q=${encodeURIComponent(q)}`;
       return;
     }
 
-    if (contains.length > 1){
-      // Show all matches locally; still jump to auctions if they also match
+    if (pool.length > 1){
       cards.forEach(c => {
-        const hay = (cardName(c) + ' ' + cardDesc(c)).toLowerCase();
-        c.style.display = hay.includes(qLower) ? '' : 'none';
-        c.classList.toggle('search-hit', hay.includes(qLower));
+        const hay = norm(cardName(c) + ' ' + cardDesc(c));
+        const hit = hay.includes(qn);
+        c.style.display = hit ? '' : 'none';
+        c.classList.toggle('search-hit', hit);
       });
-      msg.textContent = `Found ${contains.length} products.`;
-      if (await hasAuctionMatch(q)) {
-        location.href = `auctions.html?q=${encodeURIComponent(q)}`;
-      }
+      msg.textContent = `Found ${pool.length} products.`;
+      if (await hasAuctionMatch(q)) location.href = `auctions.html?q=${encodeURIComponent(q)}`;
       return;
     }
 
-    // No product matches → only go to auctions if they actually contain it
     if (await hasAuctionMatch(q)) {
       location.href = `auctions.html?q=${encodeURIComponent(q)}`;
     } else {
       msg.textContent = 'No matches found.';
     }
   });
-  
+
+  // Auto-apply ?q=...
   const qParam = new URLSearchParams(location.search).get('q');
-  if (qParam) {
-    input.value = qParam;
-    form.dispatchEvent(new Event('submit')); // reuse the same logic
-  }
+  if (qParam) { input.value = qParam; form.dispatchEvent(new Event('submit')); }
 
   document.getElementById('clearSearch')?.addEventListener('click', () => {
     input.value = '';

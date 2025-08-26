@@ -1,6 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; }
 
-
 html, body {
   height: 100%;
   margin: 0;
@@ -187,7 +186,10 @@ nav > ul > li > a.clear:focus {
 
 .content {
   margin: 0;
-  padding: 0;
+  max-width: 70ch;
+  padding: 0 1rem;
+  margin-left: auto;
+  margin-right: auto;
   font-size: clamp(1rem, 1.8vw, 1.4rem);
 }
 
@@ -977,6 +979,29 @@ footer p {
   }
   header h1 { padding-right: 0; }
   header ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  nav ul    { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .bigImage .imageContainer { max-width: 420px; }
+
+  /* product grid & cards */
+  .productGrid{
+    grid-template-columns: 1fr;
+    gap: .9rem;
+    margin: .75rem auto 1.25rem;
+    padding: 0 .5rem;
+  }
+  .productCard{ padding: .75rem; }
+  .productMedia{
+    aspect-ratio: 16 / 10; 
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .productBody h3{ font-size: clamp(1rem, 5vw, 1.2rem); }
+  .productPrice{  font-size: clamp(0.95rem, 4.2vw, 1.1rem); }
+
+  .searchForm { flex-wrap: wrap; max-width: 100%; padding: 0 .5rem; }
+  .searchForm input[type="search"]{ flex: 1 1 100%; min-width: 0; }
+  .searchForm .button{ flex: 0 0 auto; }
 }
 
 @media (max-width: 900px) {

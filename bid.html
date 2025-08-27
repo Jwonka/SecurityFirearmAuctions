@@ -10,7 +10,7 @@
 <body>
   <div>
     <header>
-        <a href="#" id="logoutLink" class="logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        <a href="#" id="logoutLink" class="logout" data-redirect="reload"><i class="bi bi-box-arrow-right"></i>Logout</a>
         <h1><i class="bi bi-bullseye icon target"></i>  Security Firearm Auctions</h1>
         <ul>
           <li>
@@ -119,15 +119,14 @@
         <li><a href="https://www.facebook.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-facebook"></i></a></li>
         <li><a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a></li>
       </ul>
-      <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+      <p>&copy; <span id="year"></span> Security Firearm Auctions. All rights reserved.</p>
     </footer>
   </div>
 
   <script src="./js/auth.js"></script>
+  <script src="./js/logout.js"></script>
   <script>
-    document.getElementById('logoutLink')?.addEventListener('click', (e) => {
-      e.preventDefault(); auth.clear(); location.reload();
-    });
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

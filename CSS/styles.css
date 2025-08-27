@@ -278,7 +278,7 @@ span a:hover {
   box-sizing: border-box;
   overflow: hidden;
   margin: 1vw;
-  max-width: 100%;
+  max-width: 80%;
   max-height: 100%;
 }
 

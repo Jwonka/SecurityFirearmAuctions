@@ -270,8 +270,9 @@ span a:hover {
 }
 
 #contactMain { 
+  display: grid;
+  grid-template-columns: auto;
   padding-bottom: 3rem; 
-  align-items: center;
 }
 
 .contact { 

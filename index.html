@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="CSS/styles.css" rel="stylesheet">
-    <title>Security Firearm Auctions ~ Home</title>
+    <title>Security Firearm Auctions ~ Retail</title>
   </head>
   <body>
     <div>
@@ -14,7 +14,7 @@
         <h1><i class="bi bi-bullseye icon target"></i>  Security Firearm Auctions</h1>
         <ul>
           <li>
-            <a href="index.html" class="centeredIcons active"><i class="bi bi-house-fill largeIcons"></i><br>Home</a>
+            <a href="index.html" class="centeredIcons active"><i class="bi bi-shop"></i>><br>Retail</a>
           </li>
           <li>
             <a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a>
@@ -62,84 +62,84 @@
           </div>
         </div>
         <section class="content">
-          <h2 style="text-align:center;">Current Inventory</h2>
+          <h2 style="text-align:center;">Retail</h2>
        </section>
        <section class="productGrid" id="products">
-        <!-- Colt 1911 -->
-        <article class="productCard" data-name="Colt 1911 (Demo)">
-          <div class="productMedia">
-            <img class="active" src="images/1911-1.jpg" alt="Colt 1911 — left side">
-            <img src="images/1911-2.jpg" alt="Colt 1911 — right side">
-            <img src="images/1911-3.jpg" alt="Colt 1911 — case and mag">
-          </div>
-      
-          <div class="productControls" role="group" aria-label="Image controls">
-            <button class="arrowBtn prev" aria-label="Previous image">◀</button>
-            <button class="arrowBtn next" aria-label="Next image">▶</button>
-          </div>
-      
-          <div class="productBody">
-            <h3>Colt 1911 (Demo)</h3>
-            <p>Classic .45 ACP — dependable and iconic.</p>
-            <div class="productPrice">$799.00</div>
-            <button
-              class="button addToCart"
-              data-id="sku-1911"
-              data-name="Colt 1911 (Demo)"
-              data-price="799.00">Add to cart</button>
-          </div>
-        </article>
-      
-        <!-- S&W M&P (Demo) -->
-        <article class="productCard" data-name="Smith & Wesson M&P (Demo)">
-          <div class="productMedia">
-            <img class="active" src="images/MandP-1.jpg" alt="S&amp;W M&amp;P — left side">
-            <img src="images/MandP-2.jpg" alt="S&amp;W M&amp;P — right side">
-            <img src="images/MandP-3.jpg" alt="S&amp;W M&amp;P — sights and slide">
-          </div>
-      
-          <div class="productControls" role="group" aria-label="Image controls">
-            <button class="arrowBtn prev" aria-label="Previous image">◀</button>
-            <button class="arrowBtn next" aria-label="Next image">▶</button>
-          </div>
-      
-          <div class="productBody">
-            <h3>Smith &amp; Wesson M&amp;P (Demo)</h3>
-            <p>Classic 9mm, 5" barrel, 17-rd mag. Includes case &amp; manual. (Demo)</p>
-            <div class="productPrice">$699.00</div>
-            <button
-              class="button addToCart"
-              data-id="sku-MandP"
-              data-name="Smith & Wesson M&P (Demo)"
-              data-price="699.00">Add to cart</button>
-          </div>
-        </article>
-      
-        <!-- Glock 19 (Demo) -->
-        <article class="productCard" data-name="Glock 19 (Demo)">
-          <div class="productMedia">
-            <img class="active" src="images/glock19-1.jpg" alt="Glock 19 — left side">
-            <img src="images/glock19-2.jpg" alt="Glock 19 — right side">
-            <img src="images/glock19-3.jpg" alt="Glock 19 — top and sights">
-          </div>
-      
-          <div class="productControls" role="group" aria-label="Image controls">
-            <button class="arrowBtn prev" aria-label="Previous image">◀</button>
-            <button class="arrowBtn next" aria-label="Next image">▶</button>
-          </div>
-      
-          <div class="productBody">
-            <h3>Glock 19 (Demo)</h3>
-            <p>Versatile 9mm compact. Two mags, box, manual. (Demo)</p>
-            <div class="productPrice">$899.00</div>
-            <button
-              class="button addToCart"
-              data-id="sku-glock19"
-              data-name="Glock 19 (Demo)"
-              data-price="899.00">Add to cart</button>
-          </div>
-        </article>
-      </section>
+
+          <!-- Category: Guns -->
+          <article class="productCard categoryCard" data-category="guns">
+            <a href="guns.html" class="cardLink" aria-label="Browse Guns">
+              <div class="productMedia">
+                <!-- Use available firearm images; full inventory rotation will be wired via JS later -->
+                <img class="active" src="images/1911-1.jpg" alt="Guns inventory">
+                <img src="images/1911-2.jpg" alt="Guns inventory">
+                <img src="images/1911-3.jpg" alt="Guns inventory">
+                <img src="images/MandP-1.jpg" alt="Guns inventory">
+                <img src="images/MandP-2.jpg" alt="Guns inventory">
+                <img src="images/MandP-3.jpg" alt="Guns inventory">
+                <img src="images/glock19-1.jpg" alt="Guns inventory">
+                <img src="images/glock19-2.jpg" alt="Guns inventory">
+                <img src="images/glock19-3.jpg" alt="Guns inventory">
+              </div>
+            </a>
+
+            <div class="productControls" role="group" aria-label="Image controls">
+              <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+              <button class="arrowBtn next" aria-label="Next image">▶</button>
+            </div>
+
+            <div class="productBody">
+              <h3>Guns</h3>
+              <p>Browse all firearms in stock.</p>
+              <a href="guns.html" class="button">Shop Guns</a>
+            </div>
+          </article>
+
+          <!-- Category: Ammo -->
+          <article class="productCard categoryCard" data-category="ammo">
+            <a href="ammo.html" class="cardLink" aria-label="Browse Ammo">
+              <div class="productMedia">
+                <!-- Temporary images; replace/wire to inventory via JS in the next step -->
+                <img class="active" src="./images/ecommerce.png" alt="Ammo inventory">
+                <img src="./images/ecommerce.jpg" alt="Ammo inventory">
+              </div>
+            </a>
+
+            <div class="productControls" role="group" aria-label="Image controls">
+              <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+              <button class="arrowBtn next" aria-label="Next image">▶</button>
+            </div>
+
+            <div class="productBody">
+              <h3>Ammo</h3>
+              <p>All calibers and loads.</p>
+              <a href="ammo.html" class="button">Shop Ammo</a>
+            </div>
+          </article>
+
+          <!-- Category: Accessories -->
+          <article class="productCard categoryCard" data-category="accessories">
+            <a href="accessories.html" class="cardLink" aria-label="Browse Accessories">
+              <div class="productMedia">
+                <!-- Temporary images; replace/wire to inventory via JS in the next step -->
+                <img class="active" src="./images/ecommerce.jpg" alt="Accessories inventory">
+                <img src="./images/ecommerce.png" alt="Accessories inventory">
+              </div>
+            </a>
+
+            <div class="productControls" role="group" aria-label="Image controls">
+              <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+              <button class="arrowBtn next" aria-label="Next image">▶</button>
+            </div>
+
+            <div class="productBody">
+              <h3>Accessories</h3>
+              <p>Cases, optics, mags, and more.</p>
+              <a href="accessories.html" class="button">Shop Accessories</a>
+            </div>
+          </article>
+
+        </section>
       </main>
       <footer>
         <ul>

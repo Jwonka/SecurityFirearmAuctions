@@ -159,7 +159,7 @@
             <a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a>
           </li>
         </ul>
-        <p>&copy; 2025 Security Firearm Auctions. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> Security Firearm Auctions. All rights reserved.</p>
       </footer>
     </div>
       <script src="./js/auth.js"></script>
@@ -180,6 +180,7 @@
         });
       </script>
       <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
         document.getElementById('logoutLink')?.addEventListener('click', (e) => {
           e.preventDefault(); auth.clear(); location.reload();
         });

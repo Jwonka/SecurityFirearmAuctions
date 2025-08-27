@@ -167,19 +167,6 @@
       <script src="./js/index-search.js" defer></script>
       <script src="./js/retail-media.js" defer></script>
       <script>
-        document.addEventListener('click', (e) => {
-          const btn = e.target.closest('.addToCart');
-          if (!btn || !window.demoCart) return;
-          window.demoCart.add({
-            id: btn.dataset.id,
-            name: btn.dataset.name,
-            price: parseFloat(btn.dataset.price),
-            qty: 1
-          });
-          alert('Added to cart (demo).');
-        });
-      </script>
-      <script>
         document.getElementById('year').textContent = new Date().getFullYear();
       </script>
   </body>

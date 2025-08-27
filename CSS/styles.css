@@ -273,7 +273,7 @@ span a:hover {
   border: 0.08vw black solid;
   background-color: lightgray;
   border-radius: 0.25vw;
-  padding: 0.5vw;
+  padding: 0.5vw 0.5vw 2vw;
   box-sizing: border-box;
   overflow: hidden;
   margin: 1vw 1vw 5vw;

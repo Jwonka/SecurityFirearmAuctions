@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="CSS/styles.css" rel="stylesheet">
+    <title>Security Firearm Auctions ~ Ammunition</title>
+  </head>
+  <body>
+    <div>
+      <header>
+        <a href="#" id="logoutLink" class="logout" data-redirect="reload"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        <h1><i class="bi bi-bullseye icon target"></i>  Security Firearm Auctions</h1>
+        <ul>
+          <li>
+            <a href="index.html" class="centeredIcons active"><i class="bi bi-shop"></i><br>Retail</a>
+          </li>
+          <li>
+            <a href="about.html" class="centeredIcons"><i class="bi bi-file-person"></i><br>About Us</a>
+          </li>
+          <li>
+            <a href="contact.html" class="navMenu"><i class="bi bi-envelope-fill largeIcons"></i><br>Contact Us</a></li>
+          </li>
+          <li>
+            <a href="checkout.html" class="centeredIcons"><i class="bi bi-cart4"></i><br>Checkout</a>
+          </li>
+        </ul>
+      </header>
+      <nav>
+        <ul>
+          <li>
+            <a  href="auctions.html" class="centeredIcons"><i class="bi bi-shop-window"></i><br>Auctions</a>
+          </li>
+          <li>
+            <a href="account.html" class="centeredIcons"><i class="bi bi-door-open"></i><br>Login/Register</a>
+          </li>
+          <li>
+            <a class="clear"><i class="bi bi-journal-check"></i><br>How To</a>
+            <ul>
+              <li><a href="bid.html">Bid</a></li>
+              <li><a href="sell.html">Sell</a></li>
+              <li><a href="faqs.html">FAQ'S</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <hr class="pageRule">
+      <main>
+        <section class="searchBar">
+          <form id="siteSearch" class="searchForm" role="search">
+            <input id="searchInput" type="search" placeholder="Search ammunition…" aria-label="Search ammunition">
+            <button type="submit" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Search</button>
+            <button type="button" id="clearSearch" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;margin:.25rem;">Clear</button>
+          </form>
+          <div id="searchMsg" class="searchMsg" aria-live="polite"></div>
+        </section>
+        <div class="bigImage">
+          <div class="imageContainer">
+            <img class="heroSlide" src="./images/ecommerce.png" alt="Retail inventory — Security Firearm Auctions">
+            <img class="heroSlide" src="./images/ecommerce.jpg" alt="Retail inventory — Security Firearm Auctions">
+          </div>
+        </div>
+        <section class="content">
+          <h2 style="text-align:center;">Ammunition</h2>
+         </section>
+        <section class="productGrid" id="products">
+          <article class="productCard">
+            <div class="productMedia">
+              <img class="active" alt="Placeholder"
+                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
+            </div>
+            <div class="productBody">
+              <h3>Sample Ammo</h3>
+              <p>Specs and details will load with the catalog.</p>
+              <div class="price">$0.00</div>
+              <button class="button disabled" disabled>Add to Cart</button>
+            </div>
+          </article>
+        
+          <article class="productCard">
+            <div class="productMedia">
+              <img class="active" alt="Placeholder"
+                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
+            </div>
+            <div class="productBody">
+              <h3>Sample Ammo</h3>
+              <p>Specs and details will load with the catalog.</p>
+              <div class="price">$0.00</div>
+              <button class="button disabled" disabled>Add to Cart</button>
+            </div>
+          </article>
+        
+          <article class="productCard">
+            <div class="productMedia">
+              <img class="active" alt="Placeholder"
+                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
+            </div>
+            <div class="productBody">
+              <h3>Sample Ammo</h3>
+              <p>Specs and details will load with the catalog.</p>
+              <div class="price">$0.00</div>
+              <button class="button disabled" disabled>Add to Cart</button>
+            </div>
+          </article>
+        </section>
+      </main>
+      <footer>
+        <ul>
+          <li>
+            <a href="conditions.html" class="centeredIcons"><br>Terms & Conditions</a>
+          </li>
+          <li>
+            <a href="privacy.html" class="centeredIcons"><br>Privacy Policy</a>
+          </li>
+        </ul>
+        <br>
+        <ul>
+          <li>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-facebook"></i></a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener" class="centeredIcons"><i class="bi bi-instagram"></i></a>
+          </li>
+        </ul>
+        <p>&copy; <span id="year"></span> Security Firearm Auctions. All rights reserved.</p>
+      </footer>
+    </div>
+      <script src="./js/auth.js"></script>
+      <script src="./js/logout.js"></script>
+      <script src="./js/index-search.js" defer></script>
+      <script src="./js/retail-media.js" defer></script>
+      <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+      </script>
+  </body>
+</html>

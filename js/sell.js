@@ -9,6 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRe = /^\+?1?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 
+  // --- PREFILL FROM AUTH ---
+  const setIfEmpty = (id, val) => {
+    const el = $(id);
+    if (!el) return;
+    if (!el.value) el.value = val || '';
+  };
+
+  try {
+    if (window.auth?.loggedIn && window.auth.loggedIn()) {
+      const u = window.auth.get?.();
+      if (u) {
+        setIfEmpty('fName', u.firstName);
+        setIfEmpty('lName', u.lastName);
+        setIfEmpty('email', u.email);
+        setIfEmpty('cEmail', u.email);
+        setIfEmpty('phone', u.phone);
+      }
+    }
+  } catch (_) {
+    // no-op: fail silently
+  }
+
+  // If user edits Email and Confirm Email is still blank, mirror it for convenience
+  $('email')?.addEventListener('blur', () => {
+    const e = $('email')?.value?.trim() || '';
+    const c = $('cEmail');
+    if (c && !c.value) c.value = e;
+  });
+  
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -69,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!terms) { $('termsLabel').style.color = 'yellow'; valid = false; }
 
-    // Reserve sanity (optional)
+    // Reserve sanity
     if (reserve && Number(reserve) < 0) invalidate('reserveLabel', 'Reserve cannot be negative:', 'reserve');
 
     if (!valid) {

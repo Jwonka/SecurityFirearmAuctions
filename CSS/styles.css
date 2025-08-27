@@ -269,11 +269,7 @@ span a:hover {
   text-shadow: 0.1vw 0.1vw 0.1vw;
 }
 
-.page-contact main { 
-  padding-bottom: 3rem;        /* adds space above footer */
-  /* or */
-  /* display: flow-root; */    /* prevents margin collapse */
-}
+.page-spacer { height: 3rem; }
 
 .contact { 
   border: 0.08vw black solid;

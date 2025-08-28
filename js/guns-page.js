@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "images/guns/handguns/HiPoint9mm-001.jpg",
       "images/guns/handguns/WaltherPPK-001.jpg",
       "images/guns/handguns/beretta-9mm-001.jpg",
-      "images/guns/handguns/springfield-handgun001.jpg",
+      "images/guns/handguns/springfield-handgun-001.jpg",
       "images/guns/handguns/smith-wesson-9mm-001.jpg",
       "images/guns/handguns/taurus-10mm-001.jpg",
     ],

@@ -62,6 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
     shotguns: 'Shotgun',
   };
 
+  const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+  const priceFor = (src) => {
+    const pmap = window.pricesByPath || {};
+    const val = pmap[src];
+    return (typeof val === 'number' && !Number.isNaN(val)) ? val : null;
+  };
+
   // Simple card factory
   const createCard = (src, cat) => {
     const brand = brandFromPath(src, cat === 'handguns' ? 'Glock'
@@ -107,7 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const price = document.createElement('div');
     price.className = 'price';
-    price.textContent = '$0.00';
+    const p = priceFor(src);
+    price.textContent = (p != null) ? usd.format(p) : 'Call for price';
 
     const btn = document.createElement('button');
     btn.className = 'button';

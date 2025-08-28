@@ -237,6 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
       card.__applyAvailability?.();
     });
   }
+
+  document.getElementById('restockDemo')?.addEventListener('click', () => {
+    const ids = Object.values(gunsCatalog).flat();
+    window.inventory.restockRandom(ids, 2, 6);
+    // refresh visible counts
+    document.querySelectorAll('.productCard').forEach(c => c.__applyAvailability?.());
+  });
   
   window.addEventListener('pageshow', refreshAllAvailability);
   window.addEventListener('storage', (e) => { if (e.key === 'demo_cart') refreshAllAvailability(); });

@@ -109,36 +109,39 @@
     render();
   });
 
-  // Expose tiny helper to add items from other pages (optional)
-   window.demoCart = {
+  // Expose tiny helper to add items from other pages 
+  window.demoCart = {
     add(item) {
       // item = { id, name, price, qty }
       const cart = getCart();
       const found = cart.find(i => i.id === item.id);
   
-      // What's the ceiling?
-      const rawStock = window.inventory?.get?.(item.id);
-      // If stock is unknown (e.g., user landed directly on checkout), don't allow more than current qty.
-      const max = (typeof rawStock === 'number') ? rawStock : (found ? found.qty : 0);
+      // IMPORTANT: 'remaining' is the CURRENT inventory (already decremented elsewhere), so do NOT subtract inCart again.
+      const remaining = window.inventory?.get?.(item.id) ?? 0;
+      const want      = Math.max(1, Number(item.qty) || 1);
   
-      const inCart = found ? found.qty : 0;
-      const left   = max - inCart;
-      const want   = Math.max(1, Number(item.qty) || 1);
-  
-      if (left <= 0) {
+      if (remaining <= 0) {
         alert('Sorry, this item is out of stock.');
         return 0;
       }
   
-      const addable = Math.min(left, want);
+      const addable = Math.min(remaining, want);
       if (found) found.qty += addable;
       else cart.push({ id: item.id, name: item.name, price: Number(item.price) || 0, qty: addable });
   
       saveCart(cart);
+  
+      // Decrement inventory HERE so all adds behave consistently
+      if (window.inventory?.set) window.inventory.set(item.id, remaining - addable);
+  
       render();
   
-      if (addable < want) alert(`Only ${left} in stock. Added ${addable}.`);
+      if (addable < want) alert(`Only ${remaining} in stock. Added ${addable}.`);
       return addable;
+    },
+    count(id) {
+      const it = getCart().find(i => i.id === id);
+      return it ? it.qty : 0;
     },
     get: getCart
   };

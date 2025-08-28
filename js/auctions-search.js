@@ -109,8 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Only jump to retail if there were zero local matches
-    if (!r.lotMatches && await hasRetailMatch(q)) {
-      location.href = `index.html?q=${encodeURIComponent(q)}`;
+    if (!r.lotMatches) {
+      if (await hasRetailMatch(q)) {
+        location.href = `index.html?q=${encodeURIComponent(q)}`;
+      } else {
+        if (msg) msg.textContent = 'No matches found in auctions or retail.';
+      }
     }
   });
 

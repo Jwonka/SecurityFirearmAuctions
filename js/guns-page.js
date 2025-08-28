@@ -143,23 +143,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyAvailability(){
       const stock = window.inventory?.get?.(id) ?? 0;   // on-hand
-      const left  = leftFor(id);                        // available to add
-      stockEl.textContent = `In stock: ${stock}  •  Available: ${left}`;
-      if (left <= 0) { btn.disabled = true; btn.textContent = 'Out of stock'; }
+      stockEl.textContent = `In stock: ${stock}`;
+      if (stock <= 0) { btn.disabled = true; btn.textContent = 'Out of stock'; }
       else { btn.disabled = false; btn.textContent = 'Add to Cart'; }
     }
     applyAvailability();
 
     btn.addEventListener('click', () => {
-      const left = leftFor(id);
-      if (left <= 0) { alert('Sorry, this item is out of stock.'); applyAvailability(); return; }
+      const stock = window.inventory?.get?.(id) ?? 0;
+      if (stock <= 0) {
+        alert('Sorry, this item is out of stock.');
+        applyAvailability();
+        return;
+      }
 
       const priceNum = (window.pricesByPath && typeof window.pricesByPath[id] === 'number')
         ? window.pricesByPath[id] : 0;
 
       const added = window.demoCart.add({ id, name: `${brand} ${typeLabel[cat]}`, price: priceNum, qty: 1 });
-      if (added > 0) { btn.textContent = 'Added'; setTimeout(() => btn.textContent = 'Add to Cart', 800); }
-      applyAvailability();
+      if (added > 0) { 
+        window.inventory?.decrement?.(id, added);
+        applyAvailability();
+        btn.textContent = 'Added';
+        setTimeout(() => btn.textContent = 'Add to Cart', 800);
+      }
     });
 
     body.appendChild(h4); body.appendChild(priceEl); body.appendChild(stockEl); body.appendChild(btn);

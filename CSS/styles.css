@@ -794,7 +794,7 @@ div.desc a:hover {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0; transition: opacity .25s ease;
+  opacity: 0; transition: opacity .25s ease-in-out;
 }
 
 .productMedia img.active{ opacity: 1; }

@@ -74,19 +74,23 @@
     if (!item) return;
   
     if (btn.dataset.act === 'add') {
-      // Determine the max allowed (stock). If stock is unknown, clamp to current qty.
-      const raw = window.inventory?.get?.(item.id);
-      const max = (typeof raw === 'number') ? raw : item.qty; // prevents infinite adds if stock isn't seeded
-  
-      if (item.qty >= max) {
-        alert(`Only ${max} in stock. You already have ${item.qty} in the cart.`);
+      const id = item.id;
+      const remaining = window.inventory?.get?.(id) ?? 0;
+      if (remaining <= 0) {
+        alert('No more in stock for this item.');
         return;
       }
       item.qty += 1;
+      window.inventory?.set?.(id, remaining - 1);
     }
   
     if (btn.dataset.act === 'sub') {
-      item.qty = Math.max(0, item.qty - 1);
+      if (item.qty > 0) {
+        item.qty -= 1;
+        // restock when removing from cart
+        const rem = window.inventory?.get?.(item.id) ?? 0;
+        window.inventory?.set?.(item.id, rem + 1);
+      }
     }
   
     // remove zero-qty items

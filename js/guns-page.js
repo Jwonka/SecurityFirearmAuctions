@@ -123,27 +123,37 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stock <= 0) { btn.disabled = true; btn.textContent = 'Out of stock'; }
 
     btn.addEventListener('click', () => {
-      if (stock <= 0) return;
-      const priceNum = (window.pricesByPath && typeof window.pricesByPath[src] === 'number') ? window.pricesByPath[src] : 0;
-      window.demoCart.add({ id: src, name: `${brand} ${typeLabel[cat]}`, price: priceNum, qty: 1 });
-      // decrement stock
-      stock = window.inventory.decrement(src, 1);
-      stockEl.textContent = `In stock: ${stock}`;
-      if (stock <= 0) { btn.disabled = true; btn.textContent = 'Out of stock'; }
-      else { btn.textContent = 'Added'; setTimeout(() => btn.textContent='Add to Cart', 800); }
-    });
-
-    body.appendChild(h4); body.appendChild(priceEl); body.appendChild(stockEl); body.appendChild(btn);
-    article.appendChild(media); article.appendChild(body);
-
-    // Per-card rotation (own gallery) every 5s
-    galleryFor(src, 6).then(gal => {
-      if (!gal || gal.length < 2) return;
-      let i = 0;
-      const tick = () => { i=(i+1)%gal.length; img.style.opacity=0; setTimeout(()=>{ img.src=gal[i]; img.style.opacity=1; },150); };
-      let timer = setInterval(tick, 5000);
-      media.addEventListener('mouseenter', () => clearInterval(timer));
-      media.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(tick, 5000); });
+      const id = src; // use image path as product id
+      const stock = window.inventory?.get(id) ?? 0;
+      const inCart = window.demoCart?.count?.(id) ?? 0;
+      const left = stock - inCart;
+    
+      if (left <= 0) {
+        alert('Sorry, this item is out of stock.');
+        btn.disabled = true;
+        btn.textContent = 'Out of stock';
+        return;
+      }
+    
+      const priceNum = (window.pricesByPath && typeof window.pricesByPath[id] === 'number') ? window.pricesByPath[id] : 0;
+      const added = window.demoCart.add({ id, name: `${brand} ${typeLabel[cat]}`, price: priceNum, qty: 1 });
+    
+      const after = left - added; // left now = stock - (inCart + added)
+      if (after <= 0) { btn.disabled = true; btn.textContent = 'Out of stock'; }
+      else { btn.textContent = 'Added'; setTimeout(() => btn.textContent = 'Add to Cart', 800); }
+      });
+  
+      body.appendChild(h4); body.appendChild(priceEl); body.appendChild(stockEl); body.appendChild(btn);
+      article.appendChild(media); article.appendChild(body);
+  
+      // Per-card rotation (own gallery) every 5s
+      galleryFor(src, 6).then(gal => {
+        if (!gal || gal.length < 2) return;
+        let i = 0;
+        const tick = () => { i=(i+1)%gal.length; img.style.opacity=0; setTimeout(()=>{ img.src=gal[i]; img.style.opacity=1; },150); };
+        let timer = setInterval(tick, 5000);
+        media.addEventListener('mouseenter', () => clearInterval(timer));
+        media.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(tick, 5000); });
     });
 
     return article;

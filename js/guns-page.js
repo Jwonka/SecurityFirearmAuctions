@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     media.appendChild(img);
 
     const body = document.createElement('div'); body.className='productBody';
-    const h4 = document.createElement('h4'); h4.textContent = `${brand} ${typeLabel[cat]}`;
+    const h4 = document.createElement('h4'); h4.textContent = `${brand}`;
     const priceEl = document.createElement('div'); priceEl.className='price'; priceEl.textContent = priceFor(src);
     const stockEl = document.createElement('div'); stockEl.className='stock';
 

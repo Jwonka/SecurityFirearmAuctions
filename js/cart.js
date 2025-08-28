@@ -1,15 +1,52 @@
 (() => {
   const CART_KEY = 'demo_cart';
 
-  function getCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-    catch { return []; }
-  }
-  function saveCart(items) { localStorage.setItem(CART_KEY, JSON.stringify(items)); }
-  function money(n) { return '$' + (Math.round(n * 100) / 100).toFixed(2); }
+  // ----- storage
+  const getCart  = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
+  const saveCart = (arr) => localStorage.setItem(CART_KEY, JSON.stringify(arr));
 
-  // Demo fees from your T&Cs
-  const RATES = { buyerPremium: 0.10, salesTax: 0.055, bgFee: 10.00 }; // premium 10%, tax 5.5%, background check $10
+  // ----- public API (use on any page)
+  window.demoCart = {
+    get: getCart,
+    count(id) {
+      const it = getCart().find(i => i.id === id);
+      return it ? it.qty : 0;
+    },
+    // stock-aware add; decrements inventory; returns how many actually added
+    add({ id, name, price, qty = 1 }) {
+      const remaining = window.inventory?.get?.(id);
+      const check = (typeof remaining === 'number');
+
+      if (check && remaining <= 0) {
+        alert('Sorry, this item is out of stock.');
+        return 0;
+      }
+
+      const want    = Math.max(1, Number(qty) || 1);
+      const addable = check ? Math.min(remaining, want) : want;
+
+      const cart = getCart();
+      const found = cart.find(i => i.id === id);
+      if (found) found.qty += addable;
+      else cart.push({ id, name, price: Number(price) || 0, qty: addable });
+      saveCart(cart);
+
+      // decrement remaining inventory so product pages update immediately
+      if (check && window.inventory?.set) {
+        window.inventory.set(id, remaining - addable);
+      }
+
+      // nudge any open pages listening for cart changes
+      try { window.dispatchEvent(new StorageEvent('storage', { key: CART_KEY })); } catch {}
+
+      if (check && addable < want) alert(`Only ${remaining} in stock. Added ${addable}.`);
+      return addable;
+    }
+  };
+
+  // ---------- UI below only runs on pages that actually have a cart ----------
+  const money = n => '$' + (Math.round(n * 100) / 100).toFixed(2);
+  const RATES = { buyerPremium: 0.10, salesTax: 0.055, bgFee: 10.00 };
 
   function totals(items) {
     const subtotal = items.reduce((s, it) => s + (it.price * it.qty), 0);
@@ -21,10 +58,14 @@
     return { subtotal, premium, tax, bg, total };
   }
 
+  function hasCartDom() {
+    return document.getElementById('cartItems') && document.getElementById('cartTotals');
+  }
+
   function render() {
+    if (!hasCartDom()) return; // safe no-op on non-cart pages
     const list = document.getElementById('cartItems');
     const tBox = document.getElementById('cartTotals');
-    if (!list || !tBox) return;
 
     const items = getCart();
     list.innerHTML = '';
@@ -60,30 +101,25 @@
     `;
   }
 
-  // Event delegation for +/- buttons
+  // qty +/- (also updates inventory)
   document.addEventListener('click', (e) => {
+    if (!hasCartDom()) return;
     const btn = e.target.closest('.qtyBtn');
     if (!btn) return;
-  
-    const li = btn.closest('li');
-    if (!li) return;
-  
-    const idx  = Number(li.dataset.i);
+
+    const li   = btn.closest('li');
+    const idx  = Number(li?.dataset.i);
     const cart = getCart();
     const item = cart[idx];
     if (!item) return;
-  
+
     if (btn.dataset.act === 'add') {
-      const id = item.id;
-      const remaining = window.inventory?.get?.(id) ?? 0;
-      if (remaining <= 0) {
-        alert('No more in stock for this item.');
-        return;
-      }
+      const remaining = window.inventory?.get?.(item.id) ?? 0;
+      if (remaining <= 0) { alert('No more in stock for this item.'); return; }
       item.qty += 1;
-      window.inventory?.set?.(id, remaining - 1);
+      window.inventory?.set?.(item.id, remaining - 1);
     }
-  
+
     if (btn.dataset.act === 'sub') {
       if (item.qty > 0) {
         item.qty -= 1;
@@ -92,21 +128,20 @@
         window.inventory?.set?.(item.id, rem + 1);
       }
     }
-  
-    // remove zero-qty items
-    for (let i = cart.length - 1; i >= 0; i--) {
-      if (cart[i].qty <= 0) cart.splice(i, 1);
-    }
-  
+
+    // remove zero-qty lines
+    for (let i = cart.length - 1; i >= 0; i--) if (cart[i].qty <= 0) cart.splice(i, 1);
+
     saveCart(cart);
     render();
   });
 
-  // Clear cart
- document.addEventListener('click', (e) => {
+  // Clear cart (restock everything first)
+  document.addEventListener('click', (e) => {
+    if (!hasCartDom()) return;
     if (e.target.id !== 'clearCart') return;
+
     const items = getCart();
-    // Restock all items before clearing
     items.forEach(it => {
       const rem = window.inventory?.get?.(it.id) ?? 0;
       window.inventory?.set?.(it.id, rem + it.qty);
@@ -115,43 +150,6 @@
     render();
   });
 
-  // Expose tiny helper to add items from other pages 
-  window.demoCart = {
-    add(item) {
-      // item = { id, name, price, qty }
-      const cart = getCart();
-      const found = cart.find(i => i.id === item.id);
-  
-      // IMPORTANT: 'remaining' is the CURRENT inventory (already decremented elsewhere), so do NOT subtract inCart again.
-      const remaining = window.inventory?.get?.(item.id) ?? 0;
-      const want      = Math.max(1, Number(item.qty) || 1);
-  
-      if (remaining <= 0) {
-        alert('Sorry, this item is out of stock.');
-        return 0;
-      }
-  
-      const addable = Math.min(remaining, want);
-      if (found) found.qty += addable;
-      else cart.push({ id: item.id, name: item.name, price: Number(item.price) || 0, qty: addable });
-  
-      saveCart(cart);
-  
-      // Decrement inventory HERE so all adds behave consistently
-      if (window.inventory?.set) window.inventory.set(item.id, remaining - addable);
-  
-      render();
-  
-      if (addable < want) alert(`Only ${remaining} in stock. Added ${addable}.`);
-      return addable;
-    },
-    count(id) {
-      const it = getCart().find(i => i.id === id);
-      return it ? it.qty : 0;
-    },
-    get: getCart
-  };
-
-  // initial render
   document.addEventListener('DOMContentLoaded', render);
+  window.addEventListener('storage', (e) => { if (e.key === CART_KEY) render(); });
 })();

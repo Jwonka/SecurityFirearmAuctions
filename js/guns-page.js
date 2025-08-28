@@ -59,6 +59,39 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const typeLabel = { handguns:'Handgun', revolvers:'Revolver', rifles:'Rifle', shotguns:'Shotgun' };
 
+  function modelFor(brand, cat, src) {
+    const s = src.toLowerCase();
+  
+    // Handguns
+    if (brand === 'Glock') return '17';
+    if (brand === 'Hi-Point') return 'C9';
+    if (brand === 'Walther') return 'PPK';
+    if (brand === 'Beretta') return '92FS';
+    if (brand === 'Springfield Armory' && cat === 'handguns') return 'XD-M';
+    if (brand === 'Smith & Wesson' && cat === 'handguns') return 'M&P9';
+    if (brand === 'Taurus') return 'G3c';
+  
+    // Revolvers
+    if (brand === 'Smith & Wesson' && cat === 'revolvers') {
+      if (s.includes('9mm')) return '986';  // S&W 9mm revolver (PC 986)
+      return '686';
+    }
+    if (brand === 'Colt' && cat === 'revolvers') return 'Python';
+  
+    // Rifles
+    if (brand === 'Smith & Wesson' && cat === 'rifles') return 'M&P15';
+    if (brand === 'Barrett') return 'REC7';
+    if (brand === 'Springfield Armory' && cat === 'rifles') return 'M1A';
+    if (brand === 'Winchester') return 'Model 1895';
+  
+    // Shotguns
+    if (brand === 'Browning') return 'A5';
+    if (brand === 'Remington') return '870';
+  
+    // Fallback
+    return '';
+  }
+
   const usd = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
   function priceFor(src){
     const map = window.pricesByPath || {};
@@ -124,13 +157,15 @@ document.addEventListener('DOMContentLoaded', () => {
       cat==='revolvers'? 'Smith & Wesson' :
       cat==='rifles'   ? 'Remington' : 'Remington');
 
+    const model = modelFor(brand, cat, src);
+
     const article = document.createElement('article');
     article.className = 'productCard';
     article.dataset.id = src;
 
     const media = document.createElement('div'); media.className = 'productMedia';
     const img = document.createElement('img'); img.className='active';
-    img.alt = `${brand} ${typeLabel[cat].toLowerCase()}`; img.src = src;
+    img.alt = `${brand} ${model}`; img.src = src;
     media.appendChild(img);
 
     const body = document.createElement('div'); body.className='productBody';
@@ -150,8 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
     applyAvailability();
 
     btn.addEventListener('click', () => {
-      const stock = window.inventory?.get?.(id) ?? 0;
-      if (stock <= 0) {
+      const remaining = window.inventory?.get?.(id) ?? 0;
+      if (remaining <= 0) {
         alert('Sorry, this item is out of stock.');
         applyAvailability();
         return;
@@ -160,13 +195,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const priceNum = (window.pricesByPath && typeof window.pricesByPath[id] === 'number')
         ? window.pricesByPath[id] : 0;
 
-      const added = window.demoCart.add({ id, name: `${brand} ${typeLabel[cat]}`, price: priceNum, qty: 1 });
+      const added = window.demoCart.add({ id, name: `${brand} ${model}`, price: priceNum, qty: 1 });
+      
       if (added > 0) { 
-        window.inventory?.decrement?.(id, added);
-        applyAvailability();
         btn.textContent = 'Added';
         setTimeout(() => btn.textContent = 'Add to Cart', 800);
       }
+      applyAvailability();
     });
 
     body.appendChild(h4); body.appendChild(priceEl); body.appendChild(stockEl); body.appendChild(btn);

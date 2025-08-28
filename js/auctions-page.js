@@ -21,7 +21,7 @@ const auctionsData = {
             model: 'M&P15-22',
             title: 'Lot 7 — Smith & Wesson M&P15-22 (.22 LR)',
             desc: 'Condition: Excellent • 25-rd magazine • Adjustable stock • Includes 1 mag & manual.',
-            images: ['images/smith-wesson-rifle-001.jpg', 'images/smith-wesson-rifle-002', 'images/smith-wesson-rifle-003.jpg']
+            images: ['images/smith-wesson-rifle-001.jpg', 'images/smith-wesson-rifle-002.jpg', 'images/smith-wesson-rifle-003.jpg']
           }
         ]
       },

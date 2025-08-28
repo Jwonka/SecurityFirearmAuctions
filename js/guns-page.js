@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const gunsCatalog = (window.catalog && window.catalog.guns) || {
     handguns: [
       "images/guns/handguns/9mmGlock.jpg",
-      "images/guns/handguns/beretta-handgun-oo2.jpg", 
       "images/guns/handguns/HiPoint9mm.jpg",
       "images/guns/handguns/WaltherPPK.jpg",
       "images/guns/handguns/beretta-handgun-001.jpg",

@@ -57,48 +57,40 @@
         </section>
         <section class="content">
           <h2 style="text-align:center;">Guns</h2>
+          <p style="text-align:center;margin-top:.5rem;opacity:.85;">
+            <a href="#handguns">Handguns</a> ·
+            <a href="#revolvers">Revolvers</a> ·
+            <a href="#rifles">Rifles</a> ·
+            <a href="#shotguns">Shotguns</a>
+          </p>
        </section>
-       <section class="productGrid" id="products">
-          <!-- Sample product cards using inline SVG placeholders (safe until real images/JS are wired) -->
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%%' height='100%%' fill='%%23222'/><text x='50%%' y='50%%' dominant-baseline='middle' text-anchor='middle' fill='%%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Firearm</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%%' height='100%%' fill='%%23222'/><text x='50%%' y='50%%' dominant-baseline='middle' text-anchor='middle' fill='%%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Firearm</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%%' height='100%%' fill='%%23222'/><text x='50%%' y='50%%' dominant-baseline='middle' text-anchor='middle' fill='%%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Firearm</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-        </section>
+      <section id="guns-sections">
+        <h3 id="handguns" class="categoryTitle">Handguns</h3>
+        <div class="productGrid" id="handgunsGrid" data-category="handguns">
+          <!-- cards injected by JS -->
+        </div>
+      
+        <h3 id="revolvers" class="categoryTitle">Revolvers</h3>
+        <div class="productGrid" id="revolversGrid" data-category="revolvers">
+          <!-- cards injected by JS -->
+        </div>
+      
+        <h3 id="rifles" class="categoryTitle">Rifles</h3>
+        <div class="productGrid" id="riflesGrid" data-category="rifles">
+          <!-- cards injected by JS -->
+        </div>
+      
+        <h3 id="shotguns" class="categoryTitle">Shotguns</h3>
+        <div class="productGrid" id="shotgunsGrid" data-category="shotguns">
+          <!-- cards injected by JS -->
+        </div>
+      
+        <noscript>
+          <p style="text-align:center;opacity:.75;margin-top:1rem;">
+            Enable JavaScript to see products.
+          </p>
+        </noscript>
+      </section>
       </main>
       <footer>
         <ul>

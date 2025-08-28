@@ -1,4 +1,5 @@
-const auctionsData = {
+document.addEventListener('DOMContentLoaded', () => {
+  const auctionsData = {
     current: [
       {
         title: 'Estate Auction — August 2025',
@@ -21,7 +22,11 @@ const auctionsData = {
             model: 'M&P15-22',
             title: 'Lot 7 — Smith & Wesson M&P15-22 (.22 LR)',
             desc: 'Condition: Excellent • 25-rd magazine • Adjustable stock • Includes 1 mag & manual.',
-            images: ['images/smith-wesson-rifle-001.jpg', 'images/smith-wesson-rifle-002.jpg', 'images/smith-wesson-rifle-003.jpg']
+            images: [
+              'images/smith-wesson-rifle-001.jpg',
+              'images/smith-wesson-rifle-002.jpg',
+              'images/smith-wesson-rifle-003.jpg'
+            ]
           }
         ]
       },
@@ -90,53 +95,53 @@ const auctionsData = {
     ]
   };
 
-  // ----- RENDER -----
-  function el(tag, attrs={}, ...children){
+  // ===== RENDER HELPERS =====
+  function el(tag, attrs = {}, ...children) {
     const node = document.createElement(tag);
-    for (const [k,v] of Object.entries(attrs)) {
+    for (const [k, v] of Object.entries(attrs)) {
       if (k === 'class') node.className = v;
       else if (k === 'dataset') Object.assign(node.dataset, v);
       else node.setAttribute(k, v);
     }
-    for (const c of children) node.append(c);
+    for (const c of children) if (c) node.append(c);
     return node;
   }
 
-  function renderSection(containerId, items){
+  function renderSection(containerId, items) {
     const col = document.getElementById(containerId);
     if (!col) return;
-
-    // Clear existing cards but keep the <h2>
     [...col.querySelectorAll(':scope > article')].forEach(n => n.remove());
 
-    for (const a of items){
-      const card = el('article', { class:'auctionCard', dataset:{ name: a.title.toLowerCase() } });
-
-      const header = el('header', { class:'auctionHeader' },
+    for (const a of items) {
+      const card = el('article', { class: 'auctionCard', dataset: { name: a.title.toLowerCase() } });
+      const header = el('header', { class: 'auctionHeader' },
         el('h3', {}, a.title),
         el('p', {}, a.meta),
         a.highlights ? el('p', {}, `Highlights: ${a.highlights}`) : ''
       );
+      const lotsGrid = el('div', { class: 'lotsGrid' });
 
-      const lotsGrid = el('div', { class:'lotsGrid' });
-
-      for (const lot of (a.lots || [])){
+      for (const lot of (a.lots || [])) {
         const dn = `${lot.manufacturer} ${lot.model} ${lot.title}`.trim().toLowerCase();
-        const lotCard = el('div', { class:'lotCard', dataset:{ name: dn } });
+        const lotCard = el('div', { class: 'lotCard', dataset: { name: dn } });
 
-        const media = el('div', { class:'lotMedia' });
-        lot.images.forEach((src, i) => {
-          media.append(el('img', { src, alt: `${lot.title} — image ${i+1}`, class: i===0 ? 'active' : '' }));
+        const media = el('div', { class: 'lotMedia' });
+        (lot.images || []).forEach((src, i) => {
+          media.append(el('img', {
+            src,
+            alt: `${lot.title} — image ${i + 1}`,
+            class: i === 0 ? 'active' : ''
+          }));
         });
 
-        const controls = lot.images.length > 1
-          ? el('div', { class:'lotControls' },
-              el('button', { class:'arrowBtn lotPrev', 'aria-label':'Previous image' }, '◀'),
-              el('button', { class:'arrowBtn lotNext', 'aria-label':'Next image' }, '▶')
+        const controls = (lot.images && lot.images.length > 1)
+          ? el('div', { class: 'lotControls' },
+              el('button', { class: 'arrowBtn lotPrev', 'aria-label': 'Previous image' }, '◀'),
+              el('button', { class: 'arrowBtn lotNext', 'aria-label': 'Next image' }, '▶')
             )
-          : el('div', { class:'lotControls' });
+          : el('div', { class: 'lotControls' });
 
-        const body = el('div', { class:'lotBody' },
+        const body = el('div', { class: 'lotBody' },
           el('h4', {}, lot.title),
           lot.desc ? el('p', {}, lot.desc) : ''
         );
@@ -150,7 +155,7 @@ const auctionsData = {
     }
   }
 
-  renderSection('current', auctionsData.current);
-  renderSection('past', auctionsData.past);
-  renderSection('future', auctionsData.future);
+  renderSection('current', auctionsData.current || []);
+  renderSection('past', auctionsData.past || []);
+  renderSection('future', auctionsData.future || []);
 });

@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (pool.length === 1){
       focusCard(pool[0], `Showing 1 product: “${cardName(pool[0])}”`);
-      if (await hasAuctionMatch(q)) location.href = `auctions.html?q=${encodeURIComponent(q)}`;
       return;
     }
 
@@ -78,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         c.classList.toggle('search-hit', hit);
       });
       msg.textContent = `Found ${pool.length} products.`;
-      if (await hasAuctionMatch(q)) location.href = `auctions.html?q=${encodeURIComponent(q)}`;
       return;
     }
 

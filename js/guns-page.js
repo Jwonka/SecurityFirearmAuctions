@@ -114,25 +114,44 @@ document.addEventListener('DOMContentLoaded', () => {
   (function ensureCart() {
     const KEY = 'demo_cart';
     if (!window.demoCart) window.demoCart = {};
+    
     const get = window.demoCart._get || (() => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } });
     const set = window.demoCart._set || (arr => localStorage.setItem(KEY, JSON.stringify(arr)));
+    
     window.demoCart.count = window.demoCart.count || function(id){ const it = get().find(i => i.id === id); return it ? it.qty : 0; };
-    window.demoCart.add = window.demoCart.add || function(item){
-      const stock = window.inventory?.get?.(item.id) ?? Infinity;
-      const inCart = window.demoCart.count(item.id);
-      const left = stock - inCart;
-      const want = Math.max(1, Number(item.qty) || 1);
-      if (left <= 0) { alert('Sorry, this item is out of stock.'); return 0; }
-      const addable = Math.min(left, want);
-      const cart = get();
-      const f = cart.find(i => i.id === item.id);
-      if (f) f.qty += addable; else cart.push({ id:item.id, name:item.name, price:Number(item.price)||0, qty:addable });
-      set(cart);
-      if (addable < want) alert(`Only ${left} in stock. Added ${addable}.`);
-      return addable;
-    };
+    if (!window.demoCart.add) {
+      window.demoCart.add = function(item){
+        // item = { id, name, price, qty }
+        const cart = get();
+        const found = cart.find(i => i.id === item.id);
+  
+        // remaining inventory right now
+        const remaining = window.inventory?.get?.(item.id);
+        const allowCheck = (typeof remaining === 'number');
+        const want = Math.max(1, Number(item.qty) || 1);
+  
+        let addable = want;
+        if (allowCheck) {
+          if (remaining <= 0) { alert('Sorry, this item is out of stock.'); return 0; }
+          addable = Math.min(remaining, want);
+        }
+  
+        if (found) found.qty += addable;
+        else cart.push({ id: item.id, name: item.name, price: Number(item.price) || 0, qty: addable });
+  
+        set(cart);
+  
+        // Decrement inventory here so UI updates immediately
+        if (allowCheck && window.inventory?.set) {
+          window.inventory.set(item.id, remaining - addable);
+        }
+  
+        if (addable < want) alert(`Only ${allowCheck ? remaining : 0} in stock. Added ${addable}.`);
+        return addable;
+      };
+    }
   })();
-
+  
   function galleryFor(baseSrc, max=6) {
     const dot = baseSrc.lastIndexOf('.');
     const ext = baseSrc.slice(dot);
@@ -158,18 +177,20 @@ document.addEventListener('DOMContentLoaded', () => {
       cat==='rifles'   ? 'Remington' : 'Remington');
 
     const model = modelFor(brand, cat, src);
+    const name = model ? `${brand} ${model}` : brand;
 
     const article = document.createElement('article');
     article.className = 'productCard';
     article.dataset.id = src;
+    article.dataset.name = name; 
 
     const media = document.createElement('div'); media.className = 'productMedia';
     const img = document.createElement('img'); img.className='active';
-    img.alt = `${brand} ${model}`; img.src = src;
+    img.alt = name; img.src = src;
     media.appendChild(img);
 
     const body = document.createElement('div'); body.className='productBody';
-    const h4 = document.createElement('h4'); h4.textContent = `${brand} ${typeLabel[cat]}`;
+    const h4 = document.createElement('h4'); h4.textContent = name;
     const priceEl = document.createElement('div'); priceEl.className='price'; priceEl.textContent = priceFor(src);
     const stockEl = document.createElement('div'); stockEl.className='stock';
 
@@ -185,17 +206,10 @@ document.addEventListener('DOMContentLoaded', () => {
     applyAvailability();
 
     btn.addEventListener('click', () => {
-      const remaining = window.inventory?.get?.(id) ?? 0;
-      if (remaining <= 0) {
-        alert('Sorry, this item is out of stock.');
-        applyAvailability();
-        return;
-      }
-
       const priceNum = (window.pricesByPath && typeof window.pricesByPath[id] === 'number')
         ? window.pricesByPath[id] : 0;
 
-      const added = window.demoCart.add({ id, name: `${brand} ${model}`, price: priceNum, qty: 1 });
+      const added = window.demoCart.add({ id, name: name, price: priceNum, qty: 1 });
       
       if (added > 0) { 
         btn.textContent = 'Added';

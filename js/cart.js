@@ -64,19 +64,36 @@
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.qtyBtn');
     if (!btn) return;
+  
     const li = btn.closest('li');
     if (!li) return;
-
-    const idx = Number(li.dataset.i);
+  
+    const idx  = Number(li.dataset.i);
     const cart = getCart();
-    if (!cart[idx]) return;
-
-    if (btn.dataset.act === 'add') cart[idx].qty += 1;
-    if (btn.dataset.act === 'sub') cart[idx].qty = Math.max(0, cart[idx].qty - 1);
-
+    const item = cart[idx];
+    if (!item) return;
+  
+    if (btn.dataset.act === 'add') {
+      // Determine the max allowed (stock). If stock is unknown, clamp to current qty.
+      const raw = window.inventory?.get?.(item.id);
+      const max = (typeof raw === 'number') ? raw : item.qty; // prevents infinite adds if stock isn't seeded
+  
+      if (item.qty >= max) {
+        alert(`Only ${max} in stock. You already have ${item.qty} in the cart.`);
+        return;
+      }
+      item.qty += 1;
+    }
+  
+    if (btn.dataset.act === 'sub') {
+      item.qty = Math.max(0, item.qty - 1);
+    }
+  
     // remove zero-qty items
-    for (let i = cart.length - 1; i >= 0; i--) if (cart[i].qty <= 0) cart.splice(i, 1);
-
+    for (let i = cart.length - 1; i >= 0; i--) {
+      if (cart[i].qty <= 0) cart.splice(i, 1);
+    }
+  
     saveCart(cart);
     render();
   });
@@ -89,15 +106,35 @@
   });
 
   // Expose tiny helper to add items from other pages (optional)
-  window.demoCart = {
+   window.demoCart = {
     add(item) {
       // item = { id, name, price, qty }
       const cart = getCart();
       const found = cart.find(i => i.id === item.id);
-      if (found) found.qty += item.qty || 1;
-      else cart.push({ id: item.id, name: item.name, price: Number(item.price) || 0, qty: item.qty || 1 });
+  
+      // What's the ceiling?
+      const rawStock = window.inventory?.get?.(item.id);
+      // If stock is unknown (e.g., user landed directly on checkout), don't allow more than current qty.
+      const max = (typeof rawStock === 'number') ? rawStock : (found ? found.qty : 0);
+  
+      const inCart = found ? found.qty : 0;
+      const left   = max - inCart;
+      const want   = Math.max(1, Number(item.qty) || 1);
+  
+      if (left <= 0) {
+        alert('Sorry, this item is out of stock.');
+        return 0;
+      }
+  
+      const addable = Math.min(left, want);
+      if (found) found.qty += addable;
+      else cart.push({ id: item.id, name: item.name, price: Number(item.price) || 0, qty: addable });
+  
       saveCart(cart);
       render();
+  
+      if (addable < want) alert(`Only ${left} in stock. Added ${addable}.`);
+      return addable;
     },
     get: getCart
   };

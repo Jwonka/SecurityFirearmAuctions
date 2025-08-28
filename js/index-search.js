@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (await hasAuctionMatch(q)) {
       location.href = `auctions.html?q=${encodeURIComponent(q)}`;
     } else {
-      msg.textContent = 'No matches found.';
+      msg.textContent = 'No matches found in auctions or retail.';
     }
   });
 

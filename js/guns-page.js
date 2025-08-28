@@ -2,17 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const gunsCatalog = (window.catalog && window.catalog.guns) || {
     handguns: [
       "images/guns/handguns/9mmGlock.jpg",
-      "images/guns/handguns/9mmHandgun.jpg", 
+      "images/guns/handguns/beretta-handgun-oo2.jpg", 
       "images/guns/handguns/HiPoint9mm.jpg",
-      "images/guns/handguns/WalterPPK.jpg",
+      "images/guns/handguns/WaltherPPK.jpg",
       "images/guns/handguns/beretta-handgun-001.jpg",
-      "images/guns/handguns/beretta-handgun-002.jpg",
+      "images/guns/handguns/springfield-handgun.jpg",
       "images/guns/handguns/smith-wesson-handgun-001.jpg",
       "images/guns/handguns/taurus-handgun-001.jpg",
     ],
     revolvers: [
       "images/guns/revolvers/38Special.jpg", 
-      "images/guns/revolvers/38spl-blazer-001.jpg",   
       "images/guns/revolvers/Smith&Wesson9mmRevolver.jpg",
       "images/guns/revolvers/colt-revolver-001.jpg",
     ],

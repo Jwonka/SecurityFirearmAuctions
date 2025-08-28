@@ -2,17 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Catalog (base images). Rotation will look for -002/-003/-004 siblings.
   const gunsCatalog = (window.catalog && window.catalog.guns) || {
     handguns: [
-      "images/guns/handguns/9mmGlock.jpg",
-      "images/guns/handguns/HiPoint9mm.jpg",
-      "images/guns/handguns/WaltherPPK.jpg",
-      "images/guns/handguns/beretta-handgun-001.jpg",
+      "images/guns/handguns/9mmGlock-001.jpg",
+      "images/guns/handguns/HiPoint9mm-001.jpg",
+      "images/guns/handguns/WaltherPPK-001.jpg",
+      "images/guns/handguns/beretta-9mm-001.jpg",
       "images/guns/handguns/springfield-handgun001.jpg",
-      "images/guns/handguns/smith-wesson-handgun-001.jpg",
-      "images/guns/handguns/taurus-handgun-001.jpg",
+      "images/guns/handguns/smith-wesson-9mm-001.jpg",
+      "images/guns/handguns/taurus-10mm-001.jpg",
     ],
     revolvers: [
       "images/guns/revolvers/38Special-001.jpg",
-      "images/guns/revolvers/amith-wesson-revolver-9mm-001.jpg",
+      "images/guns/revolvers/smith-wesson-revolver-9mm-001.jpg",
       "images/guns/revolvers/colt-revolver-001.jpg",
     ],
     rifles: [

@@ -152,4 +152,5 @@ const auctionsData = {
 
   renderSection('current', auctionsData.current);
   renderSection('past', auctionsData.past);
+  renderSection('future', auctionsData.future);
 });

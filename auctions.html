@@ -60,214 +60,36 @@
       <div class="bigImage">
           <div class="imageContainer">
             <img class="heroSlide active" src="./images/gavel.png" alt="Auction marketplace — Security Firearm Auctions">
-            <img class="heroSlide"         src="./images/gavel.jpg" alt="Auction marketplace — Security Firearm Auctions">
+            <img class="heroSlide" src="./images/gavel.jpg" alt="Auction marketplace — Security Firearm Auctions">
           </div>
       </div>
-
-      <!-- Current Auctions -->
+      <section class="content">
+        <h2 style="text-align:center;">Auctions</h2>
+        <p style="text-align:center;margin-top:.5rem;opacity:.85;">
+          <a href="#current">Current</a> · <a href="#past">Past</a> · <a href="#future">Upcoming</a>
+        </p>
+      </section>
+      
       <section class="auctionsGrid">
-
-        <!-- CURRENT AUCTIONS -->
         <div class="auctionColumn" id="current">
           <h2 style="text-align:center;">Current Auctions</h2>
-      
-          <!-- Auction A: estate -->
-          <article class="auctionCard" data-name="Estate Auction — August 2025">
-            <header class="auctionHeader">
-              <h3>Estate Auction — August 2025</h3>
-              <p>Date: Aug 30, 2025 • Location: Blair, WI • Status: Live</p>
-              <p>Highlights: Classic revolvers, rimfire rifles, modern carry pistols</p>
-            </header>
-      
-            <div class="lotsGrid">
-              <!-- Lot: .357 Mag Revolver -->
-              <div class="lotCard" data-name="Smith & Wesson 686 (.357 Magnum)">
-                <div class="lotMedia">
-                  <!-- reuse revolver pics from guns catalog -->
-                  <img class="active" src="images/guns/revolvers/38Special-001.jpg" alt="Smith & Wesson 686 — left">
-                  <img src="images/guns/revolvers/38Special-002.jpg" alt="Smith & Wesson 686 — right">
-                  <img src="images/guns/revolvers/38Special-003.jpg" alt="Smith & Wesson 686 — cylinder">
-                </div>
-                <div class="lotControls">
-                  <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
-                  <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
-                </div>
-                <div class="lotBody">
-                  <h4>Lot 3 — Smith &amp; Wesson Model 686 (.357 Magnum)</h4>
-                  <p>Condition: Very Good • 4&quot; barrel • 6-rd cylinder • Blued finish • Includes soft case.</p>
-                </div>
-              </div>
-      
-              <!-- Lot: M&P15-22 -->
-              <div class="lotCard" data-name="Smith & Wesson M&P15-22 (.22 LR)">
-                <div class="lotMedia">
-                  <img class="active" src="images/MandP15-1.jpg" alt="S&amp;W M&amp;P15-22 — left">
-                  <img src="images/MandP15-2.jpg" alt="S&amp;W M&amp;P15-22 — right">
-                  <img src="images/MandP15-3.jpg" alt="S&amp;W M&amp;P15-22 — rail">
-                </div>
-                <div class="lotControls">
-                  <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
-                  <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
-                </div>
-                <div class="lotBody">
-                  <h4>Lot 7 — Smith &amp; Wesson M&amp;P15-22 (.22 LR)</h4>
-                  <p>Condition: Excellent • 25-rd magazine • Adjustable stock • Includes 1 mag &amp; manual.</p>
-                </div>
-              </div>
-            </div>
-          </article>
-      
-          <!-- Auction B: handguns -->
-          <article class="auctionCard" data-name="Classic Handguns — September 12">
-            <header class="auctionHeader">
-              <h3>Classic Handguns — September 12</h3>
-              <p>Date: Sep 12, 2025 • Location: Madison, WI • Status: Opens Soon</p>
-              <p>Highlights: Carry pistols, range kits, period holsters</p>
-            </header>
-      
-            <div class="lotsGrid">
-              <div class="lotCard" data-name="Smith & Wesson M&P Shield (9mm)">
-                <div class="lotMedia">
-                  <!-- reuse S&W 9mm handgun pics from guns catalog -->
-                  <img class="active" src="images/guns/handguns/smith-wesson-9mm-001.jpg" alt="S&amp;W M&amp;P Shield — left">
-                  <img src="images/guns/handguns/smith-wesson-9mm-002.jpg" alt="S&amp;W M&amp;P Shield — right">
-                  <img src="images/guns/handguns/smith-wesson-9mm-003.jpg" alt="S&amp;W M&amp;P Shield — sights">
-                </div>
-                <div class="lotControls">
-                  <button class="arrowBtn lotPrev" aria-label="Previous image">◀</button>
-                  <button class="arrowBtn lotNext" aria-label="Next image">▶</button>
-                </div>
-                <div class="lotBody">
-                  <h4>Lot 12 — Smith &amp; Wesson M&amp;P Shield (9mm)</h4>
-                  <p>Condition: Very Good • 3.1&quot; barrel • 1×7-rd &amp; 1×8-rd mags • Includes box &amp; lock.</p>
-                </div>
-              </div>
-            </div>
-          </article>
-      
-          <!-- Auction C: Ammunition Sale -->
-          <article class="auctionCard" data-name="Ammunition Sale — September 2025">
-            <header class="auctionHeader">
-              <h3>Ammunition Sale — September 2025</h3>
-              <p>Date: Sep 15, 2025 • Location: Online • Status: Live</p>
-              <p>Highlights: Common calibers in bulk and range packs</p>
-            </header>
-      
-            <div class="lotsGrid">
-      
-              <div class="lotCard" data-name="5.56 NATO">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/556/556-1.jpg" alt="5.56 NATO — case">
-                  <img src="images/ammunition/556/556-2.jpg" alt="5.56 NATO — rounds">
-                  <img src="images/ammunition/556/556-3.jpg" alt="5.56 NATO — detail">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot A1 — 5.56 NATO</h4><p>Bulk pack • FMJ • New brass.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name="9mm Luger">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/9mm/9mm.jpg" alt="9mm Luger — box">
-                  <img src="images/ammunition/9mm/9mm-2.jpg" alt="9mm Luger — rounds">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot A2 — 9mm Luger</h4><p>115gr FMJ • Range ammo.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name="10mm Auto">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/10mm/10mm.jpg" alt="10mm Auto — box">
-                  <img src="images/ammunition/10mm/10mm-2.jpg" alt="10mm Auto — rounds">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot A3 — 10mm Auto</h4><p>180gr • Brass case.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name=".45 ACP">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/45ACP/45ACP.jpg" alt=".45 ACP — box">
-                  <img src="images/ammunition/45ACP/45ACP-2.jpg" alt=".45 ACP — rounds">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot A4 — .45 ACP</h4><p>230gr FMJ • New brass.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name=".380 ACP">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/380ACP/380ACP.jpg" alt=".380 ACP — box">
-                  <img src="images/ammunition/380ACP/380ACP-2.jpg" alt=".380 ACP — rounds">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot A5 — .380 ACP</h4><p>95gr FMJ • Range pack.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name=".308 Winchester">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/308/308.jpg" alt=".308 Win — box">
-                  <img src="images/ammunition/308/308-2.jpg" alt=".308 Win — rounds">
-                  <img src="images/ammunition/308/308-3.jpg" alt=".308 Win — detail">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot A6 — .308 Winchester</h4><p>150gr • Brass case.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name="12 Gauge">
-                <div class="lotMedia">
-                  <img class="active" src="images/ammunition/12Gauge/12GaugeShells.jpg" alt="12 Gauge — shells">
-                </div>
-                <div class="lotBody"><h4>Lot A7 — 12 Gauge</h4><p>2¾&quot; target loads.</p></div>
-              </div>
-      
-            </div>
-          </article>
+          <!-- cards injected by auctions-page.js -->
         </div>
       
-        <!-- PAST AUCTIONS -->
         <div class="auctionColumn" id="past">
           <h2 style="text-align:center;">Past Auctions</h2>
+          <!-- cards injected by auctions-page.js -->
+        </div>
       
-          <!-- Rimfire Showcase -->
-          <article class="auctionCard" data-name="Rimfire Showcase — June 2025">
-            <header class="auctionHeader">
-              <h3>Rimfire Showcase — June 2025</h3>
-              <p>Date: Jun 14, 2025 • Location: Eau Claire, WI • Status: Closed</p>
-              <p>Top lots: Ruger Mark IV and Ruger 10/22</p>
-            </header>
-      
-            <div class="lotsGrid">
-              <div class="lotCard" data-name="Ruger Mark IV (.22 LR)">
-                <div class="lotMedia">
-                  <img class="active" src="images/rugerMarkIV-1.jpg" alt="Ruger Mark IV — left">
-                  <img src="images/rugerMarkIV-2.jpg" alt="Ruger Mark IV — right">
-                  <img src="images/rugerMarkIV-3.jpg" alt="Ruger Mark IV — controls">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot 4 — Ruger Mark IV (.22 LR)</h4><p>Condition: Excellent • Target barrel • Includes 2 mags &amp; case.</p></div>
-              </div>
-      
-              <div class="lotCard" data-name="Ruger 10/22 (.22 LR)">
-                <div class="lotMedia">
-                  <img class="active" src="images/ruger-1.jpg" alt="Ruger 10/22 — profile">
-                  <img src="images/ruger-2.jpg" alt="Ruger 10/22 — receiver">
-                  <img src="images/ruger-3.jpg" alt="Ruger 10/22 — sights">
-                </div>
-                <div class="lotControls"><button class="arrowBtn lotPrev">◀</button><button class="arrowBtn lotNext">▶</button></div>
-                <div class="lotBody"><h4>Lot 9 — Ruger 10/22 (.22 LR)</h4><p>Condition: Very Good • Semi-auto • 10-rd rotary mag • Clean bore.</p></div>
-              </div>
-            </div>
-          </article>
-      
-          <!-- Results card -->
-          <article class="auctionCard" data-name="Winter Collector Sale — February 2025">
-            <header class="auctionHeader">
-              <h3>Winter Collector Sale — February 2025</h3>
-              <p>Date: Feb 09, 2025 • Location: La Crosse, WI • Status: Closed</p>
-              <p>Top lots: Vaquero pair, Anschutz .22 match rifle, vintage optics</p>
-            </header>
-            <p class="auctionFoot"><a href="#past" class="centeredIcons">Results</a></p>
-          </article>
+        <div class="auctionColumn" id="future">
+          <h2 style="text-align:center;">Upcoming Auctions</h2>
+          <!-- cards injected by auctions-page.js -->
         </div>
       </section>
+      
+      <noscript>
+        <p style="text-align:center;">Auctions require JavaScript to display.</p>
+      </noscript>
     </main>
 
     <footer>
@@ -286,6 +108,7 @@
 
   <script src="./js/auth.js"></script>
   <script src="./js/logout.js"></script>
+  <script src="./auctions-page.js" defer></script>
   <script src="./js/auctions-search.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();

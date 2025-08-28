@@ -103,8 +103,14 @@
   });
 
   // Clear cart
-  document.addEventListener('click', (e) => {
+ document.addEventListener('click', (e) => {
     if (e.target.id !== 'clearCart') return;
+    const items = getCart();
+    // Restock all items before clearing
+    items.forEach(it => {
+      const rem = window.inventory?.get?.(it.id) ?? 0;
+      window.inventory?.set?.(it.id, rem + it.qty);
+    });
     localStorage.removeItem(CART_KEY);
     render();
   });

@@ -887,6 +887,10 @@ div.desc a:hover {
   opacity: 1;
 }
 
+.categoryTitle {
+  text-align: center;
+}
+
 footer {
   width: 100%;
   background-color: lightgrey;

@@ -6,24 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
       "images/guns/handguns/HiPoint9mm.jpg",
       "images/guns/handguns/WaltherPPK.jpg",
       "images/guns/handguns/beretta-handgun-001.jpg",
-      "images/guns/handguns/springfield-handgun.jpg",
+      "images/guns/handguns/springfield-handgun001.jpg",
       "images/guns/handguns/smith-wesson-handgun-001.jpg",
       "images/guns/handguns/taurus-handgun-001.jpg",
     ],
     revolvers: [
-      "images/guns/revolvers/38Special.jpg",
-      "images/guns/revolvers/Smith&Wesson9mmRevolver.jpg",
+      "images/guns/revolvers/38Special-001.jpg",
+      "images/guns/revolvers/amith-wesson-revolver-9mm-001.jpg",
       "images/guns/revolvers/colt-revolver-001.jpg",
     ],
     rifles: [
-      "images/guns/rifles/AR-15.jpg",
-      "images/guns/rifles/BarretAR15.jpg",
-      "images/guns/rifles/SpringfieldRifle.jpg",
-      "images/guns/rifles/Winchester1895.jpg",
+      "images/guns/rifles/smith-wesson-rifle-001.jpg",
+      "images/guns/rifles/Barret-AR15-001.jpg",
+      "images/guns/rifles/SpringfieldRifle-001.jpg",
+      "images/guns/rifles/Winchester1895-001.jpg",
     ],
     shotguns: [
-      "images/guns/shotguns/Browning12Ga.jpg",
-      "images/guns/shotguns/Remington12Ga.jpg",
+      "images/guns/shotguns/Browning12Ga-001.jpg",
+      "images/guns/shotguns/Remington12Ga-001.jpg",
     ]
   };
 
@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btn.addEventListener('click', () => {
       if (stock <= 0) return;
-      // add exactly 1 to cart
       const priceNum = (window.pricesByPath && typeof window.pricesByPath[src] === 'number') ? window.pricesByPath[src] : 0;
       window.demoCart.add({ id: src, name: `${brand} ${typeLabel[cat]}`, price: priceNum, qty: 1 });
       // decrement stock

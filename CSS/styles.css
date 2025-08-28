@@ -796,7 +796,10 @@ div.desc a:hover {
   object-fit: cover;
   opacity: 0; transition: opacity .25s ease;
 }
+
 .productMedia img.active{ opacity: 1; }
+
+.stock { font-size: .9rem; opacity: .85; margin:.25rem 0; }
 
 /* prev/next controls */
 .productControls{

@@ -141,6 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGrid('rifleAmmoGrid',   ammoCatalog.rifle);
   renderGrid('shotgunAmmoGrid', ammoCatalog.shotgun);
 
+  document.getElementById('restockDemo')?.addEventListener('click', () => {
+    const ids = Object.values(gunsCatalog).flat();
+    window.inventory.restockRandom(ids, 2, 6);
+    document.querySelectorAll('.productCard').forEach(c => c.__applyAvailability?.());
+  });
+  
   // keep stock labels fresh across tabs
   function refreshAll(){ document.querySelectorAll('.productCard').forEach(c => c.__applyAvailability?.()); }
   window.addEventListener('pageshow', refreshAll);

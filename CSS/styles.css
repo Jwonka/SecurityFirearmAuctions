@@ -781,10 +781,10 @@ div.desc a:hover {
 }
 
 .productGrid.uniform {
-  grid-template-columns: repeat(auto-fit, minmax(285px, 285px));
+  grid-template-columns: repeat(auto-fit, minmax(274px, 274px));
 }
 
-.productGrid.uniform .productCard { width: 100%; max-width: 285px; margin: 0 auto; }
+.productGrid.uniform .productCard { width: 100%; max-width: 274px; margin: 0 auto; }
 .productGrid.uniform .productMedia img {
   width: 100%;
   height: auto;

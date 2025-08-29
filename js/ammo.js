@@ -132,7 +132,24 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderGrid(gridId, items){
     const grid = document.getElementById(gridId);
     if (!grid) return;
+  
     grid.innerHTML = '';
+  
+    if (!items || items.length === 0) {
+      const labelMap = {
+        handgun: 'handgun ammo',
+        rifle: 'rifle ammo',
+        shotgun: 'shotgun shells',
+        handguns: 'handguns',
+        revolvers: 'revolvers',
+        rifles: 'rifles',
+        shotguns: 'shotguns'
+      };
+      const label = labelMap[grid.dataset.category] || 'items';
+      grid.append(el('p', { class: 'emptyMsg' }, `No ${label} available right now.`));
+      return;
+    }
+  
     items.forEach(item => grid.append(makeCard(item)));
   }
 

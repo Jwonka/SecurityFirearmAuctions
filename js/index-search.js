@@ -49,26 +49,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch{ return false; }
   }
 
-  form.addEventListener('submit', async (e) => {
+ form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const q = (input.value || '').trim();
     if (!q) { showAll(); return; }
-
+  
     const qn = norm(q);
-
-    // exact then contains (normalized)
+  
+    // 1) Try local (index page) cards first – your existing logic
     const exact = cards.filter(c => norm(cardName(c)) === qn);
-
     const pool = exact.length ? exact : cards.filter(c => {
       const hay = norm(cardName(c) + ' ' + cardDesc(c));
       return hay.includes(qn);
     });
-
+  
     if (pool.length === 1){
       focusCard(pool[0], `Showing 1 product: “${cardName(pool[0])}”`);
       return;
     }
-
     if (pool.length > 1){
       cards.forEach(c => {
         const hay = norm(cardName(c) + ' ' + cardDesc(c));
@@ -79,14 +77,34 @@ document.addEventListener('DOMContentLoaded', () => {
       msg.textContent = `Found ${pool.length} products.`;
       return;
     }
-
+  
+    // 2) Retail-first redirect: guns → ammo → accessories
+    const targetRetail = (() => {
+      const pools = window.retailPools || {}; // requires step 1
+      const matchPool = (obj) => {
+        if (!obj) return false;
+        const lists = Object.values(obj).flat();    // flatten all subcategory arrays
+        return lists.some(src => norm(src).includes(qn));
+      };
+      if (matchPool(pools.guns)) return 'guns.html';
+      if (matchPool(pools.ammo)) return 'ammo.html';
+      if (matchPool(pools.accessories)) return 'accessories.html';
+      return null;
+    })();
+  
+    if (targetRetail) {
+      location.href = `${targetRetail}?q=${encodeURIComponent(q)}`;
+      return;
+    }
+  
+    // 3) Finally, check auctions and redirect there if it matches
     if (await hasAuctionMatch(q)) {
       location.href = `auctions.html?q=${encodeURIComponent(q)}`;
     } else {
-      msg.textContent = 'No matches found in auctions or retail.';
+      msg.textContent = 'No matches found in retail or auctions.';
     }
   });
-
+  
   // Auto-apply ?q=...
   const qParam = new URLSearchParams(location.search).get('q');
   if (qParam) { input.value = qParam; form.dispatchEvent(new Event('submit')); }

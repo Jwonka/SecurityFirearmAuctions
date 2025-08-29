@@ -14,56 +14,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000);
   }
 
-  // ---------- Normalize ----------
+  // ---------- Normalize / tokens / helpers ----------
+  const STOP = new Set(['and','the','for','of','to','a','&']);
+  const TYPO = { 'smiht':'smith', 'smih':'smith', 'smtih':'smith', 'wessn':'wesson' };
   const norm = (s) => (s || '')
     .toLowerCase()
     .replace(/&amp;/g, '&')
     .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
-
-  // ---------- Global search index ----------
-  let SEARCH_INDEX = null;
-  async function loadIndex(){
-    if (SEARCH_INDEX) return SEARCH_INDEX;
-    try{
-      const res = await fetch('data/search-index.json', { cache: 'no-store' });
-      SEARCH_INDEX = await res.json();
-    }catch{
-      SEARCH_INDEX = { retail: [], auctions: [] };
-    }
-    return SEARCH_INDEX;
+  function fixTypos(qn){
+    return qn.split(' ').map(w => TYPO[w] || w).join(' ');
   }
-  const hay = (o) => (o.name + ' ' + (o.tokens || []).join(' ')).toLowerCase();
-
-  async function findRetailMatch(qn){
-    const idx = await loadIndex();
-    return idx.retail.find(r => hay(r).includes(qn)) || null;
+  function tokensFrom(q){
+    return fixTypos(norm(q)).split(' ')
+      .filter(t => t && !STOP.has(t));
   }
+  const hayOf = (el) => norm(el.dataset.name || el.textContent || '');
 
-  // ---------- Local auctions filter ----------
+  // ---------- Local auctions filter (ANY-token match, len>=3) ----------
   function filterAuctions(q){
-    const qn = norm(q);
+    const qTokens = tokensFrom(q);
     const lotCards = [...document.querySelectorAll('.lotCard')];
     const auctionCards = [...document.querySelectorAll('.auctionCard')];
 
     if (!lotCards.length) return { lotMatches: 0, auctionMatches: 0 };
 
-    // Hide/show lots based on match
     let lotMatches = 0;
     lotCards.forEach(lc => {
-      const text = norm(
-        lc.dataset.name ||
-        lc.textContent ||
-        ''
-      );
-      const hit = text.includes(qn);
+      const hit = qTokens.some(t => t.length >= 3 && hayOf(lc).includes(t));
       lc.style.display = hit ? '' : 'none';
       lc.classList.toggle('search-hit', hit);
       if (hit) lotMatches++;
     });
 
-    // Hide auction cards that have zero visible lots
     let auctionMatches = 0;
     auctionCards.forEach(ac => {
       const hasVisibleLot = ac.querySelector('.lotCard:not([style*="display: none"])');
@@ -77,31 +61,53 @@ document.addEventListener('DOMContentLoaded', () => {
         ? `Showing ${lotMatches} lot${lotMatches > 1 ? 's' : ''} in ${auctionMatches} auction${auctionMatches > 1 ? 's' : ''}.`
         : 'No auction matches.';
     }
-
     return { lotMatches, auctionMatches };
   }
 
-  // ---------- Submit ----------
+  // ---------- Global index fallback (route to retail) ----------
+  let SEARCH_INDEX = null;
+  async function loadIndex(){
+    if (SEARCH_INDEX) return SEARCH_INDEX;
+    try {
+      const res = await fetch('data/search-index.json', { cache: 'no-store' });
+      SEARCH_INDEX = await res.json();
+    } catch {
+      SEARCH_INDEX = { retail: [], auctions: [] };
+    }
+    return SEARCH_INDEX;
+  }
+  const hayIndex = (o) => (o.name + ' ' + (o.tokens || []).join(' ')).toLowerCase();
+  function score(text, qTokens){
+    let s = 0;
+    for (const t of qTokens) if (t.length >= 3 && text.includes(t)) s++;
+    return s;
+  }
+  function bestMatch(list, qTokens){
+    let best = null, bestScore = 0;
+    for (const item of list){
+      const s = score(hayIndex(item), qTokens);
+      if (s > bestScore){ best = item; bestScore = s; }
+    }
+    return bestScore > 0 ? best : null;
+  }
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const q = (input.value || '').trim();
     if (!q) {
-      // Clear
       document.querySelectorAll('.lotCard, .auctionCard').forEach(el => { el.style.display = ''; el.classList.remove('search-hit'); });
       if (msg) msg.textContent = '';
       return;
     }
 
     const r = filterAuctions(q);
-    if (r.lotMatches > 0) return; // stay on auctions when we have local hits
+    if (r.lotMatches > 0) return;
 
-    // Auctions had zero hits → try RETAIL via the index (redirect if found)
-    const qn = norm(q);
-    const retail = await findRetailMatch(qn);
-    if (retail) {
-      location.href = `${retail.url}?q=${encodeURIComponent(q)}`;
-      return;
-    }
+    // No auction hits → try retail via index (best match)
+    const qTokens = tokensFrom(q);
+    const idx = await loadIndex();
+    const retail = bestMatch(idx.retail, qTokens);
+    if (retail) { location.href = `${retail.url}?q=${encodeURIComponent(q)}`; return; }
 
     if (msg) msg.textContent = 'No matches found in auctions or retail.';
   });

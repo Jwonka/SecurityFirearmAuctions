@@ -1018,11 +1018,15 @@ footer p {
     padding: 0 .5rem;
   }
   .productCard{ padding: .75rem; }
+  
   .productMedia{
     aspect-ratio: 16 / 10; 
-    max-width: 360px;
+    max-width: 100%;
     margin: 0 auto;
   }
+  
+  .productGrid.uniform { grid-template-columns: 1fr; }
+  .productGrid.uniform .productCard { max-width: 100%; }
   .productBody h3{ font-size: clamp(1rem, 5vw, 1.2rem); }
   .productPrice{  font-size: clamp(0.95rem, 4.2vw, 1.1rem); }
 

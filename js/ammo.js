@@ -132,8 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById(id);
   if (!grid) return;
     const count = grid.querySelectorAll('.productCard').length;
-    grid.classList.toggle('single', count === 1);
-    grid.classList.toggle('pair',   count === 2);
+    grid.classList.toggle('one', count === 1);
   }
   
   tagGridSize('shotgunAmmoGrid');

@@ -185,6 +185,44 @@ document.addEventListener('DOMContentLoaded', () => {
     article.dataset.name = name; 
 
     const media = document.createElement('div'); media.className = 'productMedia';
+
+   (function buildGallery(baseSrc) {
+      const dot = baseSrc.lastIndexOf('.');
+      const ext = baseSrc.slice(dot);
+      const stem = baseSrc.slice(0, dot).replace(/-(?:0*1|001)$/, '');
+      const candidates = [
+        `${stem}-001${ext}`,
+        `${stem}-002${ext}`,
+        `${stem}-003${ext}`
+      ];
+    
+      candidates.forEach((src, idx) => {
+        const im = document.createElement('img');
+        im.alt = name;
+        im.src = src;
+        if (idx === 0) im.classList.add('active');
+        // if a sibling file doesn't exist, remove that <img>
+        im.addEventListener('error', () => im.remove());
+        media.appendChild(im);
+      });
+    })(src);
+    
+    // add the controls that retail-media.js listens for
+    const controls = document.createElement('div');
+    controls.className = 'mediaControls';
+    controls.innerHTML = `
+      <button class="arrowBtn prev" aria-label="Previous image">◀</button>
+      <button class="arrowBtn next" aria-label="Next image">▶</button>`;
+    
+    article.appendChild(controls);
+
+    // if only 1 image, remove the controls
+    queueMicrotask(() => {
+      if (media.querySelectorAll('img').length <= 1) controls.remove();
+    });
+
+    article.appendChild(media);
+    
     const img = document.createElement('img'); img.className='active';
     img.alt = name; img.src = src;
     media.appendChild(img);

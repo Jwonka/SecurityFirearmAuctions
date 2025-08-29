@@ -1,4 +1,7 @@
 # Security Firearm Auctions — Demo Website
+
+Deployed: https://jwonka.github.io/SecurityFirearmAuctions/index.html
+
 > **Demo only. Not for use, reuse, or redistribution.**
 >
 > This repository is a static front-end demonstration for an auction/retail site (firearms domain).
@@ -15,25 +18,27 @@ No support, no warranties, no guarantees.
 
 > If you’re unsure whether your intended use is allowed, it isn’t.
 
-## What’s inside
+## Structure
 
 **Pages**
 
-- index.html – homepage with search bar (filters retail items; redirects to auctions on “auction” queries).
+- index.html (Retail landing; category cards).
 
-- about.html – about (stub)
+- guns.html, ammo.html, accessories.html (Retail category pages).
 
-- contact.html – contact form (client-side validation)
-
-- checkout.html – checkout form (prefilled when “logged in”, client-side validation)
-
-- login.html & register.html – demo auth flows using localStorage
-
-- privacy.html - privacy policy (HTML)
-
-- conditions.html - terms & conditions (HTML)
+- about.html – about (stub).
 
 - auctions.html - current & past auctions + search (filters or shows “not found” message).
+
+- contact.html – contact form (client-side validation).
+
+- checkout.html – checkout form (prefilled when “logged in”, client-side validation).
+
+- account.html – login and registration ~ demo auth flows using localStorage.
+
+- privacy.html - privacy policy (HTML).
+
+- conditions.html - terms & conditions (HTML).
   
 - sell.html - selling overview, seller contact form + download/open PDF + Fill Out Online CTA.
 
@@ -43,54 +48,59 @@ No support, no warranties, no guarantees.
   
 - faqs.html - FAQs & user agreement style notes.
   
-**Assets & code**
+**CSS/JS**
 
 - CSS/styles.css - site styles (fluid typography via clamp(), grid/flex, dropdowns, gallery, forms).
 
-- js/auth.js - tiny localStorage “auth” helper (auth.get(), auth.loggedIn(), auth.clear()).
-
-- js/login.js, js/register.js - set/validate demo profile in localStorage.
-
-- js/contact.js - contact form validation.
-
-- js/checkout.js - requires demo login, prefills profile, validates.
-
-- js/cart.js - demo cart API exposed as window.demoCart used by “Add to cart” buttons.
-
-- js/index-search.js - homepage search: filters items inline; redirects to auctions.html?q=... when applicable.
+- js/site-search.js — unified site search (index + all retail pages).
   
-- js/auctions-search.js - auction search: filters items inline; redirects to index.html?q=... when applicable.
-
-- js/consignment.js - online consignment form: multi-item rows, image preview (no upload), validation.
-
-- js/sell.js - seller contact form validation.
+- js/auctions-search.js — auctions page: lot/gallery wiring, local auction filter, cross-page routing to retail.
   
-- js/retail-media.js - handle image changes.
+- js/retail-media.js — product media rotation and hero image handling.
+
+- js/retail-rotator.js — category card image rotation on index.
+  
+- js/guns-page.js — renders guns grids from the catalog variables and wires stock/cart/price UI.
+  
+- js/ammo.js — renders ammo grids and UI.
+  
+- js/accessories.js — renders accessories grids and UI.
+  
+- js/inventory.js — localStorage-backed stock helpers (ensure/restock/etc.)【turn4file1†L11-L26.
+  
+- js/prices.js — price map for `priceFor(...)` lookups (shared).
 
 - docs/Security_Firearm_Auctions_Consignment_Agreement.pdf - printable consignment PDF.
 
 - Bootstrap Icons via CDN.
 
-**Design highlights**
+## Design highlights
 
-- Top-level nav labels don’t change color on hover, submenus do (CSS specificity)
+- Top-level nav labels don’t change color on hover, submenus do (CSS specificity).
 
-- Fluid typography (clamp()), responsive gallery, consistent form styling (.contact, .formInput, .messageButton, .button)
+- Fluid typography (clamp()), responsive gallery, consistent form styling (.contact, .formInput, .messageButton, .button).
 
-- Footer links centered with gap control (flex/grid)
+- Footer links centered with gap control (flex/grid).
 
 **How it works (demo logic)**
 
 - Auth: localStorage only. A simple profile (name/email/etc.) is saved on register/login.
+  
 - Checkout & consignment can prefill from this profile.
 
 - Cart: demo add-to-cart via window.demoCart.add({ id, name, price, qty }); no persistence guaranteed.
 
 - Search:
 
-  - index.html: filters visible gallery items by text; if it looks like an auction query, redirects to auctions.html?q=....
-
-  - auctions.html: filters current/past lists; shows a “no results” message when nothing matches.
+   - On retail pages and index:
+       
+      - Local filter tries to match visible products by name/desc.
+        
+      - If 0 local hits → looks up `data/search-index.json` for the best matching retail URL; if none → tries auctions; if none → shows “no matches”.
+        
+  - On auctions:
+    
+      - Filters current lots first. If 0 hits → consults `data/search-index.json` for a retail destination.
 
 - Consignment form:
 
@@ -110,7 +120,7 @@ No support, no warranties, no guarantees.
   
 - Image inputs only preview; nothing is transmitted or stored.
 
-Accessibility notes
+**Accessibility notes**
 
 - Top-level menu items function as dropdown labels; they’re non-links. For production, consider <button>s with keyboard handling and ARIA attributes.
 
@@ -118,7 +128,7 @@ Accessibility notes
 
 - Color changes on validation include text updates, not just color, where possible.
 
-Future upgrades
+**Future upgrades**
 
 - Deploy to Netlify/Vercel/Cloudflare Pages with serverless functions.
 

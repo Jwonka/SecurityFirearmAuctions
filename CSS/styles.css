@@ -781,19 +781,14 @@ div.desc a:hover {
 }
 
 .productGrid.fixedPair {
-  grid-template-columns: repeat(2, minmax(550px, 600px));
+  grid-template-columns: repeat(2, 570px);
   justify-content: center;
   gap: 1.25rem;
 }
 
 .productGrid.fixedPair.one {
-  grid-template-columns: minmax(550px, 600px);
+  grid-template-columns: 570px;
   justify-content: center;
-}
-
-.productGrid.fixedPair .productCard {
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 /* image area */

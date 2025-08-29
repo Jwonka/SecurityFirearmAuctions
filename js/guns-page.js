@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bounceTimer = null;
 
     function applyAvailability(){
-      const stock = window.inventory?.get?.(id) ?? 0;   // on-hand
+      const stock = window.inventory?.get?.(id) ?? 0;
       stockEl.textContent = `In stock: ${stock}`;
       if (stock <= 0) { 
         if (bounceTimer) { clearTimeout(bounceTimer); bounceTimer = null; }
@@ -232,16 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     body.appendChild(h4); body.appendChild(priceEl); body.appendChild(stockEl); body.appendChild(btn);
     article.appendChild(media); article.appendChild(body);
-
-    // Per-card rotation (own gallery) every 5s
-    galleryFor(src, 6).then(gal => {
-      if (!gal || gal.length < 2) return;
-      let i = 0;
-      const tick = () => { i=(i+1)%gal.length; img.style.opacity=0; setTimeout(()=>{ img.src=gal[i]; img.style.opacity=1; },150); };
-      let timer = setInterval(tick, 5000);
-      media.addEventListener('mouseenter', () => clearInterval(timer));
-      media.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(tick, 5000); });
-    });
 
     // expose updater for global refresh
     article.__applyAvailability = applyAvailability;

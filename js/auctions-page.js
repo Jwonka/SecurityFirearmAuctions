@@ -127,6 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
         a.highlights ? el('p', {}, `Highlights: ${a.highlights}`) : ''
       );
       const lotsGrid = el('div', { class: 'lotsGrid' });
+      if (!a.lots || a.lots.length === 0) {
+        lotsGrid.append(el('p', { class:'emptyMsg' }, 'No lots in this auction.'));
+      }
 
       for (const lot of (a.lots || [])) {
         const dn = `${lot.manufacturer} ${lot.model} ${lot.title}`.trim().toLowerCase();

@@ -782,7 +782,6 @@ div.desc a:hover {
 
 .productGrid.uniform {
   grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
-  justify-content: center;
 }
 
 .productGrid.uniform .productCard { width: 100%; max-width: 300px; margin: 0 auto; }

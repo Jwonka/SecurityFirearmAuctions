@@ -130,13 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function tagGridSize(id){
   const grid = document.getElementById(id);
-  if (!grid) return;
+    if (!grid) return;
     const count = grid.querySelectorAll('.productCard').length;
     grid.classList.toggle('one', count === 1);
   }
-  
   tagGridSize('shotgunAmmoGrid');
-  tagGridSize('rifleAmmoGrid');
 
   // keep stock labels fresh across tabs
   function refreshAll(){ document.querySelectorAll('.productCard').forEach(c => c.__applyAvailability?.()); }

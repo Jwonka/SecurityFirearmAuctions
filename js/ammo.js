@@ -128,6 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGrid('rifleAmmoGrid',   ammoCatalog.rifle);
   renderGrid('shotgunAmmoGrid', ammoCatalog.shotgun);
 
+  function tagGridSize(id){
+  const grid = document.getElementById(id);
+  if (!grid) return;
+    const count = grid.querySelectorAll('.productCard').length;
+    grid.classList.toggle('single', count === 1);
+    grid.classList.toggle('pair',   count === 2);
+  }
+  
+  tagGridSize('shotgunAmmoGrid');
+  tagGridSize('rifleAmmoGrid');
+
   // keep stock labels fresh across tabs
   function refreshAll(){ document.querySelectorAll('.productCard').forEach(c => c.__applyAvailability?.()); }
   window.addEventListener('pageshow', refreshAll);

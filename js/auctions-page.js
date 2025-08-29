@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Lot 7 — Smith & Wesson M&P15-22 (.22 LR)',
             desc: 'Condition: Excellent • 25-rd magazine • Adjustable stock • Includes 1 mag & manual.',
             images: [
-              'images/smith-wesson-rifle-001.jpg',
-              'images/smith-wesson-rifle-002.jpg',
-              'images/smith-wesson-rifle-003.jpg'
+              'images/guns/rifles/smith-wesson-rifle-001.jpg',
+              'images/guns/rifles/smith-wesson-rifle-002.jpg',
+              'images/guns/rifles/smith-wesson-rifle-003.jpg'
             ]
           }
         ]
@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Lot P1 — Barrett REC7 (AR-15 platform)',
             desc: 'Condition: Very Good • Flat-top receiver • M-LOK handguard.',
             images: ['images/guns/rifles/Barret-AR15-001.jpg',
-              'images/guns/handguns/Barrett-AR15-002.jpg',
-              'images/guns/handguns/Barrett-AR15-002.jpg'
+              'images/guns/rifles/Barrett-AR15-002.jpg',
+              'images/guns/rifles/Barrett-AR15-003.jpg'
             ]
           },
           {
@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Lot P2 — Browning A5 (12 Gauge)',
             desc: 'Condition: Good • Inertia-operated • Classic humpback profile.',
             images: ['images/guns/shotguns/Browning12Ga-001.jpg',
-              'images/guns/handguns/Browning12Ga-002.jpg',
-              'images/guns/handguns/Browning12Ga-003.jpg'
+              'images/guns/shotguns/Browning12Ga-002.jpg',
+              'images/guns/shotguns/Browning12Ga-001.jpg'
             ]
           }
         ]

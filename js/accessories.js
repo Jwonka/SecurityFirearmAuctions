@@ -39,9 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
       },
       {
-        // exact filename kept as provided: "wincester-case.jpg"
         brand: 'Winchester',
-        name:  'Hard Rifle Case',
+        name:  'Rifle Case',
         images: [
           'images/accessories/cases/winchester-case.jpg',
         ],
@@ -172,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ----- Restock (demo) just for this page -----
   document.getElementById('restockDemo')?.addEventListener('click', () => {
-    const ids = allIds.slice(); // first image per product
+    const ids = allIds.slice(); 
     window.inventory.restockRandom(ids, 2, 6);
     document.querySelectorAll('.productCard').forEach(c => c.__applyAvailability?.());
   });

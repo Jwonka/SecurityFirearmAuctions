@@ -781,11 +781,11 @@ div.desc a:hover {
 }
 
 .productGrid.fixedCards {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 500px));
   justify-content: center;
 }
 .productGrid.fixedCards .productCard {
-  max-width: 320px;
+  max-width: 500px;
   margin: 0 auto;  
 }
 

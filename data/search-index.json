@@ -53,9 +53,9 @@
       "tokens": ["remington","870","shotgun","12 gauge","12g"] },
 
     { "name": "Optics / Red Dots", "url": "accessories.html#optics",
-      "tokens": ["optic","scope","red dot","holographic","holo"] },
+      "tokens": ["optic","scope","red dot","holographic","holo","rifle"] },
     { "name": "Cases", "url": "accessories.html#cases",
-      "tokens": ["case","hard case","soft case","pistol case","rifle case"] },
+      "tokens": ["case","hard case","soft case","pistol case","rifle case","handgun case"] },
     { "name": "Magazines & Misc", "url": "accessories.html#misc",
       "tokens": ["mag","magazine","sling","holster","stock","misc"] }
   ],

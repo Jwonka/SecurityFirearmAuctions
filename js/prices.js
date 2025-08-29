@@ -22,4 +22,13 @@ window.pricesByPath = {
   // Shotguns
   "images/guns/shotguns/Browning12Ga-001.jpg": 1299.00,
   "images/guns/shotguns/Remington12Ga-001.jpg": 599.00,
+
+   // Ammo
+  "images/ammunition/9mm/9mm.jpg": 15.99,
+  "images/ammunition/10mm/10mm.jpg": 29.99,
+  "images/ammunition/45ACP/45ACP.jpg": 24.99,
+  "images/ammunition/380ACP/380ACP.jpg": 21.99,
+  "images/ammunition/556/556-1.jpg": 12.99,
+  "images/ammunition/308/308.jpg": 27.99,
+  "images/ammunition/12Gauge/12GaugeShells.jpg": 12.49
 };

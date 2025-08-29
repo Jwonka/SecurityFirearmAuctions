@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- Helper: wire a single category card to rotate through its sub-categories ---
-  function wireRotator(cardKey, pool, order, labelPrefix, intervalMs = 5000) {
+   function wireRotator(cardKey, pool, order, labelPrefix, intervalMs = 5000) {
     const card  = document.querySelector(`.categoryCard[data-category="${cardKey}"]`);
     const media = card?.querySelector('.productMedia');
     if (!card || !media) return;
@@ -68,79 +68,61 @@ document.addEventListener('DOMContentLoaded', () => {
     let img = media.querySelector('img');
     if (!img) {
       img = document.createElement('img');
-      img.className = 'active';
-      img.decoding = 'async';
       media.appendChild(img);
-    } else {
-      [...media.querySelectorAll('img')].forEach((el, i) => { if (i > 0) el.remove(); });
-      img.classList.add('active');
     }
+    [...media.querySelectorAll('img')].forEach((el, i) => { if (i > 0) el.remove(); });
+    img.classList.add('active');  
+    img.decoding = 'async';
+    img.loading  = 'eager';
+    img.style.opacity = 1;
 
-    const Cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-    const listFor = cat => (pool[cat] || []).slice(); // copy
+    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+    const pick = cat => {
+      const list = pool[cat] || [];
+      return list.length ? list[Math.floor(Math.random() * list.length)] : null;
+    };
 
-    // Try a queue of sources until one loads
-    function loadFirstGood(queue) {
-      let i = 0;
-      const tryNext = () => {
-        if (i >= queue.length) return; // give up silently
-        const {src, cat} = queue[i++];
-        img.onload  = () => { img.alt = `${labelPrefix} — ${Cap(cat)}`; };
-        img.onerror = tryNext;
-        img.src = src;
-      };
-      tryNext();
-    }
-
-    // Build a first-try queue: go category by category, in order
+    // Show a first frame immediately
+    let k = 0;
     (function showFirst() {
-      const queue = [];
-      for (const cat of order) for (const src of listFor(cat)) queue.push({src, cat});
-      loadFirstGood(queue);
+      for (let i = 0; i < order.length; i++) {
+        const cat = order[(k + i) % order.length];
+        const src = pick(cat);
+        if (src) {
+          img.src = src;
+          img.alt = `${labelPrefix} — ${cap(cat)}`;
+          k = (k + i) % order.length;
+          break;
+        }
+      }
     })();
 
-    // Swap within a category, with fallback through its list
+    // Crossfade to a category
     function swapTo(cat) {
-      const sources = listFor(cat);
-      if (!sources.length) return;
-      let i = 0;
-
+      const src = pick(cat);
+      if (!src) return;
       const pre = new Image();
-      const step = () => {
-        if (i >= sources.length) return; // nothing worked
-        const src = sources[i++];
-        pre.onload = () => {
-          img.style.transition = 'opacity .25s ease';
-          img.style.opacity = 0;
-          setTimeout(() => {
-            img.src = src;
-            img.alt = `${labelPrefix} — ${Cap(cat)}`;
-            img.style.opacity = 1;
-          }, 120);
-        };
-        pre.onerror = step;
-        pre.src = src;
+      pre.onload = () => {
+        img.style.transition = 'opacity .25s ease';
+        img.style.opacity = 0;
+        setTimeout(() => {
+          img.src = src;
+          img.alt = `${labelPrefix} — ${cap(cat)}`;
+          img.style.opacity = 1;
+        }, 120);
       };
-      step();
+      pre.src = src;
     }
 
-    // Timer logic
-    let k = 0, timer = null;
+    // Timer
+    let timer = null;
     function step() { k = (k + 1) % order.length; swapTo(order[k]); }
     function start(){ stop(); timer = setInterval(step, intervalMs); }
     function stop(){ if (timer) { clearInterval(timer); timer = null; } }
 
     // Controls + hover
-    card.querySelector('.prev')?.addEventListener('click', e => {
-      e.preventDefault(); stop();
-      k = (k - 1 + order.length) % order.length;
-      swapTo(order[k]); start();
-    });
-    card.querySelector('.next')?.addEventListener('click', e => {
-      e.preventDefault(); stop();
-      k = (k + 1) % order.length;
-      swapTo(order[k]); start();
-    });
+    card.querySelector('.prev')?.addEventListener('click', e => { e.preventDefault(); stop(); k = (k - 1 + order.length) % order.length; swapTo(order[k]); start(); });
+    card.querySelector('.next')?.addEventListener('click', e => { e.preventDefault(); stop(); k = (k + 1) % order.length;           swapTo(order[k]); start(); });
     card.addEventListener('mouseenter', stop);
     card.addEventListener('mouseleave', start);
 

@@ -13,8 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: 'Condition: Very Good • 4" barrel • 6-rd cylinder • Includes soft case.',
             images: [
               'images/guns/revolvers/38Special-001.jpg',
-              'images/guns/revolvers/38Special-002.jpg',
-              'images/guns/revolvers/38Special-003.jpg'
+              'images/guns/revolvers/38Special-002.jpg'
             ]
           },
           {

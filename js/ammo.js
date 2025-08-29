@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGrid('shotgunAmmoGrid', ammoCatalog.shotgun);
 
   document.getElementById('restockDemo')?.addEventListener('click', () => {
-    const ids =  
+    const ids = [
       ...ammoCatalog.handgun.map(i => i.images[0]),
       ...ammoCatalog.rifle.map(i => i.images[0]),
       ...ammoCatalog.shotgun.map(i => i.images[0]),

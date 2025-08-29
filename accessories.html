@@ -56,52 +56,30 @@
           <div id="searchMsg" class="searchMsg" aria-live="polite"></div>
         </section>
         <section class="content">
-          <h2 style="text-align:center;">Retail</h2>
+          <h2 style="text-align:center;">Accessories</h2>
+          <p style="text-align:center;margin-top:.5rem;opacity:.85;">
+            <a href="#optics">Optics</a> ·
+            <a href="#cases">Cases</a> ·
+            <a href="#misc">Misc</a>
+          </p>
        </section>
-       <section class="productGrid" id="products">
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Accessory</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-        
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Accessory</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-        
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Accessory</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
+       <section id="accessories-sections">
+          <h3 id="optics" class="categoryTitle">Optics</h3>
+          <div class="productGrid" id="opticsGrid" data-category="optics"></div>
+
+          <h3 id="cases" class="categoryTitle">Cases</h3>
+          <div class="productGrid" id="casesGrid" data-category="cases"></div>
+
+          <h3 id="misc" class="categoryTitle">Misc</h3>
+          <div class="productGrid" id="miscGrid" data-category="misc"></div>
+
+          <noscript>
+            <p style="text-align:center;opacity:.75;margin-top:1rem;">Enable JavaScript to see products.</p>
+          </noscript>
         </section>
+
         <div class="content" style="text-align:center;margin-bottom:1rem;">
-          <button id="restockDemo" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;">
-            Restock (demo)
-          </button>
+          <button id="restockDemo" class="button" style="display:inline-block;width:auto;padding:.5rem 1rem;">Restock (demo)</button>
         </div>
       </main>
       <footer>

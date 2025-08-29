@@ -781,18 +781,18 @@ div.desc a:hover {
 }
 
 .productGrid.fixedPair.pair {
-  grid-template-columns: repeat(2, minmax(270px, calc((100% - 2*var(--grid-gap)) / 3)));
-  justify-content: center;
-}
-
-.productGrid.fixedPair.single {
-  grid-template-columns: minmax(550px, 600px);
+  grid-template-columns: repeat(2, minmax(380px, 380px));
   justify-content: center;
 }
 
 .productGrid.fixedPair .productCard {
-  max-width: 600px;
+  max-width: 380px;
   margin: 0 auto;
+}
+
+.productGrid.fixedPair.single {
+  grid-template-columns: repeat(1, minmax(580px, 580px));
+  justify-content: center;
 }
 
 /* image area */

@@ -906,6 +906,8 @@ div.desc a:hover {
   padding:.75rem 0;
 }
 
+.categoryCard .cardLink { display:block; width:100%; }
+
 footer {
   width: 100%;
   background-color: lightgrey;

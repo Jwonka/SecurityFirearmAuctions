@@ -69,30 +69,43 @@ document.addEventListener('DOMContentLoaded', () => {
     return n;
   }
 
-  function makeCard({ caliber, images }){
+  function makeCard({ caliber, images }) {
     const brand = brandFor(caliber);
     const name  = `${brand} ${caliber}`;
     const id    = images[0]; // use first image as stable id
-
+  
     const article = el('article', { class: 'productCard', dataset: { name: name.toLowerCase() } });
-
-    // media (allow auto-rotate if multiple imgs exist)
+  
+    // --- media (multiple images so retail-media.js can rotate) ---
     const media = el('div', { class: 'productMedia' });
-    images.forEach((src,i) => media.append(el('img', { src, alt: name, class: i===0 ? 'active' : '' })));
-    article.append(media);
-
-    // body
+    images.forEach((src, i) => {
+      media.append(el('img', { src, alt: name, class: i === 0 ? 'active' : '' }));
+    });
+  
+    // centered arrows UNDER the image, only if 2+ images exist
+    let controls = null;
+    if (images.length > 1) {
+      controls = el('div', { class: 'productControls' },
+        el('button', { class: 'arrowBtn prev', 'aria-label': 'Previous image' }, '◀'),
+        el('button', { class: 'arrowBtn next', 'aria-label': 'Next image' }, '▶')
+      );
+    }
+  
+    // --- body ---
     const body   = el('div', { class: 'productBody' });
     const h4     = el('h4', {}, name);
     const desc   = el('p', { class:'desc' }, specFor(caliber));
     const price  = el('div', { class:'price' }, priceFor(id));
     const stock  = el('div', { class:'stock' });
     const btn    = el('button', { class:'button' }, 'Add to Cart');
-
+  
     body.append(h4, desc, price, stock, btn);
+  
+    // final order: media → controls → body
+    article.append(media);
+    if (controls) article.append(controls);
     article.append(body);
-
-    // availability UI
+  
     function applyAvailability(){
       const onHand = window.inventory?.get?.(id) ?? 0;
       stock.textContent = `In stock: ${onHand}`;
@@ -101,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     applyAvailability();
     article.__applyAvailability = applyAvailability;
-
+  
     // add-to-cart
     btn.addEventListener('click', () => {
       const priceNum = (window.pricesByPath && typeof window.pricesByPath[id] === 'number') ? window.pricesByPath[id] : 0;
@@ -112,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { if (!btn.disabled) btn.textContent = 'Add to Cart'; }, 900);
       }
     });
-
+  
     return article;
   }
 

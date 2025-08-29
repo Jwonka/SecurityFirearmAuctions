@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // auto-advance + pause on hover (products + index hero)
   document.querySelectorAll('.productMedia, .bigImage .imageContainer').forEach(media => {
+    if (media.closest('.categoryCard')) return;
     const imgs = media.querySelectorAll('img');
     if (imgs.length <= 1) return;                  // rotate only if 2+ images
     if (![...imgs].some(i => i.classList.contains('active'))) {

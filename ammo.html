@@ -57,46 +57,27 @@
         </section>
         <section class="content">
           <h2 style="text-align:center;">Ammunition</h2>
+          <p style="text-align:center;margin-top:.5rem;opacity:.85;">
+            <a href="#handgun-ammo">Handgun</a> ·
+            <a href="#rifle-ammo">Rifle</a> ·
+            <a href="#shotgun-ammo">Shotgun</a>
+          </p>
          </section>
         <section class="productGrid" id="products">
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Ammo</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-        
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Ammo</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
-        
-          <article class="productCard">
-            <div class="productMedia">
-              <img class="active" alt="Placeholder"
-                   src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%25' height='100%25' fill='%23222'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='22'>Product image will appear here</text></svg>">
-            </div>
-            <div class="productBody">
-              <h3>Sample Ammo</h3>
-              <p>Specs and details will load with the catalog.</p>
-              <div class="price">$0.00</div>
-              <button class="button">Add to Cart</button>
-            </div>
-          </article>
+          <h3 id="handgun-ammo" class="categoryTitle">Handgun Ammo</h3>
+          <div class="productGrid" id="handgunAmmoGrid" data-category="handgun"></div>
+          
+          <h3 id="rifle-ammo" class="categoryTitle">Rifle Ammo</h3>
+          <div class="productGrid" id="rifleAmmoGrid" data-category="rifle"></div>
+          
+          <h3 id="shotgun-ammo" class="categoryTitle">Shotgun Shells</h3>
+          <div class="productGrid" id="shotgunAmmoGrid" data-category="shotgun"></div>
+          
+          <noscript>
+            <p style="text-align:center;opacity:.75;margin-top:1rem;">
+              Enable JavaScript to see products.
+            </p>
+          </noscript>
         </section>
       </main>
       <footer>
@@ -123,6 +104,10 @@
       <script src="./js/auth.js"></script>
       <script src="./js/logout.js"></script>
       <script src="./js/index-search.js" defer></script>
+      <script src="./js/inventory.js"></script>
+      <script src="./js/cart.js"></script>
+      <script src="./js/prices.js"></script>
+      <script src="./js/ammo-page.js" defer></script>
       <script src="./js/retail-media.js" defer></script>
       <script>
         document.getElementById('year').textContent = new Date().getFullYear();

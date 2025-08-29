@@ -780,6 +780,15 @@ div.desc a:hover {
   align-items: center;
 }
 
+.productGrid.fixedCards {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+  justify-content: center;
+}
+.productGrid.fixedCards .productCard {
+  max-width: 320px;
+  margin: 0 auto;  
+}
+
 /* image area */
 .productMedia{
   position: relative;

@@ -894,6 +894,13 @@ div.desc a:hover {
   text-align: center;
 }
 
+.leftStack { 
+  display:flex; 
+  flex-direction:column; 
+  gap:1rem; 
+  min-width:0; 
+}
+
 footer {
   width: 100%;
   background-color: lightgrey;

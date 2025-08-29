@@ -271,9 +271,29 @@ document.addEventListener('DOMContentLoaded', () => {
   Object.entries(grids).forEach(([cat, grid]) => {
     if (!grid) return;
     const list = gunsCatalog[cat] || [];
+    grid.innerHTML = '';
+  
+    if (!list.length) {
+      const labelMap = {
+        handguns: 'handguns',
+        revolvers: 'revolvers',
+        rifles: 'rifles',
+        shotguns: 'shotguns',
+        handgun: 'handgun ammo',
+        rifle: 'rifle ammo',
+        shotgun: 'shotgun shells'
+      };
+      const label = labelMap[grid.dataset.category] || 'items';
+      const p = document.createElement('p');
+      p.className = 'emptyMsg';
+      p.textContent = `No ${label} available right now.`;
+      grid.appendChild(p);
+      return;
+    }
+  
     const frag = document.createDocumentFragment();
     list.forEach(src => frag.appendChild(createCard(src, cat)));
-    grid.innerHTML = ''; grid.appendChild(frag);
+    grid.appendChild(frag);
   });
 
   // Refresh availability when coming back, storage changes, or tab visible

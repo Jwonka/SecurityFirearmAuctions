@@ -51,26 +51,34 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     past: [
       {
-        title: 'Rimfire Showcase — June 2025',
-        meta: 'Date: Jun 14, 2025 • Location: Eau Claire, WI • Status: Closed',
-        highlights: 'Top lots: Ruger Mark IV and Ruger 10/22',
+        title: 'Rifles & Shotguns — July 2025',
+        meta: 'Date: Jul 10, 2025 • Location: Online • Status: Closed',
+        highlights: 'Modern AR platform and a classic field shotgun',
         lots: [
           {
-            manufacturer: 'Ruger', model: 'Mark IV',
-            title: 'Lot 4 — Ruger Mark IV (.22 LR)',
-            desc: 'Condition: Excellent • Target barrel • Includes 2 mags & case.',
-            images: ['images/rugerMarkIV-1.jpg','images/rugerMarkIV-2.jpg','images/rugerMarkIV-3.jpg']
+            manufacturer: 'Barrett',
+            model: 'REC7',
+            title: 'Lot P1 — Barrett REC7 (AR-15 platform)',
+            desc: 'Condition: Very Good • Flat-top receiver • M-LOK handguard.',
+            images: ['images/guns/rifles/Barret-AR15-001.jpg',
+              'images/guns/handguns/Barrett-AR15-002.jpg',
+              'images/guns/handguns/Barrett-AR15-002.jpg'
+            ]
           },
           {
-            manufacturer: 'Ruger', model: '10/22',
-            title: 'Lot 9 — Ruger 10/22 (.22 LR)',
-            desc: 'Condition: Very Good • Semi-auto • 10-rd rotary mag • Clean bore.',
-            images: ['images/ruger-1.jpg','images/ruger-2.jpg','images/ruger-3.jpg']
+            manufacturer: 'Browning',
+            model: 'A5',
+            title: 'Lot P2 — Browning A5 (12 Gauge)',
+            desc: 'Condition: Good • Inertia-operated • Classic humpback profile.',
+            images: ['images/guns/shotguns/Browning12Ga-001.jpg',
+              'images/guns/handguns/Browning12Ga-002.jpg',
+              'images/guns/handguns/Browning12Ga-003.jpg'
+            ]
           }
         ]
       }
     ],
-    future: [
+    upcoming: [
       {
         title: 'Ammunition Sale — February 2026',
         meta: 'Date: Sep 15, 2025 • Location: Online • Status: Live',
@@ -156,6 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderSection('current', auctionsData.current || []);
+  renderSection('upcoming', auctionsData.upcoming || []);
   renderSection('past', auctionsData.past || []);
-  renderSection('future', auctionsData.future || []);
 });

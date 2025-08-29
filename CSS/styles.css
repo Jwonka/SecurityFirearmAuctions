@@ -780,13 +780,19 @@ div.desc a:hover {
   align-items: center;
 }
 
-.productGrid.fixedCards {
+.productGrid.fixedPair.pair {
   grid-template-columns: repeat(2, minmax(270px, calc((100% - 2*var(--grid-gap)) / 3)));
   justify-content: center;
 }
-.productGrid.fixedCards .productCard {
-  max-width: 570px;
-  margin: 0 auto;  
+
+.productGrid.fixedPair.single {
+  grid-template-columns: minmax(550px, 600px);
+  justify-content: center;
+}
+
+.productGrid.fixedPair .productCard {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* image area */

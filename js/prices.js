@@ -30,5 +30,18 @@ window.pricesByPath = {
   "images/ammunition/380ACP/380ACP.jpg": 21.99,
   "images/ammunition/556/556-1.jpg": 12.99,
   "images/ammunition/308/308.jpg": 27.99,
-  "images/ammunition/12Gauge/12GaugeShells.jpg": 12.49
+  "images/ammunition/12Gauge/12GaugeShells.jpg": 12.49,
+
+  // ----- Accessories (Optics) -----
+  "images/accessories/optics/springfield-scope-001.jpg": 199.99,
+  "images/accessories/optics/rifle-scope-001.jpg":        149.99,
+  "images/accessories/optics/winchester-scope-001.jpg":   169.99,
+
+  // ----- Accessories (Cases) -----
+  "images/accessories/cases/handgun-case-001.jpg": 39.99,
+  "images/accessories/cases/winchester-case.jpg":   59.99, 
+
+  // ----- Accessories (Misc)
+  "images/accessories/misc/springfield-sling-001.jpg":     24.99,
+  "images/accessories/misc/smith-wesson-stock-001.jpg":    79.99
 };

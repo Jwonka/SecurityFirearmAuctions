@@ -780,15 +780,17 @@ div.desc a:hover {
   align-items: center;
 }
 
-.productGrid.fixedPair {
-  grid-template-columns: repeat(2, 570px);
+.productGrid.uniform {
+  grid-template-columns: repeat(auto-fit, minmax(285px, 285px));
   justify-content: center;
-  gap: 1.25rem;
 }
 
-.productGrid.fixedPair.one {
-  grid-template-columns: 570px;
-  justify-content: center;
+.productGrid.uniform .productCard { width: 100%; max-width: 285px; margin: 0 auto; }
+.productGrid.uniform .productMedia img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;   
+  object-fit: cover;
 }
 
 /* image area */
@@ -805,7 +807,8 @@ div.desc a:hover {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0; transition: opacity .25s ease-in-out;
+  opacity: 0; 
+  transition: opacity .35s ease;
 }
 
 .productMedia img.active{ opacity: 1; }
@@ -877,7 +880,8 @@ div.desc a:hover {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0; transition: opacity .25s ease;
+  opacity: 0; 
+  transition: opacity .35s ease;
 }
 
 .lotMedia img.active{ opacity: 1; }

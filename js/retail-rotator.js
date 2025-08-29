@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   };
 
+  window.retailPools = { guns: gunsPool, ammo: ammoPool, accessories: accessoriesPool };
+
   // --- Helper: wire a single category card to rotate through its sub-categories ---
    function wireRotator(cardKey, pool, order, labelPrefix, intervalMs = 5000) {
     const card  = document.querySelector(`.categoryCard[data-category="${cardKey}"]`);

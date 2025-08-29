@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Helper: wire a single category card to rotate through its sub-categories ---
   function wireRotator(cardKey, pool, order, labelPrefix, intervalMs = 5000) {
-   const card  = document.querySelector(`.categoryCard[data-category="${cardKey}"]`);
+    const card  = document.querySelector(`.categoryCard[data-category="${cardKey}"]`);
     const media = card?.querySelector('.productMedia');
     if (!card || !media) return;
 
@@ -68,66 +68,85 @@ document.addEventListener('DOMContentLoaded', () => {
     let img = media.querySelector('img');
     if (!img) {
       img = document.createElement('img');
+      img.className = 'active';
+      img.decoding = 'async';
       media.appendChild(img);
+    } else {
+      [...media.querySelectorAll('img')].forEach((el, i) => { if (i > 0) el.remove(); });
+      img.classList.add('active');
     }
-    [...media.querySelectorAll('img')].forEach((el, i) => { if (i > 0) el.remove(); });
-    img.classList.add('active');           // your CSS fades .active to 1
-    img.decoding = 'async';
-    img.loading  = 'eager';
-    img.style.opacity = 1;
 
-    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-    const pick = cat => {
-      const list = pool[cat] || [];
-      return list.length ? list[Math.floor(Math.random() * list.length)] : null;
-    };
+    const Cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+    const listFor = cat => (pool[cat] || []).slice(); // copy
 
-    // Show a first frame immediately (no waiting)
-    let k = 0;
+    // Try a queue of sources until one loads
+    function loadFirstGood(queue) {
+      let i = 0;
+      const tryNext = () => {
+        if (i >= queue.length) return; // give up silently
+        const {src, cat} = queue[i++];
+        img.onload  = () => { img.alt = `${labelPrefix} — ${Cap(cat)}`; };
+        img.onerror = tryNext;
+        img.src = src;
+      };
+      tryNext();
+    }
+
+    // Build a first-try queue: go category by category, in order
     (function showFirst() {
-      for (let i = 0; i < order.length; i++) {
-        const cat = order[(k + i) % order.length];
-        const src = pick(cat);
-        if (src) {
-          img.src = src;
-          img.alt = `${labelPrefix} — ${cap(cat)}`;
-          k = (k + i) % order.length;
-          break;
-        }
-      }
+      const queue = [];
+      for (const cat of order) for (const src of listFor(cat)) queue.push({src, cat});
+      loadFirstGood(queue);
     })();
 
-    // Crossfade to a category
+    // Swap within a category, with fallback through its list
     function swapTo(cat) {
-      const src = pick(cat);
-      if (!src) return;
+      const sources = listFor(cat);
+      if (!sources.length) return;
+      let i = 0;
+
       const pre = new Image();
-      pre.onload = () => {
-        img.style.transition = 'opacity .25s ease';
-        img.style.opacity = 0;
-        setTimeout(() => {
-          img.src = src;
-          img.alt = `${labelPrefix} — ${cap(cat)}`;
-          img.style.opacity = 1;
-        }, 120);
+      const step = () => {
+        if (i >= sources.length) return; // nothing worked
+        const src = sources[i++];
+        pre.onload = () => {
+          img.style.transition = 'opacity .25s ease';
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = src;
+            img.alt = `${labelPrefix} — ${Cap(cat)}`;
+            img.style.opacity = 1;
+          }, 120);
+        };
+        pre.onerror = step;
+        pre.src = src;
       };
-      pre.src = src;
+      step();
     }
 
-    // Timer
-    let timer = null;
+    // Timer logic
+    let k = 0, timer = null;
     function step() { k = (k + 1) % order.length; swapTo(order[k]); }
     function start(){ stop(); timer = setInterval(step, intervalMs); }
     function stop(){ if (timer) { clearInterval(timer); timer = null; } }
 
     // Controls + hover
-    card.querySelector('.prev')?.addEventListener('click', e => { e.preventDefault(); stop(); k = (k - 1 + order.length) % order.length; swapTo(order[k]); start(); });
-    card.querySelector('.next')?.addEventListener('click', e => { e.preventDefault(); stop(); k = (k + 1) % order.length;           swapTo(order[k]); start(); });
+    card.querySelector('.prev')?.addEventListener('click', e => {
+      e.preventDefault(); stop();
+      k = (k - 1 + order.length) % order.length;
+      swapTo(order[k]); start();
+    });
+    card.querySelector('.next')?.addEventListener('click', e => {
+      e.preventDefault(); stop();
+      k = (k + 1) % order.length;
+      swapTo(order[k]); start();
+    });
     card.addEventListener('mouseenter', stop);
     card.addEventListener('mouseleave', start);
 
     start();
   }
+  
   // --- Wire all three cards ---
   wireRotator('guns', gunsPool, ['handguns','revolvers','rifles','shotguns'], 'Guns');
   wireRotator('ammo', ammoPool, ['handgun','rifle','shotgun'], 'Ammo');

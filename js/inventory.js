@@ -22,6 +22,8 @@
   function restockTo(ids, qty){ ids.forEach(id => set(id, qty)); }
   function clear(){ map.clear(); save(map); }
   function all(){ return new Map(map); }
-
-  window.inventory = { get, set, decrement, ensure, restockRandom, restockTo, clear, all };
+  function restockAll(min=2, max=6){
+    restockRandom([...map.keys()], min, max);
+  }
+  window.inventory = { get, set, decrement, ensure, restockRandom, restockTo, clear, all, restockAll };
 })();

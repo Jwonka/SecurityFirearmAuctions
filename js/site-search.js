@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/\b(sling|stock|stocks|stocking|stocked|clean|cleaning|holster|mag|magazine|magazines|bipod)\b/.test(s)) return 'misc';
     return null;
   }
+  
   function revealAccessory(section){
     const grid = document.getElementById(`${section}Grid`);
     if (!grid) return false;
@@ -253,13 +254,15 @@ document.addEventListener('DOMContentLoaded', () => {
       updateSectionVisibility();
       return 1;
     }
+    
     if (pool.length > 1) {
       cards.forEach(c => {
         const hay = norm(`${getName(c)} ${getDesc(c)}`);
-        const hit = hay.includes(qn);
+        const hit = (scope && scope.id === 'opticsGrid' && opticsQuery) ? hayHasOpticWords(hay) : hay.includes(qn);
         c.style.display = hit ? '' : 'none';
         c.classList.toggle('search-hit', hit);
       });
+      
       if (msg) msg.textContent = `Found ${pool.length} products.`;
       updateSectionVisibility();
       return pool.length;

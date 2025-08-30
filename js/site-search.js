@@ -24,6 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const fixTypos = qn => qn.split(' ').map(w => TYPO[w] || w).join(' ');
   const tokensFrom = q => fixTypos(norm(q)).split(' ').filter(t => t && !STOP.has(t));
 
+  // Build URL with ?q= BEFORE any #hash (correct order)
+  function withQueryBeforeHash(url, q){
+    const [base, hash] = url.split('#');
+    return `${base}?q=${encodeURIComponent(q)}${hash ? '#' + hash : ''}`;
+  }
+
+  // Read q from either ?q=... or from the hash (e.g., #handgun-ammo?q=9mm or #q=9mm)
+  function getIncomingQuery(){
+    const qs = new URLSearchParams(location.search).get('q');
+    if (qs) return qs;
+    const h  = location.hash.startsWith('#') ? location.hash.slice(1) : location.hash;
+    if (!h) return null;
+    // patterns: "section?q=term" or "q=term"
+    const parts = h.split('?');
+    if (parts.length > 1) {
+      const fromHashQuery = new URLSearchParams(parts[1]).get('q');
+      if (fromHashQuery) return fromHashQuery;
+    }
+    const m = h.match(/(?:^|[?&])q=([^&]+)/i);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
   // ---------- Global search index ----------
   let SEARCH_INDEX = null;
   async function loadIndex(){
@@ -109,27 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  function revealAmmoBucket(bucket){
-    const idMap    = { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' };
-    const titleMap = { handgun:'handgun-ammo',    rifle:'rifle-ammo',    shotgun:'shotgun-ammo'    };
-    const grid = document.getElementById(idMap[bucket]);
-    if (!grid) return false;
-    document.querySelectorAll('.productGrid').forEach(g => g.style.display = 'none');
-    document.querySelectorAll('.categoryTitle').forEach(t => t.style.display = 'none');
-    grid.style.display = '';
-    const titleEl = document.getElementById(titleMap[bucket]);
-    if (titleEl) titleEl.style.display = '';
-    grid.scrollIntoView({ behavior:'smooth', block:'start' });
-    return true;
-  }
-
-  // NEW: Accessories helpers
+  // Accessories helpers
   function accessorySectionFrom(q){
     const s = norm(fixTypos(q));
     if (/\b(scope|scopes|optic|optics|sight|sights|red dot|holo|holographic)\b/.test(s)) return 'optics';
     if (/\b(case|cases)\b/.test(s)) return 'cases';
-    // fall back to misc for common accessory words
-    if (/\b(sling|stock|bipod|clean|cleaning|holster|mag|magazine|magazines)\b/.test(s)) return 'misc';
+    if (/\b(sling|stock|stocks|stocking|stocked|clean|cleaning|holster|mag|magazine|magazines|bipod)\b/.test(s)) return 'misc';
     return null;
   }
   function revealAccessory(section){
@@ -185,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Card-level filter
     const grids = [...document.querySelectorAll('.productGrid')];
     const visibleGrids = grids.filter(g => getComputedStyle(g).display !== 'none');
-    // IMPORTANT: if multiple grids are visible, search ALL of them; if exactly one is visible, search only that one
+    // IMPORTANT: if multiple grids are visible, search ALL; if exactly one is visible, search only that one
     const scope = (visibleGrids.length === 1) ? visibleGrids[0] : document;
 
     const cards = [...scope.querySelectorAll('.productCard:not(.categoryCard), .gallery')];
@@ -216,9 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return 0;
   }
 
-  // ---------- Apply ?q= after redirect (wait until cards exist) ----------
+  // ---------- Apply q after redirect (wait until cards exist) ----------
   (async () => {
-    const qParam = new URLSearchParams(location.search).get('q');
+    const qParam = getIncomingQuery();
     if (!qParam) return;
     input.value = qParam;
 
@@ -301,10 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3) Global index — retail first, then auctions (weighted)
     const retail  = await findRetailBest(qTokens);
-    if (retail)  { location.href = `${retail.url}?q=${encodeURIComponent(q)}`; return; }
+    if (retail)  { location.href = withQueryBeforeHash(retail.url, q); return; } 
 
     const auction = await findAuctionBest(qTokens);
-    if (auction) { location.href = `${auction.url}?q=${encodeURIComponent(q)}`; return; }
+    if (auction) { location.href = withQueryBeforeHash(auction.url, q); return; }
 
     if (msg) msg.textContent = 'No matches found in retail or auctions.';
   });

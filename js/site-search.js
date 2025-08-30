@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  // NEW: revealAmmoBucket WAS MISSING — add it back so Ammo can scope correctly
   function revealAmmoBucket(bucket){
     const idMap    = { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' };
     const titleMap = { handgun:'handgun-ammo',    rifle:'rifle-ammo',    shotgun:'shotgun-ammo'    };
@@ -179,18 +178,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function hayHasOpticWords(hay){
+    return hay.includes('scope') || hay.includes('scopes') ||
+           hay.includes('optic') || hay.includes('optics') ||
+           hay.includes('sight') || hay.includes('sights') ||
+           hay.includes('holo') || hay.includes('holographic') ||
+           hay.includes('reflex') ||
+           hay.includes('red dot') || (hay.includes('red') && hay.includes('dot'));
+  }
+
   // ---------- Local retail filter (works inside visible section) ----------
   function runLocalRetailSearch(q) {
     const qn   = norm(fixTypos(q));
     const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const qTokens = tokensFrom(q);
+    const opticsQuery = qTokens.some(t => OPTICS_HINTS.has(t)) || qn.includes('scope');
 
-    // Track the grid we intentionally revealed so we can force scope to it
+    // Track the grid to force scope to it
     let forcedScopeGrid = null;
 
     // Category / bucket / section reveals first (bail only for pure category words)
-    const pureGunCat      = /^(handgun|handguns|pistol|pistols|revolver|revolvers|rifle|rifles|shotgun|shotguns)$/.test(qn);
-    const pureAmmoBucket  = /^(handgun ammo|rifle ammo|shotgun ammo)$/.test(qn);
-    const pureAccessory   = /^(optics|cases|misc)$/.test(qn);
+    const pureGunCat = /^(handgun|handguns|pistol|pistols|revolver|revolvers|rifle|rifles|shotgun|shotguns)$/.test(qn);
+    const pureAmmoBucket = /^(handgun ammo|rifle ammo|shotgun ammo)$/.test(qn);
+    const pureAccessory = /^(optics|cases|misc)$/.test(qn);
 
     if (page === 'guns.html') {
       const cat = categoryFrom(q);
@@ -222,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grids = [...document.querySelectorAll('.productGrid')];
     const visibleGrids = grids.filter(g => getComputedStyle(g).display !== 'none');
 
-    // IMPORTANT: If we purposely revealed a section, force the filter to that grid.
+    // IMPORTANT: If a section is revealed, force the filter to that grid.
     // Else, if exactly one grid is visible, use it; otherwise search all.
     const scope = forcedScopeGrid || (visibleGrids.length === 1 ? visibleGrids[0] : document);
 
@@ -232,6 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const exact = cards.filter(c => norm(getName(c)) === qn);
     const pool  = exact.length ? exact : cards.filter(c => {
       const hay = norm(`${getName(c)} ${getDesc(c)}`);
+      if (scope && scope.id === 'opticsGrid' && opticsQuery) {
+        return hayHasOpticWords(hay);
+      }
       return hay.includes(qn);
     });
 

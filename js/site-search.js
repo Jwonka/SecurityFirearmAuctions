@@ -123,10 +123,31 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
+  // NEW: Accessories helpers
+  function accessorySectionFrom(q){
+    const s = norm(fixTypos(q));
+    if (/\b(scope|scopes|optic|optics|sight|sights|red dot|holo|holographic)\b/.test(s)) return 'optics';
+    if (/\b(case|cases)\b/.test(s)) return 'cases';
+    // fall back to misc for common accessory words
+    if (/\b(sling|stock|bipod|clean|cleaning|holster|mag|magazine|magazines)\b/.test(s)) return 'misc';
+    return null;
+  }
+  function revealAccessory(section){
+    const grid = document.getElementById(`${section}Grid`);
+    if (!grid) return false;
+    document.querySelectorAll('.productGrid').forEach(g => g.style.display = 'none');
+    document.querySelectorAll('.categoryTitle').forEach(t => t.style.display = 'none');
+    grid.style.display = '';
+    const title = document.getElementById(section);
+    if (title) title.style.display = '';
+    grid.scrollIntoView({ behavior:'smooth', block:'start' });
+    return true;
+  }
+
   function updateSectionVisibility() {
     // Hide headings/grids that no longer have any visible cards
     document.querySelectorAll('.categoryTitle').forEach(title => {
-      const id = title.id; // e.g., 'handgun-ammo', 'rifle-ammo', 'handguns'
+      const id = title.id; // e.g., 'handgun-ammo', 'rifle-ammo', 'handguns', 'cases'
       const grid =
         document.querySelector(`#${id}Grid`) ||
         document.querySelector(`.productGrid[data-category="${id.replace('-ammo','')}"]`) ||
@@ -143,9 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const qn   = norm(fixTypos(q));
     const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
-    // Category / bucket jumps first (but don't bail unless it's a pure category query)
-    const pureGunCat     = /^(handgun|handguns|pistol|pistols|revolver|revolvers|rifle|rifles|shotgun|shotguns)$/.test(qn);
-    const pureAmmoBucket = /^(handgun ammo|rifle ammo|shotgun ammo)$/.test(qn);
+    // Category / bucket / section reveals first (but only bail for pure category words)
+    const pureGunCat      = /^(handgun|handguns|pistol|pistols|revolver|revolvers|rifle|rifles|shotgun|shotguns)$/.test(qn);
+    const pureAmmoBucket  = /^(handgun ammo|rifle ammo|shotgun ammo)$/.test(qn);
+    const pureAccessory   = /^(optics|cases|misc)$/.test(qn);
 
     if (page === 'guns.html') {
       const cat = categoryFrom(q);
@@ -155,10 +177,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const bucket = ammoBucketFrom(q);
       if (bucket && revealAmmoBucket(bucket) && pureAmmoBucket) return Infinity;
     }
+    if (page === 'accessories.html') {
+      const section = accessorySectionFrom(q) || (location.hash ? location.hash.replace('#','') : null);
+      if (section && revealAccessory(section) && pureAccessory) return Infinity;
+    }
 
-    // Card-level filter (only within the currently visible grid, if any)
-    const visibleGrid = [...document.querySelectorAll('.productGrid')].find(g => getComputedStyle(g).display !== 'none');
-    const scope = visibleGrid || document;
+    // Card-level filter
+    const grids = [...document.querySelectorAll('.productGrid')];
+    const visibleGrids = grids.filter(g => getComputedStyle(g).display !== 'none');
+    // IMPORTANT: if multiple grids are visible, search ALL of them; if exactly one is visible, search only that one
+    const scope = (visibleGrids.length === 1) ? visibleGrids[0] : document;
 
     const cards = [...scope.querySelectorAll('.productCard:not(.categoryCard), .gallery')];
     if (!cards.length) return 0;

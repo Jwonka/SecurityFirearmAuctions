@@ -131,15 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/\b(9mm|9x19|10mm|40|45|acp|380|357|38|44|luger|handgun|pistol)\b/.test(s)) return 'handgun';
     return null;
   }
+ 
   function revealAmmoBucket(bucket){
     const idMap    = { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' };
     const titleMap = { handgun:'handgun-ammo',    rifle:'rifle-ammo',    shotgun:'shotgun-ammo'    };
     const grid = document.getElementById(idMap[bucket]);
     if (!grid) return false;
+  
     document.querySelectorAll('.productGrid').forEach(g => g.style.display = 'none');
     document.querySelectorAll('.categoryTitle').forEach(t => t.style.display = 'none');
+  
     grid.style.display = '';
-    document.getElementById(titleMap[bucket])?.style.display = '';
+    const titleEl = document.getElementById(titleMap[bucket]);
+    if (titleEl) titleEl.style.display = '';
+  
     grid.scrollIntoView({ behavior:'smooth', block:'start' });
     return true;
   }

@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return SEARCH_INDEX;
   }
+  
   const hayIndex = (o) => (o.name + ' ' + (o.tokens || []).join(' ')).toLowerCase();
 
   // Weighted scoring so "rifle scope" prefers optics, not ammo.
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return boost;
   }
+  
   function bestMatch(list, qTokens){
     let best = null, bestScore = -1;
     for (const item of list){
@@ -86,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return bestScore > 0 ? best : null;
   }
+  
   const findRetailBest  = async (qTokens) => bestMatch((await loadIndex()).retail,  qTokens);
   const findAuctionBest = async (qTokens) => bestMatch((await loadIndex()).auctions,qTokens);
 
@@ -185,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const qParam = new URLSearchParams(location.search).get('q');
     if (qParam) {
       input.value = qParam;
-      await waitForProductsStable(5000); // <-- important
+      await waitForProductsStable(5000); 
       if (isIndex()) {
         form.dispatchEvent(new Event('submit'));
       } else {

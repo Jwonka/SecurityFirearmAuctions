@@ -191,19 +191,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- Robust "apply ?q=" after redirect ----------
   (async () => {
     const qParam = new URLSearchParams(location.search).get('q');
-    if (qParam) {
-      input.value = qParam;
-      await waitForProductsStable(5000); 
-      if (isIndex()) {
-        form.dispatchEvent(new Event('submit'));
-      } else {
-        runLocalRetailSearch(qParam);
-        if (msg) {
-          const n = document.querySelectorAll('.productCard.search-hit, .gallery.search-hit').length;
-          if (n > 1) msg.textContent = `Found ${n} products.`;
-          else if (n === 1) msg.textContent = `Showing 1 product: “${document.querySelector('.productCard.search-hit h3, .gallery.search-hit h3')?.textContent ?? qParam}”`;
-        }
+    if (!qParam) return;
+    input.value = qParam;
+  
+    // determine page by filename, not DOM
+    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  
+    // On the homepage, just submit so the routing rules run
+    if (page === '' || page === 'index.html') {
+      form.dispatchEvent(new Event('submit'));
+      return;
+    }
+  
+    // On product pages (guns/ammo/accessories), keep trying until cards exist, then filter
+    for (let i = 0; i < 30; i++) {              // ~3.6s at 120ms steps
+      const cardsExist = document.querySelectorAll('.productCard, .gallery').length > 0;
+      if (cardsExist) {
+        const n = runLocalRetailSearch(qParam); // will also do the ammo/guns category jumps
+        // If we got any hits (or took the category shortcut), stop.
+        if (n === Infinity || n > 0) break;
       }
+      await new Promise(r => setTimeout(r, 120));
     }
   })();
   

@@ -14,28 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (msg) msg.textContent = text || '';
     card.scrollIntoView({ behavior:'smooth', block:'center' });
   }
+  
   if (!form) return;
 
   // ---------- Normalize / tokens / helpers ----------
   const STOP = new Set(['and','the','for','of','to','a','&']);
-  const TYPO = { 'smiht':'smith', 'smih':'smith', 'smtih':'smith', 'wessn':'wesson' };
-  const norm = (s) => (s || '')
-    .toLowerCase()
-    .replace(/&amp;/g, '&')
-    .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
-
-  const fixTypos = (qn) => qn.split(' ').map(w => TYPO[w] || w).join(' ');
-  const tokensFrom = (q) => fixTypos(norm(q)).split(' ').filter(t => t && !STOP.has(t));
-
-  const hayOf = (el) => norm(
-    (el.dataset.name || '') + ' ' +
-    (el.querySelector('h3')?.textContent || '') + ' ' +
-    (el.querySelector('.blurb')?.textContent || el.querySelector('p')?.textContent || '') + ' ' +
-    (el.querySelector('.addToCart')?.dataset?.name || '') + ' ' +
-    (el.querySelector('img')?.getAttribute('alt') || '')
-  );
+  const TYPO = { browing:'browning', browin:'browning', smithh:'smith', smiht:'smith', smih:'smith', smtih:'smith', wessn:'wesson' };
+  const norm = s => (s||'').toLowerCase().replace(/&amp;/g,'&').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+  const fixTypos = qn => qn.split(' ').map(w => TYPO[w] || w).join(' ');
+  const tokensFrom = q => fixTypos(norm(q)).split(' ').filter(t => t && !STOP.has(t));
+  const isIndex = () => !document.querySelector('.productGrid');
 
   async function waitForProductsStable(timeoutMs = 5000){
     const t0 = performance.now();
@@ -102,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const findAuctionBest = async (qTokens) => bestMatch((await loadIndex()).auctions,qTokens);
 
   function categoryFrom(q){
-    const s = norm(q);
+    const s = norm(fixTypos(q));
     if (/\b(handgun|handguns|pistol|pistols)\b/.test(s)) return 'handguns';
     if (/\b(revolver|revolvers)\b/.test(s)) return 'revolvers';
     if (/\b(rifle|rifles)\b/.test(s)) return 'rifles';
@@ -132,63 +120,85 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
+  function ammoBucketFrom(q){
+    const s = norm(fixTypos(q));
+    // shotgun first (so “12 gauge” doesn’t fall into rifle)
+    if (/\b(12 ?g|12 ?ga|20 ?g|20 ?ga|410|gauge|shotgun|shell|buckshot|birdshot|shot)\b/.test(s)) return 'shotgun';
+    if (/\b(556|5 56|223|308|7 ?62|7\.?62|30 06|30 30|300|creedmoor|6 5|243|270|rimfire|22 lr|22lr|22)\b/.test(s)) return 'rifle';
+    if (/\b(9mm|9x19|10mm|40|45|acp|380|357|38|44|luger|handgun|pistol)\b/.test(s)) return 'handgun';
+    return null;
+  }
+  function revealAmmoBucket(bucket){
+    const idMap    = { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' };
+    const titleMap = { handgun:'handgun-ammo',    rifle:'rifle-ammo',    shotgun:'shotgun-ammo'    };
+    const grid = document.getElementById(idMap[bucket]);
+    if (!grid) return false;
+    document.querySelectorAll('.productGrid').forEach(g => g.style.display = 'none');
+    document.querySelectorAll('.categoryTitle').forEach(t => t.style.display = 'none');
+    grid.style.display = '';
+    document.getElementById(titleMap[bucket])?.style.display = '';
+    grid.scrollIntoView({ behavior:'smooth', block:'start' });
+    return true;
+  }
+
   // ---------- Local retail filter (ANY-token match, len>=3) ----------
   function runLocalRetailSearch(q) {
-    // If this page has product grids (i.e., not the index), respect category queries first
-    const hasGrids = !!document.querySelector('.productGrid');
-    if (hasGrids) {
+    const qn = norm(fixTypos(q));
+    const page = location.pathname.split('/').pop().toLowerCase();
+  
+    // Section-level intent first
+    if (page === 'guns.html') {
       const cat = categoryFrom(q);
-      if (cat && revealCategory(cat)) return Infinity; // special signal: category reveal applied
+      if (cat && revealCategory(cat)) { return Infinity; }
+    }
+    if (page === 'ammo.html') {
+      const bucket = ammoBucketFrom(q);
+      if (bucket && revealAmmoBucket(bucket)) { return Infinity; }
     }
   
-    const qn = norm(q);
+    // Card-level filter
     const cards = [...document.querySelectorAll('.productCard:not(.categoryCard), .gallery')];
     if (!cards.length) return 0;
   
     const exact = cards.filter(c => norm(getName(c)) === qn);
-    const pool = exact.length
-      ? exact
-      : cards.filter(c => norm(getName(c) + ' ' + getDesc(c)).includes(qn));
+    const pool  = exact.length ? exact : cards.filter(c => {
+          const hay = norm(`${getName(c)} ${getDesc(c)}`);
+          return hay.includes(qn);
+    });
   
-    if (pool.length === 1) {
-      focusCard(pool[0], `Showing 1 product: “${getName(pool[0])}”`);
-      return 1;
-    }
+    if (pool.length === 1) { focusCard(pool[0], `Showing 1 product: “${getName(pool[0])}”`); return 1; }
     if (pool.length > 1) {
       cards.forEach(c => {
-        const hit = norm(getName(c) + ' ' + getDesc(c)).includes(qn);
+        const hay = norm(`${getName(c)} ${getDesc(c)}`);
+        const hit = hay.includes(qn);
         c.style.display = hit ? '' : 'none';
         c.classList.toggle('search-hit', hit);
       });
       if (msg) msg.textContent = `Found ${pool.length} products.`;
       return pool.length;
     }
-    return 0; // zero hits
+    return 0;
   }
 
   // ---------- Robust "apply ?q=" after redirect ----------
   (async () => {
     const qParam = new URLSearchParams(location.search).get('q');
-    if (!qParam) return;
-    if (input) input.value = qParam;
-  
-    // Wait (up to 5s) for product cards to settle if this is a product page
-    await waitForProductsStable(5000);
-    const hasProducts = !!document.querySelector('.productCard:not(.categoryCard)');
-  
-    if (hasProducts) {
-      const shown = runLocalRetailSearch(qParam);
-      if (shown !== Infinity && msg) {
-        const hits = document.querySelectorAll('.productCard.search-hit, .gallery.search-hit');
-        if (hits.length > 1) msg.textContent = `Found ${hits.length} products.`;
-        else if (hits.length === 1) msg.textContent = `Showing 1 product: “${hits[0].querySelector('h3')?.textContent ?? qParam}”`;
-        // If zero hits, we leave the page as-is (grids visible).
+    if (qParam) {
+      input.value = qParam;
+      await waitForProductsStable(5000); // <-- important
+      if (isIndex()) {
+        form.dispatchEvent(new Event('submit'));
+      } else {
+        runLocalRetailSearch(qParam);
+        if (msg) {
+          const n = document.querySelectorAll('.productCard.search-hit, .gallery.search-hit').length;
+          if (n > 1) msg.textContent = `Found ${n} products.`;
+          else if (n === 1) msg.textContent = `Showing 1 product: “${document.querySelector('.productCard.search-hit h3, .gallery.search-hit h3')?.textContent ?? qParam}”`;
+        }
       }
-    } else {
-      // Probably the index: route via normal submit flow (which redirects)
-      form.dispatchEvent(new Event('submit'));
     }
   })();
+  
   // ---------- Submit ----------
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -233,6 +243,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (['case','cases'].some(has)) {
       location.href = `accessories.html?q=${encodeURIComponent(q)}#cases`;
+      return;
+    }
+
+    const AMMO_BRANDS = new Set(['fiocchi','federal','winchester','remington','hornady','cci','blazer','magtech','aguila','geco','sellier','bellot','s&b','ppu','prvi','sig','sauer','nosler','black','hills','barnes','wolf','tula']);
+    const GUN_BRANDS  = new Set(['glock','smith','wesson','s&w','beretta','springfield','walther','taurus','colt','barrett','winchester','remington','browning','ruger','fn','savage','mossberg','marlin','hk','h&k','dan','wesson']);
+    
+    if ([...T].some(t => AMMO_BRANDS.has(t))) {
+      location.href = `ammo.html?q=${encodeURIComponent(q)}`; 
+      return;
+    }
+    if ([...T].some(t => GUN_BRANDS.has(t))) {
+      location.href = `guns.html?q=${encodeURIComponent(q)}`; 
       return;
     }
 

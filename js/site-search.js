@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const norm = s => (s||'').toLowerCase().replace(/&amp;/g,'&').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
   const fixTypos = qn => qn.split(' ').map(w => TYPO[w] || w).join(' ');
   const tokensFrom = q => fixTypos(norm(q)).split(' ').filter(t => t && !STOP.has(t));
-  onst isIndex = () => !document.querySelector('.productCard:not(.categoryCard)');
+  const isIndex = () => !document.querySelector('.productCard:not(.categoryCard)');
 
   async function waitForProductsStable(timeoutMs = 5000){
     const t0 = performance.now();

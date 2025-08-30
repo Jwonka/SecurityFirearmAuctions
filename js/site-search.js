@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (qs) return qs;
     const h  = location.hash.startsWith('#') ? location.hash.slice(1) : location.hash;
     if (!h) return null;
-    // patterns: "section?q=term" or "q=term"
     const parts = h.split('?');
     if (parts.length > 1) {
       const fromHashQuery = new URLSearchParams(parts[1]).get('q');
@@ -131,6 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
+  // NEW: revealAmmoBucket WAS MISSING — add it back so Ammo can scope correctly
+  function revealAmmoBucket(bucket){
+    const idMap    = { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' };
+    const titleMap = { handgun:'handgun-ammo',    rifle:'rifle-ammo',    shotgun:'shotgun-ammo'    };
+    const grid = document.getElementById(idMap[bucket]);
+    if (!grid) return false;
+    document.querySelectorAll('.productGrid').forEach(g => g.style.display = 'none');
+    document.querySelectorAll('.categoryTitle').forEach(t => t.style.display = 'none');
+    grid.style.display = '';
+    const titleEl = document.getElementById(titleMap[bucket]);
+    if (titleEl) titleEl.style.display = '';
+    grid.scrollIntoView({ behavior:'smooth', block:'start' });
+    return true;
+  }
+
   // Accessories helpers
   function accessorySectionFrom(q){
     const s = norm(fixTypos(q));
@@ -152,9 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateSectionVisibility() {
-    // Hide headings/grids that no longer have any visible cards
     document.querySelectorAll('.categoryTitle').forEach(title => {
-      const id = title.id; // e.g., 'handgun-ammo', 'rifle-ammo', 'handguns', 'cases'
+      const id = title.id; // 'handgun-ammo', 'rifle-ammo', 'handguns', 'cases', etc.
       const grid =
         document.querySelector(`#${id}Grid`) ||
         document.querySelector(`.productGrid[data-category="${id.replace('-ammo','')}"]`) ||
@@ -171,29 +184,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const qn   = norm(fixTypos(q));
     const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
-    // Category / bucket / section reveals first (but only bail for pure category words)
+    // Track the grid we intentionally revealed so we can force scope to it
+    let forcedScopeGrid = null;
+
+    // Category / bucket / section reveals first (bail only for pure category words)
     const pureGunCat      = /^(handgun|handguns|pistol|pistols|revolver|revolvers|rifle|rifles|shotgun|shotguns)$/.test(qn);
     const pureAmmoBucket  = /^(handgun ammo|rifle ammo|shotgun ammo)$/.test(qn);
     const pureAccessory   = /^(optics|cases|misc)$/.test(qn);
 
     if (page === 'guns.html') {
       const cat = categoryFrom(q);
-      if (cat && revealCategory(cat) && pureGunCat) return Infinity;
+      if (cat && revealCategory(cat)) {
+        forcedScopeGrid = document.querySelector(`.productGrid[data-category="${cat}"], #${cat}Grid`);
+        if (pureGunCat) return Infinity;
+      }
     }
+
     if (page === 'ammo.html') {
       const bucket = ammoBucketFrom(q);
-      if (bucket && revealAmmoBucket(bucket) && pureAmmoBucket) return Infinity;
+      if (bucket && revealAmmoBucket(bucket)) {
+        forcedScopeGrid = document.getElementById(
+          { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' }[bucket]
+        );
+        if (pureAmmoBucket) return Infinity;
+      }
     }
+
     if (page === 'accessories.html') {
       const section = accessorySectionFrom(q) || (location.hash ? location.hash.replace('#','') : null);
-      if (section && revealAccessory(section) && pureAccessory) return Infinity;
+      if (section && revealAccessory(section)) {
+        forcedScopeGrid = document.getElementById(`${section}Grid`);
+        if (pureAccessory) return Infinity;
+      }
     }
 
     // Card-level filter
     const grids = [...document.querySelectorAll('.productGrid')];
     const visibleGrids = grids.filter(g => getComputedStyle(g).display !== 'none');
-    // IMPORTANT: if multiple grids are visible, search ALL; if exactly one is visible, search only that one
-    const scope = (visibleGrids.length === 1) ? visibleGrids[0] : document;
+
+    // IMPORTANT: If we purposely revealed a section, force the filter to that grid.
+    // Else, if exactly one grid is visible, use it; otherwise search all.
+    const scope = forcedScopeGrid || (visibleGrids.length === 1 ? visibleGrids[0] : document);
 
     const cards = [...scope.querySelectorAll('.productCard:not(.categoryCard), .gallery')];
     if (!cards.length) return 0;
@@ -308,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3) Global index — retail first, then auctions (weighted)
     const retail  = await findRetailBest(qTokens);
-    if (retail)  { location.href = withQueryBeforeHash(retail.url, q); return; } 
+    if (retail)  { location.href = withQueryBeforeHash(retail.url, q); return; }
 
     const auction = await findAuctionBest(qTokens);
     if (auction) { location.href = withQueryBeforeHash(auction.url, q); return; }
@@ -319,9 +350,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function showAll() {
     document.querySelectorAll('.productCard:not(.categoryCard), .gallery').forEach(c => {
       c.style.display = '';
-      c.classList.remove('search-hit');
     });
     document.querySelectorAll('.productGrid, .categoryTitle').forEach(el => { el.style.display = ''; });
+    document.querySelectorAll('.productCard, .gallery').forEach(c => c.classList.remove('search-hit'));
     if (msg) msg.textContent = '';
   }
 

@@ -132,42 +132,37 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
  
-  function revealAmmoBucket(bucket){
-    const idMap    = { handgun:'handgunAmmoGrid', rifle:'rifleAmmoGrid', shotgun:'shotgunAmmoGrid' };
-    const titleMap = { handgun:'handgun-ammo',    rifle:'rifle-ammo',    shotgun:'shotgun-ammo'    };
-    const grid = document.getElementById(idMap[bucket]);
-    if (!grid) return false;
-  
-    document.querySelectorAll('.productGrid').forEach(g => g.style.display = 'none');
-    document.querySelectorAll('.categoryTitle').forEach(t => t.style.display = 'none');
-  
-    grid.style.display = '';
-    const titleEl = document.getElementById(titleMap[bucket]);
-    if (titleEl) titleEl.style.display = '';
-  
-    grid.scrollIntoView({ behavior:'smooth', block:'start' });
-    return true;
-  }
-
-  // ---------- Local retail filter (ANY-token match, len>=3) ----------
   function runLocalRetailSearch(q) {
-    const qn = norm(fixTypos(q));
-    const page = location.pathname.split('/').pop().toLowerCase();
+    const qn   = norm(fixTypos(q));
+    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   
-    // Section-level intent first
+    // --- Category / bucket jumps first ---
+    const s = qn;
+    const pureGunCat = /^(handgun|handguns|pistol|pistols|revolver|revolvers|rifle|rifles|shotgun|shotguns)$/.test(s);
+    const pureAmmoBucket = /^(handgun ammo|rifle ammo|shotgun ammo)$/.test(s);
+  
     if (page === 'guns.html') {
       const cat = categoryFrom(q);
-      if (cat && revealCategory(cat)) { return Infinity; }
+      if (cat && revealCategory(cat)) {
+        if (pureGunCat) return Infinity;   // stop for pure category queries
+      }
     }
+  
     if (page === 'ammo.html') {
       const bucket = ammoBucketFrom(q);
-      if (bucket && revealAmmoBucket(bucket)) { return Infinity; }
+      if (bucket && revealAmmoBucket(bucket)) {
+        if (pureAmmoBucket) return Infinity; // stop for "handgun ammo" / "rifle ammo" / "shotgun ammo"
+      }
     }
   
-    // Card-level filter
-    const cards = [...document.querySelectorAll('.productCard:not(.categoryCard), .gallery')];
-    if (!cards.length) return 0;
+    // --- Card-level filter ---
+    const visibleGrid = [...document.querySelectorAll('.productGrid')]
+      .find(g => getComputedStyle(g).display !== 'none');
+    const scope = visibleGrid || document;
   
+    const cards = [...scope.querySelectorAll('.productCard:not(.categoryCard), .gallery')];
+    if (!cards.length) return 0;
+    
     const exact = cards.filter(c => norm(getName(c)) === qn);
     const pool  = exact.length ? exact : cards.filter(c => {
           const hay = norm(`${getName(c)} ${getDesc(c)}`);
